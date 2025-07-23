@@ -1,3 +1,4 @@
+import 'package:ekonomi_new/widget/AlertDash.dart';
 import 'package:flutter/material.dart';
 
 // Replace these with your real widgets
@@ -14,14 +15,15 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
-  static const Color primaryColor = Color(0xFF048B94);
+  static const Color primaryColor = Color.fromRGBO(6, 139, 147, 1);
   static const Color accentColor = Color(0xFFD2911D);
 
   int _selectedIndex = 0;
+  bool isopenAlert = false;
 
   // Screens for each bottom nav item
-  final List<Widget> _screens = [
-    HomeTab(),
+  List<Widget> get _screens => [
+    HomeTab(isopenAlert: isopenAlert),
     Center(child: Text("Search Page", style: TextStyle(fontSize: 24))),
     Center(child: Text("Scan Page", style: TextStyle(fontSize: 24))),
     Center(child: Text("History Page", style: TextStyle(fontSize: 24))),
@@ -34,10 +36,17 @@ class _HomescreenState extends State<Homescreen> {
     });
   }
 
+  void _isOpenAlerts() {
+    setState(() {
+      isopenAlert = !isopenAlert;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.transparent,
       appBar: _selectedIndex == 0
           ? AppBar(
               backgroundColor: Colors.transparent,
@@ -76,33 +85,36 @@ class _HomescreenState extends State<Homescreen> {
                         color: Colors.white,
                         shape: BoxShape.circle,
                       ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Icon(Icons.notifications, color: Colors.black),
-                          Positioned(
-                            top: 6,
-                            right: 6,
-                            child: Container(
-                              height: 16,
-                              width: 16,
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  '3',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
+                      child: GestureDetector(
+                        onTap: () => _isOpenAlerts(),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Icon(Icons.notifications, color: Colors.black),
+                            Positioned(
+                              top: 6,
+                              right: 6,
+                              child: Container(
+                                height: 16,
+                                width: 16,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    '3',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -111,73 +123,79 @@ class _HomescreenState extends State<Homescreen> {
               toolbarHeight: 100,
             )
           : null,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              primaryColor.withOpacity(0.2),
-              accentColor.withOpacity(0.1),
-            ],
+      body: SafeArea(child: _screens[_selectedIndex]),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Container(
+          height: 100,
+          decoration: BoxDecoration(
+            color: primaryColor, // ✅ This now works as intended
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(24),
+              bottomRight: Radius.circular(24),
+            ),
           ),
-        ),
-        child: SafeArea(child: _screens[_selectedIndex]),
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            bottomLeft: Radius.circular(24),
-            bottomRight: Radius.circular(24),
-          ),
-        ),
-        child: PreferredSize(
-          preferredSize: Size.fromHeight(100),
-          child: BottomAppBar(
-            color: primaryColor,
-            elevation: 0,
-            child: SizedBox(
-              height: 100,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    NavItem(icon: Icons.home, label: 'Home'),
-                    NavItem(icon: Icons.search, label: 'Search'),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                NavItem(
+                  icon: Icons.home,
+                  label: 'Home',
+                  selected: _selectedIndex == 0,
+                  ontap: () => _onItemTapped(0),
+                ),
+                NavItem(
+                  icon: Icons.search,
+                  label: 'Search',
+                  selected: _selectedIndex == 1,
+                  ontap: () => _onItemTapped(1),
+                ),
 
-                    // Big center QR button
-                    Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white.withOpacity(0.5),
-                      ),
-                      child: Center(
-                        child: Container(
-                          height: 64,
-                          width: 64,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: Icon(
-                            Icons.qr_code,
-                            size: 28,
-                            color: Colors.black,
-                          ),
+                // Center QR Button
+                GestureDetector(
+                  onTap: () => _onItemTapped(2),
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white.withOpacity(0.5),
+                    ),
+                    child: Center(
+                      child: Container(
+                        height: 64,
+                        width: 64,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                        child: Icon(
+                          Icons.qr_code,
+                          size: 28,
+                          color: Colors.black,
                         ),
                       ),
                     ),
-
-                    NavItem(icon: Icons.history, label: 'History'),
-                    NavItem(icon: Icons.person, label: 'Profile'),
-                  ],
+                  ),
                 ),
-              ),
+
+                NavItem(
+                  icon: Icons.history,
+                  label: 'History',
+                  selected: _selectedIndex == 3,
+                  ontap: () => _onItemTapped(3),
+                ),
+                NavItem(
+                  icon: Icons.person,
+                  label: 'Profile',
+                  selected: _selectedIndex == 4,
+                  ontap: () => _onItemTapped(4),
+                ),
+              ],
             ),
           ),
         ),
@@ -187,19 +205,26 @@ class _HomescreenState extends State<Homescreen> {
 }
 
 class HomeTab extends StatelessWidget {
-  const HomeTab({super.key});
+  final bool isopenAlert;
+
+  const HomeTab({super.key, required this.isopenAlert});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SummaryCard(),
-          SizedBox(height: 16),
-          Expanded(child: ActionGrid()),
-        ],
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SummaryCard(),
+            SizedBox(height: 16),
+            ActionGrid(),
+            SizedBox(height: 16),
+            isopenAlert ? Alertdash() : SizedBox.shrink(),
+          ],
+        ),
       ),
     );
   }

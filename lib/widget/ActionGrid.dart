@@ -32,6 +32,8 @@ class ActionGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      shrinkWrap: true, // ✅ Fixes infinite height issue
+      physics: NeverScrollableScrollPhysics(), // ✅ Avoids scroll conflict
       itemCount: items.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,

@@ -1,3 +1,4 @@
+import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: Homescreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Stack(
+        children: [
+          Positioned.fill(child: Background()),
+          Positioned.fill(
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Homescreen(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
