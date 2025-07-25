@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 
 class Filterwidget extends StatefulWidget {
-  const Filterwidget({super.key});
+  List<String> filters;
+  Filterwidget({super.key,required this.filters});
 
   @override
   State<Filterwidget> createState() => _FilterwidgetState();
 }
 
 class _FilterwidgetState extends State<Filterwidget> {
-  final List<String> filters = ['All', 'Bills', 'Overdue', 'Installments'];
+  late List<String> filters;
+  String selected ='';
 
-  String selected = 'All';
+  @override
+  void initState() {
+    super.initState();
+    filters = widget.filters;
+    selected = filters[0];
+  }
 
   @override
   Widget build(BuildContext context) {

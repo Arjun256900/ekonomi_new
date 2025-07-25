@@ -12,7 +12,7 @@ class Alertdash extends StatefulWidget {
 class _AlertdashState extends State<Alertdash> {
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -23,7 +23,7 @@ class _AlertdashState extends State<Alertdash> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        Filterwidget(),
+        Filterwidget(filters: ['All', 'bills', 'overdue', 'Investements']),
         Alertitem(
           heading: "Wifi Connection",
           amount: "300",

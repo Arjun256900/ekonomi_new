@@ -1,4 +1,7 @@
+import 'package:ekonomi_new/screens/HomeScreen.dart';
+import 'package:ekonomi_new/screens/TransactionScreen.dart';
 import 'package:ekonomi_new/widget/ActionItem.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ActionGrid extends StatelessWidget {
@@ -8,24 +11,28 @@ class ActionGrid extends StatelessWidget {
       subtitle: 'Boost your savings by adding funds now.',
       icon: Icons.add,
       filled: true,
+      navigation: Homescreen(), 
     ),
     ActionItem(
       title: 'Goals',
       subtitle: 'Plan, save, and reach your milestones',
       icon: Icons.track_changes,
       filled: false,
+      navigation: Homescreen(),
     ),
     ActionItem(
       title: 'Transaction',
       subtitle: 'Track every transaction with ease',
       icon: Icons.swap_vert,
       filled: false,
+      navigation: TransactionScreen(),
     ),
     ActionItem(
       title: 'Spending',
       subtitle: 'Track spending, stay in control',
       icon: Icons.currency_rupee,
       filled: false,
+      navigation: Homescreen(),
     ),
   ];
 

@@ -1,18 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ActionItem {
   final String title, subtitle;
   final IconData icon;
   final bool filled;
-  final VoidCallback ontap;
+  final Widget navigation;
   ActionItem({
     required this.title,
     required this.subtitle,
     required this.icon,
     required this.filled,
-    this.ontap = _defaultCallback,
+    required this.navigation,
   });
-  static void _defaultCallback() {}
 }
 
 class ActionCard extends StatelessWidget {
@@ -22,7 +22,7 @@ class ActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: item.ontap,
+      onTap: () => {Navigator.of(context,).push(CupertinoPageRoute(builder: (context) => item.navigation))},
       child: Card(
         color: item.filled ? Color(0xFF048B94) : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

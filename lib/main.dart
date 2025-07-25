@@ -13,16 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Stack(
-        children: [
-          Positioned.fill(child: Background()),
-          Positioned.fill(
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              body: Homescreen(),
-            ),
-          ),
-        ],
+      home: Scaffold(backgroundColor: Colors.transparent, body: Homescreen()),
+      theme: ThemeData(
+        primaryColor: Color(0xFF03969D),
       ),
     );
   }

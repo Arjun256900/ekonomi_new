@@ -1,3 +1,4 @@
+import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/widget/AlertDash.dart';
 import 'package:flutter/material.dart';
 
@@ -44,162 +45,172 @@ class _HomescreenState extends State<Homescreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: Colors.transparent,
-      appBar: _selectedIndex == 0
-          ? AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              automaticallyImplyLeading: false,
-              title: Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hello, Azeem',
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Welcome Back',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: GestureDetector(
-                        onTap: () => _isOpenAlerts(),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Icon(Icons.notifications, color: Colors.black),
-                            Positioned(
-                              top: 6,
-                              right: 6,
-                              child: Container(
-                                height: 16,
-                                width: 16,
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '3',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+    return Stack(
+      children: [
+        Positioned.fill(child: Background()),
+        Positioned.fill(
+          child: Scaffold(
+            extendBodyBehindAppBar: true,
+            backgroundColor: Colors.transparent,
+            appBar: _selectedIndex == 0
+                ? AppBar(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    automaticallyImplyLeading: false,
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Hello, Azeem',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 16,
                                 ),
                               ),
+                              SizedBox(height: 4),
+                              Text(
+                                'Welcome Back',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
                             ),
-                          ],
-                        ),
+                            child: GestureDetector(
+                              onTap: () => _isOpenAlerts(),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.notifications,
+                                    color: Colors.black,
+                                  ),
+                                  Positioned(
+                                    top: 6,
+                                    right: 6,
+                                    child: Container(
+                                      height: 16,
+                                      width: 16,
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '3',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-              toolbarHeight: 100,
-            )
-          : null,
-      body: SafeArea(child: _screens[_selectedIndex]),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Container(
-          height: 100,
-          decoration: BoxDecoration(
-            color: primaryColor, // ✅ This now works as intended
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(24),
-              bottomRight: Radius.circular(24),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                NavItem(
-                  icon: Icons.home,
-                  label: 'Home',
-                  selected: _selectedIndex == 0,
-                  ontap: () => _onItemTapped(0),
-                ),
-                NavItem(
-                  icon: Icons.search,
-                  label: 'Search',
-                  selected: _selectedIndex == 1,
-                  ontap: () => _onItemTapped(1),
-                ),
-
-                // Center QR Button
-                GestureDetector(
-                  onTap: () => _onItemTapped(2),
-                  child: Container(
-                    height: 80,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white.withOpacity(0.5),
-                    ),
-                    child: Center(
-                      child: Container(
-                        height: 64,
-                        width: 64,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                        ),
-                        child: Icon(
-                          Icons.qr_code,
-                          size: 28,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                    toolbarHeight: 100,
+                  )
+                : null,
+            body: SafeArea(child: _screens[_selectedIndex]),
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  color: primaryColor, // ✅ This now works as intended
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(24),
+                    bottomRight: Radius.circular(24),
                   ),
                 ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      NavItem(
+                        icon: Icons.home,
+                        label: 'Home',
+                        selected: _selectedIndex == 0,
+                        ontap: () => _onItemTapped(0),
+                      ),
+                      NavItem(
+                        icon: Icons.search,
+                        label: 'Search',
+                        selected: _selectedIndex == 1,
+                        ontap: () => _onItemTapped(1),
+                      ),
 
-                NavItem(
-                  icon: Icons.history,
-                  label: 'History',
-                  selected: _selectedIndex == 3,
-                  ontap: () => _onItemTapped(3),
+                      // Center QR Button
+                      GestureDetector(
+                        onTap: () => _onItemTapped(2),
+                        child: Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white.withOpacity(0.5),
+                          ),
+                          child: Center(
+                            child: Container(
+                              height: 64,
+                              width: 64,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                              ),
+                              child: Icon(
+                                Icons.qr_code,
+                                size: 28,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      NavItem(
+                        icon: Icons.history,
+                        label: 'History',
+                        selected: _selectedIndex == 3,
+                        ontap: () => _onItemTapped(3),
+                      ),
+                      NavItem(
+                        icon: Icons.person,
+                        label: 'Profile',
+                        selected: _selectedIndex == 4,
+                        ontap: () => _onItemTapped(4),
+                      ),
+                    ],
+                  ),
                 ),
-                NavItem(
-                  icon: Icons.person,
-                  label: 'Profile',
-                  selected: _selectedIndex == 4,
-                  ontap: () => _onItemTapped(4),
-                ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
