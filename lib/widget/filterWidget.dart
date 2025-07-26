@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Filterwidget extends StatefulWidget {
-  List<String> filters;
-  Filterwidget({super.key,required this.filters});
+  final List<String> filters;
+  const Filterwidget({super.key,required this.filters});
 
   @override
   State<Filterwidget> createState() => _FilterwidgetState();

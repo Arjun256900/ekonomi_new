@@ -1,7 +1,6 @@
-import 'package:ekonomi_new/screens/HomeScreen.dart';
-import 'package:ekonomi_new/screens/TransactionScreen.dart';
+import 'package:ekonomi_new/screens/home_screen.dart';
+import 'package:ekonomi_new/screens/transaction_screen.dart';
 import 'package:ekonomi_new/widget/ActionItem.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ActionGrid extends StatelessWidget {

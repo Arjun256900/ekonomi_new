@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NavItem extends StatelessWidget {
-  Icon icon;
+  final Icon icon;
   final String lable;
-  NavItem({super.key, required this.icon, required this.lable});
+  const NavItem({super.key, required this.icon, required this.lable});
 
   @override
   Widget build(BuildContext context) {

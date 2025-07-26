@@ -149,7 +149,7 @@ class _TransactionListState extends State<TransactionList> {
                     ),
                     const SizedBox(width: 35),
                     TransactionCard(
-                      SendOrReceived: "send",
+                      sendOrReceived: "send",
                       amount: "1300",
                       heading: "Swiggy",
                     ),
@@ -164,7 +164,7 @@ class _TransactionListState extends State<TransactionList> {
                     ),
                     const SizedBox(width: 35),
                     TransactionCard(
-                      SendOrReceived: "received",
+                      sendOrReceived: "received",
                       amount: "1300",
                       heading: "Swiggy",
                     ),
@@ -180,12 +180,12 @@ class _TransactionListState extends State<TransactionList> {
 }
 
 class TransactionCard extends StatefulWidget {
-  String heading;
-  String SendOrReceived;
-  String amount;
-  TransactionCard({
+  final String heading;
+  final String sendOrReceived;
+  final String amount;
+  const TransactionCard({
     super.key,
-    required this.SendOrReceived,
+    required this.sendOrReceived,
     required this.amount,
     required this.heading,
   });
@@ -193,7 +193,7 @@ class TransactionCard extends StatefulWidget {
   @override
   State<TransactionCard> createState() => _TransactionCardState();
   Color getDebitOrCredit(BuildContext context, String debitOrCredit) {
-    switch (SendOrReceived.toLowerCase()) {
+    switch (sendOrReceived.toLowerCase()) {
       case 'send':
         return Color(0xFFFF0000);
       case 'received':
@@ -204,10 +204,9 @@ class TransactionCard extends StatefulWidget {
   }
 
   String getDebitOrCreditIcon(BuildContext context, debitOrCredit) {
-    final color = getDebitOrCredit(context, debitOrCredit);
-    if (SendOrReceived.toLowerCase() == 'send') {
+    if (sendOrReceived.toLowerCase() == 'send') {
       return '-';
-    } else if (SendOrReceived.toLowerCase() == "received") {
+    } else if (sendOrReceived.toLowerCase() == "received") {
       return '';
     } else {
       return '';
@@ -255,20 +254,20 @@ class _TransactionCardState extends State<TransactionCard> {
                 ),
                 const SizedBox(width: 60),
                 Text(
-                  widget.SendOrReceived,
+                  widget.sendOrReceived,
                   style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
               ],
             ),
             const SizedBox(width: 2),
             Text(
-              widget.getDebitOrCreditIcon(context, widget.SendOrReceived) +
+              widget.getDebitOrCreditIcon(context, widget.sendOrReceived) +
                   ' ₹' +
                   widget.amount,
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                color: widget.getDebitOrCredit(context, widget.SendOrReceived),
+                color: widget.getDebitOrCredit(context, widget.sendOrReceived),
               ),
             ),
           ],

@@ -1,5 +1,4 @@
-import 'package:ekonomi_new/background/backGround.dart';
-import 'package:ekonomi_new/screens/HomeScreen.dart';
+import 'package:ekonomi_new/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

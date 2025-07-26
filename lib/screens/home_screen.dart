@@ -2,9 +2,7 @@ import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/widget/AlertDash.dart';
 import 'package:flutter/material.dart';
 
-// Replace these with your real widgets
 import 'package:ekonomi_new/widget/ActionGrid.dart';
-import 'package:ekonomi_new/widget/ActionItem.dart';
 import 'package:ekonomi_new/widget/NavItem.dart';
 import 'package:ekonomi_new/widget/SummaryCard.dart';
 
@@ -17,7 +15,7 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   static const Color primaryColor = Color.fromRGBO(6, 139, 147, 1);
-  static const Color accentColor = Color(0xFFD2911D);
+  // static const Color accentColor = Color(0xFFD2911D);
 
   int _selectedIndex = 0;
   bool isopenAlert = false;
