@@ -1,4 +1,5 @@
 import 'package:ekonomi_new/screens/home_screen.dart';
+import 'package:ekonomi_new/screens/reminder_screen.dart';
 import 'package:ekonomi_new/screens/transaction_screen.dart';
 import 'package:ekonomi_new/widget/ActionItem.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +11,14 @@ class ActionGrid extends StatelessWidget {
       subtitle: 'Boost your savings by adding funds now.',
       icon: Icons.add,
       filled: true,
-      navigation: Homescreen(), 
+      navigation: Homescreen(),
     ),
     ActionItem(
       title: 'Goals',
       subtitle: 'Plan, save, and reach your milestones',
       icon: Icons.track_changes,
       filled: false,
-      navigation: Homescreen(),
+      navigation: ReminderScreen(),
     ),
     ActionItem(
       title: 'Transaction',

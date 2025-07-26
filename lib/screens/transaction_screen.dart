@@ -94,7 +94,7 @@ class TransactionScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 25),
-                  TransactionList(),
+                  Expanded(child: TransactionList()),
                 ],
               ),
             ),
@@ -115,74 +115,102 @@ class TransactionList extends StatefulWidget {
 class _TransactionListState extends State<TransactionList> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Stack(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
           children: [
-            Container(
-              margin: EdgeInsets.only(left: 65),
-              height: 500,
-              width: 6,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(217, 217, 217, 0.39),
-                borderRadius: BorderRadius.circular(3),
+            // Vertical line
+            Positioned(
+              left: 65,
+              top: 40, // Start below header
+              bottom: 0,
+              child: Container(
+                width: 6,
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(217, 217, 217, 0.39),
+                  borderRadius: BorderRadius.circular(3),
+                ),
               ),
             ),
+
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 45,
-                      child: Text("Date & time", textAlign: TextAlign.center),
-                    ),
-                    const SizedBox(width: 35),
-                    Text("Transactions"),
-                  ],
+                // Header
+                Padding(
+                  padding: const EdgeInsets.only(left: 45),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 45,
+                        child: Text("Date & time", textAlign: TextAlign.center),
+                      ),
+                      const SizedBox(width: 35),
+                      const Text("Transactions"),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Container(
-                      width: 45,
-                      child: Text("Jun 5 6 pm", textAlign: TextAlign.center),
-                    ),
-                    const SizedBox(width: 35),
-                    TransactionCard(
-                      sendOrReceived: "send",
-                      amount: "1300",
-                      heading: "Swiggy",
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Container(
-                      width: 45,
-                      child: Text("Jun 5 6 pm", textAlign: TextAlign.center),
-                    ),
-                    const SizedBox(width: 35),
-                    TransactionCard(
-                      sendOrReceived: "received",
-                      amount: "1300",
-                      heading: "Swiggy",
-                    ),
-                  ],
+                const SizedBox(height: 20),
+
+                // Transaction items with scroll
+                Expanded(
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    children: [
+                      _buildTransactionRow(
+                        "Jun 5 6 pm",
+                        "send",
+                        "1300",
+                        "Swiggy",
+                      ),
+                      const SizedBox(height: 8),
+                      _buildTransactionRow(
+                        "Jun 5 6 pm",
+                        "received",
+                        "1300",
+                        "Swiggy",
+                      ),
+                      // Add more transactions here
+                    ],
+                  ),
                 ),
               ],
             ),
           ],
+        );
+      },
+    );
+  }
+
+  Widget _buildTransactionRow(
+    String date,
+    String type,
+    String amount,
+    String title,
+  ) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(width: 45, child: Text(date, textAlign: TextAlign.center)),
+        const SizedBox(width: 35),
+        Expanded(
+          child: TransactionCard(
+            sendOrReceived: type,
+            amount: amount,
+            heading: title,
+          ),
         ),
       ],
     );
   }
 }
 
-class TransactionCard extends StatefulWidget {
+class TransactionCard extends StatelessWidget {
   final String heading;
   final String sendOrReceived;
   final String amount;
+
   const TransactionCard({
     super.key,
     required this.sendOrReceived,
@@ -190,84 +218,80 @@ class TransactionCard extends StatefulWidget {
     required this.heading,
   });
 
-  @override
-  State<TransactionCard> createState() => _TransactionCardState();
   Color getDebitOrCredit(BuildContext context, String debitOrCredit) {
     switch (sendOrReceived.toLowerCase()) {
       case 'send':
-        return Color(0xFFFF0000);
+        return const Color(0xFFFF0000);
       case 'received':
         return Theme.of(context).primaryColor;
       default:
-        return Color(0xFFF97358);
+        return const Color(0xFFF97358);
     }
   }
 
-  String getDebitOrCreditIcon(BuildContext context, debitOrCredit) {
-    if (sendOrReceived.toLowerCase() == 'send') {
-      return '-';
-    } else if (sendOrReceived.toLowerCase() == "received") {
-      return '';
-    } else {
-      return '';
-    }
+  String getDebitOrCreditIcon(String debitOrCredit) {
+    return sendOrReceived.toLowerCase() == 'send' ? '-' : '';
   }
-}
 
-class _TransactionCardState extends State<TransactionCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 68,
-      width: 272,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(7),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Icon
             Container(
               height: 41,
               width: 41,
               decoration: BoxDecoration(
-                color: Color.fromRGBO(3, 150, 157, 1),
+                color: const Color.fromRGBO(3, 150, 157, 1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(Icons.room_service, size: 24, color: Colors.white),
+              child: const Icon(
+                Icons.room_service,
+                size: 24,
+                color: Colors.white,
+              ),
             ),
-            const SizedBox(width: 2),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  widget.heading,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
+            const SizedBox(width: 12),
+
+            // Text content
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    heading,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                const SizedBox(width: 60),
-                Text(
-                  widget.sendOrReceived,
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
-                ),
-              ],
+                  const SizedBox(height: 4),
+                  Text(
+                    sendOrReceived,
+                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(width: 2),
+
+            // Amount
             Text(
-              widget.getDebitOrCreditIcon(context, widget.sendOrReceived) +
-                  ' ₹' +
-                  widget.amount,
+              '${getDebitOrCreditIcon(sendOrReceived)}₹$amount',
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                color: widget.getDebitOrCredit(context, widget.sendOrReceived),
+                color: getDebitOrCredit(context, sendOrReceived),
               ),
             ),
           ],

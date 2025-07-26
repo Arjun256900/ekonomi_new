@@ -23,7 +23,8 @@ class _AlertdashState extends State<Alertdash> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        Filterwidget(filters: ['All', 'bills', 'overdue', 'Investements']),
+        Filterwidget(filters: ['All', 'Bills', 'Overdue', 'Investements']),
+        const SizedBox(height: 15),
         Alertitem(
           heading: "Wifi Connection",
           amount: "300",

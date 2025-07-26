@@ -15,7 +15,7 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   static const Color primaryColor = Color.fromRGBO(6, 139, 147, 1);
-  // static const Color accentColor = Color(0xFFD2911D);
+  // static const Color accentColor = Color(0xFFD2911D);b
 
   int _selectedIndex = 0;
   bool isopenAlert = false;
@@ -135,7 +135,7 @@ class _HomescreenState extends State<Homescreen> {
               child: Container(
                 height: 100,
                 decoration: BoxDecoration(
-                  color: primaryColor, // ✅ This now works as intended
+                  color: primaryColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),

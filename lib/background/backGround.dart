@@ -6,7 +6,7 @@ class Background extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(238, 244, 249, 1), // Better contrast to see blur/spread
+      backgroundColor: Color.fromRGBO(238, 244, 249, 1),
       body: Stack(
         children: [
           // Blurred Circle 1 - top left
