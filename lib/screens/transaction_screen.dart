@@ -119,6 +119,16 @@ class _TransactionListState extends State<TransactionList> {
       builder: (context, constraints) {
         return Stack(
           children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: 45,
+                  child: Text("Date & time", textAlign: TextAlign.center),
+                ),
+                const SizedBox(width: 35),
+                const Text("Transactions"),
+              ],
+            ),
             // Vertical line
             Positioned(
               left: 65,
@@ -136,20 +146,6 @@ class _TransactionListState extends State<TransactionList> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header
-                Padding(
-                  padding: const EdgeInsets.only(left: 45),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 45,
-                        child: Text("Date & time", textAlign: TextAlign.center),
-                      ),
-                      const SizedBox(width: 35),
-                      const Text("Transactions"),
-                    ],
-                  ),
-                ),
                 const SizedBox(height: 20),
 
                 // Transaction items with scroll
