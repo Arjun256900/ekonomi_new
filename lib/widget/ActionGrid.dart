@@ -1,5 +1,6 @@
 import 'package:ekonomi_new/screens/home_screen.dart';
 import 'package:ekonomi_new/screens/reminder_screen.dart';
+import 'package:ekonomi_new/screens/spending_screen.dart';
 import 'package:ekonomi_new/screens/transaction_screen.dart';
 import 'package:ekonomi_new/widget/ActionItem.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class ActionGrid extends StatelessWidget {
       subtitle: 'Track spending, stay in control',
       icon: Icons.currency_rupee,
       filled: false,
-      navigation: Homescreen(),
+      navigation: SpendingScreen(),
     ),
   ];
 
