@@ -7,11 +7,11 @@ class SpendingChart extends StatelessWidget {
   final String centerText;
 
   const SpendingChart({
-    Key? key,
+    super.key,
     required this.values,
     required this.colors,
     this.centerText = 'Spendings',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class SpendingChart extends StatelessWidget {
     );
 
     final sections = List.generate(values.length, (i) {
-      final isTouched = false; // this is for tap effects
+      // final isTouched = false; // this is for tap effects
       final double radius = 35;
       return PieChartSectionData(
         color: colors[i],
