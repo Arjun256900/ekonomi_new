@@ -75,7 +75,61 @@ class TransactionScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 25),
-                  Expanded(child: TransactionList()),
+                  Expanded(
+                    child: TransactionList(
+                      transactions: [
+                        TransactionItem(
+                          dateTime: 'Jun 5 6 pm',
+                          heading: 'Swiggy',
+                          sendOrReceived: 'Send',
+                          amount: '300',
+                        ),
+                        TransactionItem(
+                          dateTime: 'Jun 5 6 pm',
+                          heading: 'Swiggy',
+                          sendOrReceived: 'Send',
+                          amount: '300',
+                        ),
+                        TransactionItem(
+                          dateTime: 'Jun 5 6 pm',
+                          heading: 'Swiggy',
+                          sendOrReceived: 'Received',
+                          amount: '1508',
+                        ),
+                        TransactionItem(
+                          dateTime: 'Jun 5 6 pm',
+                          heading: 'Swiggy',
+                          sendOrReceived: 'Send',
+                          amount: '300',
+                        ),
+                        TransactionItem(
+                          dateTime: 'Jun 5 6 pm',
+                          heading: 'Swiggy',
+                          sendOrReceived: 'Send',
+                          amount: '300',
+                        ),
+                        TransactionItem(
+                          dateTime: 'Jun 5 6 pm',
+                          heading: 'Swiggy',
+                          sendOrReceived: 'Send',
+                          amount: '300',
+                        ),
+                        TransactionItem(
+                          dateTime: 'Jun 5 6 pm',
+                          heading: 'Swiggy',
+                          sendOrReceived: 'Send',
+                          amount: '300',
+                        ),
+                        TransactionItem(
+                          dateTime: 'Jun 5 6 pm',
+                          heading: 'Swiggy',
+                          sendOrReceived: 'Send',
+                          amount: '300',
+                        ),
+                        //  more items can be added (from the backend)
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

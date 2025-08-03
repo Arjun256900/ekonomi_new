@@ -16,21 +16,22 @@ class ReminderScreen extends StatefulWidget {
 class _ReminderScreenState extends State<ReminderScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // Remove outer Stack
-      extendBodyBehindAppBar: true,
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: backButtonLeading(),
-        backgroundColor: Colors.transparent,
-        title: Text("Reminders", style: TextStyle(fontWeight: FontWeight.w600)),
-      ),
-      body: Stack(
-        children: [
-          Positioned.fill(child: Background()),
-          Padding(
-            padding: const EdgeInsets.only(top: 100, right: 20, left: 20),
+    return Stack(
+      children: [
+        Positioned.fill(child: Background()),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            leading: backButtonLeading(),
+            backgroundColor: Colors.transparent,
+            title: Text(
+              "Reminders",
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 Filterwidget(
@@ -39,12 +40,35 @@ class _ReminderScreenState extends State<ReminderScreen> {
                 const SizedBox(height: 15),
                 MonthCalendar(),
                 const SizedBox(height: 15),
-                Expanded(child: TransactionList()),
+                Expanded(
+                  child: TransactionList(
+                    transactions: [
+                      TransactionItem(
+                        dateTime: 'Jun 5 6 pm',
+                        heading: 'Swiggy',
+                        sendOrReceived: 'Send',
+                        amount: '300',
+                      ),
+                      TransactionItem(
+                        dateTime: 'Jun 5 6 pm',
+                        heading: 'Swiggy',
+                        sendOrReceived: 'Received',
+                        amount: '2829',
+                      ),
+                      TransactionItem(
+                        dateTime: 'Jun 5 6 pm',
+                        heading: 'Swiggy',
+                        sendOrReceived: 'Send',
+                        amount: '679',
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

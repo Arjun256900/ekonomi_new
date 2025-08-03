@@ -1,99 +1,122 @@
 import 'package:ekonomi_new/widgets/transaction_card.dart';
 import 'package:flutter/material.dart';
 
-class TransactionList extends StatefulWidget {
-  const TransactionList({super.key});
+class TransactionItem {
+  final String dateTime;
+  final String heading;
+  final String sendOrReceived;
+  final String amount;
 
-  @override
-  State<TransactionList> createState() => _TransactionListState();
+  const TransactionItem({
+    required this.dateTime,
+    required this.heading,
+    required this.sendOrReceived,
+    required this.amount,
+  });
 }
 
-class _TransactionListState extends State<TransactionList> {
+class TransactionList extends StatelessWidget {
+  /// List of transaction entries to display.
+  final List<TransactionItem> transactions;
+
+  const TransactionList({Key? key, required this.transactions})
+    : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Stack(
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: 45,
-                  child: Text("Date & time", textAlign: TextAlign.center),
-                ),
-                const SizedBox(width: 35),
-                const Text("Transactions"),
-              ],
-            ),
-            // Vertical line
-            Positioned(
-              left: 65,
-              top: 40, // Start below header
-              bottom: 0,
-              child: Container(
-                width: 6,
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(217, 217, 217, 0.39),
-                  borderRadius: BorderRadius.circular(3),
+    //  fixed heights matching TransactionCard + separator
+    const double cardHeight = 68;
+    const double separatorHeight = 12;
+
+    // calculate the total height of all transaction cards to dynamically resize the vertical divider
+    final double listHeight =
+        transactions.length * cardHeight +
+        (transactions.length - 1) * separatorHeight;
+
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header row
+          Row(
+            children: [
+              SizedBox(
+                width: 45,
+                child: Text(
+                  'Date & Time',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
               ),
-            ),
-
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              const SizedBox(width: 35),
+              Text(
+                'Transactions',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          // SizedBox drives stack height dynamically
+          SizedBox(
+            height: listHeight,
+            child: Stack(
               children: [
-                const SizedBox(height: 20),
-
-                // Transaction items with scroll
-                Expanded(
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    children: [
-                      _buildTransactionRow(
-                        "Jun 5 6 pm",
-                        "send",
-                        "1300",
-                        "Swiggy",
-                      ),
-                      const SizedBox(height: 8),
-                      _buildTransactionRow(
-                        "Jun 5 6 pm",
-                        "received",
-                        "1300",
-                        "Swiggy",
-                      ),
-                      // Add more transactions here
-                    ],
+                // Vertical divider with dynamic height
+                Positioned(
+                  left: 45 + 35 / 2,
+                  top: 0,
+                  height: listHeight,
+                  child: Container(
+                    width: 4,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(217, 217, 217, 0.39),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
+                ),
+                // card items
+                Column(
+                  children: transactions.asMap().entries.map((entry) {
+                    final tx = entry.value;
+                    final idx = entry.key;
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: idx == transactions.length - 1
+                            ? 0
+                            : separatorHeight,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 45,
+                            child: Text(
+                              tx.dateTime,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 35),
+                          Expanded(
+                            child: TransactionCard(
+                              heading: tx.heading,
+                              sendOrReceived: tx.sendOrReceived,
+                              amount: tx.amount,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
                 ),
               ],
             ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _buildTransactionRow(
-    String date,
-    String type,
-    String amount,
-    String title,
-  ) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(width: 45, child: Text(date, textAlign: TextAlign.center)),
-        const SizedBox(width: 35),
-        Expanded(
-          child: TransactionCard(
-            sendOrReceived: type,
-            amount: amount,
-            heading: title,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
