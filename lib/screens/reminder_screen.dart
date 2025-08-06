@@ -1,8 +1,8 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/widgets/back_button.dart';
-import 'package:ekonomi_new/widgets/filter_widget.dart';
-import 'package:ekonomi_new/widgets/month_calender.dart';
-import 'package:ekonomi_new/widgets/transaction_list.dart';
+import 'package:ekonomi_new/widgets/general/filter_widget.dart';
+import 'package:ekonomi_new/widgets/general/month_calender.dart';
+import 'package:ekonomi_new/widgets/transaction_screen/transaction_list.dart';
 import 'package:flutter/material.dart';
 
 class ReminderScreen extends StatefulWidget {

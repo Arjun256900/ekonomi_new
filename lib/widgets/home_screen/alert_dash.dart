@@ -1,5 +1,5 @@
 import 'package:ekonomi_new/widgets/home_screen/alert_item.dart';
-import 'package:ekonomi_new/widgets/filter_widget.dart';
+import 'package:ekonomi_new/widgets/general/filter_widget.dart';
 import 'package:flutter/material.dart';
 
 class AlertDash extends StatefulWidget {

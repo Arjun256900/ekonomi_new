@@ -3,8 +3,8 @@ import 'package:ekonomi_new/widgets/home_screen/alert_dash.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ekonomi_new/widgets/home_screen/action_grid.dart';
-import 'package:ekonomi_new/widgets/NavItem.dart';
-import 'package:ekonomi_new/widgets/SummaryCard.dart';
+import 'package:ekonomi_new/widgets/nav_item.dart';
+import 'package:ekonomi_new/widgets/home_screen/summary_card.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});

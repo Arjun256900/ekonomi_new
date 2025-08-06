@@ -1,4 +1,4 @@
-import 'package:ekonomi_new/widgets/transaction_card.dart';
+import 'package:ekonomi_new/widgets/transaction_screen/transaction_card.dart';
 import 'package:flutter/material.dart';
 
 class TransactionItem {
@@ -19,8 +19,7 @@ class TransactionList extends StatelessWidget {
   /// List of transaction entries to display.
   final List<TransactionItem> transactions;
 
-  const TransactionList({Key? key, required this.transactions})
-    : super(key: key);
+  const TransactionList({super.key, required this.transactions});
 
   @override
   Widget build(BuildContext context) {

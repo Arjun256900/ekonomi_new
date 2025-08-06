@@ -1,9 +1,9 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/widgets/back_button.dart';
-import 'package:ekonomi_new/widgets/filter_widget.dart';
+import 'package:ekonomi_new/widgets/general/filter_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:ekonomi_new/widgets/spending_chart.dart';
-import 'package:ekonomi_new/widgets/spending_legend.dart';
+import 'package:ekonomi_new/widgets/spending_screen/spending_chart.dart';
+import 'package:ekonomi_new/widgets/spending_screen/spending_legend.dart';
 
 class SpendingScreen extends StatefulWidget {
   const SpendingScreen({super.key});
