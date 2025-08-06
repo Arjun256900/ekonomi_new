@@ -2,7 +2,7 @@ import 'package:ekonomi_new/screens/home_screen.dart';
 import 'package:ekonomi_new/screens/reminder_screen.dart';
 import 'package:ekonomi_new/screens/spending_screen.dart';
 import 'package:ekonomi_new/screens/transaction_screen.dart';
-import 'package:ekonomi_new/widget/ActionItem.dart';
+import 'package:ekonomi_new/widgets/action_item.dart';
 import 'package:flutter/material.dart';
 
 class ActionGrid extends StatelessWidget {
@@ -37,11 +37,13 @@ class ActionGrid extends StatelessWidget {
     ),
   ];
 
+  ActionGrid({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      shrinkWrap: true, // ✅ Fixes infinite height issue
-      physics: NeverScrollableScrollPhysics(), // ✅ Avoids scroll conflict
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: items.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,

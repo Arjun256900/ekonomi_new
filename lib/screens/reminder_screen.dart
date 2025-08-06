@@ -1,6 +1,6 @@
 import 'package:ekonomi_new/background/backGround.dart';
-import 'package:ekonomi_new/widget/backButton.dart';
-import 'package:ekonomi_new/widget/filterWidget.dart';
+import 'package:ekonomi_new/widgets/back_button.dart';
+import 'package:ekonomi_new/widgets/filter_widget.dart';
 import 'package:ekonomi_new/widgets/month_calender.dart';
 import 'package:ekonomi_new/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class _ReminderScreenState extends State<ReminderScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Filterwidget(
+                FilterWidget(
                   filters: ['All', 'Overdue', 'Due today', 'Upcoming'],
                 ),
                 const SizedBox(height: 15),

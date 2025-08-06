@@ -1,15 +1,15 @@
-import 'package:ekonomi_new/widget/AlertItem.dart';
-import 'package:ekonomi_new/widget/filterWidget.dart';
+import 'package:ekonomi_new/widgets/home_screen/alert_item.dart';
+import 'package:ekonomi_new/widgets/filter_widget.dart';
 import 'package:flutter/material.dart';
 
-class Alertdash extends StatefulWidget {
-  const Alertdash({super.key});
+class AlertDash extends StatefulWidget {
+  const AlertDash({super.key});
 
   @override
-  State<Alertdash> createState() => _AlertdashState();
+  State<AlertDash> createState() => _AlertDashState();
 }
 
-class _AlertdashState extends State<Alertdash> {
+class _AlertDashState extends State<AlertDash> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,9 +23,10 @@ class _AlertdashState extends State<Alertdash> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        Filterwidget(filters: ['All', 'Bills', 'Overdue', 'Investements']),
-        const SizedBox(height: 15),
-        Alertitem(
+        const SizedBox(height: 20),
+        FilterWidget(filters: ['All', 'Bills', 'Overdue', 'Investements']),
+        const SizedBox(height: 20),
+        AlertItem(
           heading: "Wifi Connection",
           amount: "300",
           due: "due",

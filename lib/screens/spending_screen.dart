@@ -1,6 +1,6 @@
 import 'package:ekonomi_new/background/backGround.dart';
-import 'package:ekonomi_new/widget/backButton.dart';
-import 'package:ekonomi_new/widget/filterWidget.dart';
+import 'package:ekonomi_new/widgets/back_button.dart';
+import 'package:ekonomi_new/widgets/filter_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:ekonomi_new/widgets/spending_chart.dart';
 import 'package:ekonomi_new/widgets/spending_legend.dart';
@@ -43,7 +43,7 @@ class _SpendingScreenState extends State<SpendingScreen> {
                     ),
                     child: Column(
                       children: [
-                        Filterwidget(
+                        FilterWidget(
                           filters: ['This week', 'This Month', 'Jun', 'Aug'],
                         ),
                         const SizedBox(height: 40),

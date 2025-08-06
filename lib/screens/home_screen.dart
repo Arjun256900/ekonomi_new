@@ -1,10 +1,10 @@
 import 'package:ekonomi_new/background/backGround.dart';
-import 'package:ekonomi_new/widget/AlertDash.dart';
+import 'package:ekonomi_new/widgets/home_screen/alert_dash.dart';
 import 'package:flutter/material.dart';
 
-import 'package:ekonomi_new/widget/ActionGrid.dart';
-import 'package:ekonomi_new/widget/NavItem.dart';
-import 'package:ekonomi_new/widget/SummaryCard.dart';
+import 'package:ekonomi_new/widgets/home_screen/action_grid.dart';
+import 'package:ekonomi_new/widgets/NavItem.dart';
+import 'package:ekonomi_new/widgets/SummaryCard.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -231,7 +231,7 @@ class HomeTab extends StatelessWidget {
             SizedBox(height: 16),
             ActionGrid(),
             SizedBox(height: 16),
-            isopenAlert ? Alertdash() : SizedBox.shrink(),
+            AlertDash(),
           ],
         ),
       ),
