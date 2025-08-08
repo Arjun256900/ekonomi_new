@@ -1,8 +1,9 @@
 import 'package:ekonomi_new/screens/home_screen.dart';
 import 'package:ekonomi_new/screens/reminder_screen.dart';
+import 'package:ekonomi_new/screens/set_goal.dart';
 import 'package:ekonomi_new/screens/spending_screen.dart';
 import 'package:ekonomi_new/screens/transaction_screen.dart';
-import 'package:ekonomi_new/widgets/action_item.dart';
+import 'package:ekonomi_new/widgets/home_screen/action_item.dart';
 import 'package:flutter/material.dart';
 
 class ActionGrid extends StatelessWidget {
@@ -19,7 +20,7 @@ class ActionGrid extends StatelessWidget {
       subtitle: 'Plan, save, and reach your milestones',
       icon: Icons.track_changes,
       filled: false,
-      navigation: ReminderScreen(),
+      navigation: SetGoal(),
     ),
     ActionItem(
       title: 'Transaction',
