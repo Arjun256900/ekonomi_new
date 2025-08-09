@@ -1,5 +1,4 @@
 import 'package:ekonomi_new/screens/home_screen.dart';
-import 'package:ekonomi_new/screens/reminder_screen.dart';
 import 'package:ekonomi_new/screens/set_goal.dart';
 import 'package:ekonomi_new/screens/spending_screen.dart';
 import 'package:ekonomi_new/screens/transaction_screen.dart';
