@@ -5,26 +5,29 @@ class TransactionState {
   final String sourceSelection;
   final String category;
   final String filepath;
+  final bool isValid;
   // final bool showErrors;
 
   TransactionState({
-    required this.debitOrCredit,
+    this.debitOrCredit = "Credit",
     required this.amount,
     required this.date,
     required this.sourceSelection,
     required this.category,
     required this.filepath,
+    required this.isValid,
     // required this.showErrors,
   });
 
   factory TransactionState.initial() {
     return TransactionState(
-      debitOrCredit: '',
+      debitOrCredit: 'Credit',
       amount: '',
       date: '',
       sourceSelection: '',
       category: '',
       filepath: '',
+      isValid: false,
       // showErrors: false,
     );
   }
@@ -36,6 +39,7 @@ class TransactionState {
     String? sourceSelection,
     String? category,
     String? filepath,
+    bool? isValid,
     // bool? showErrors,
   }) {
     return TransactionState(
@@ -45,6 +49,7 @@ class TransactionState {
       sourceSelection: sourceSelection ?? this.sourceSelection,
       category: category ?? this.category,
       filepath: filepath ?? this.filepath,
+      isValid: isValid ?? this.isValid,
       // showErrors: showErrors ?? this.showErrors,
     );
   }

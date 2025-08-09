@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:ekonomi_new/bloc/AddNewGoal/goal_list_bloc.dart';
+import 'package:ekonomi_new/bloc/AddNewGoal/goal_list_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ekonomi_new/bloc/goal/form_event.dart';
 import 'package:ekonomi_new/bloc/goal/form_state.dart';
@@ -32,6 +34,8 @@ class FormBloc extends Bloc<GoalEvent, GoalState> {
     });
     on<SubmitGoal>((event, emit) {
       if (_formIsValid(state)) {
+        final goalJson = state.toJson();
+        event.context.read<GoalListBloc>().add(AddGoalEvent(goalJson));
         print(jsonEncode(state.toJson()));
       } else {
         print("Form is not valid.");

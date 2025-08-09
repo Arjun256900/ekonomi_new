@@ -1,5 +1,6 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/widgets/back_button.dart';
+import 'package:ekonomi_new/widgets/general/error_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ekonomi_new/bloc/transaction/transaction_bloc.dart';
@@ -32,6 +33,30 @@ class AddNewTransactionScreenBody extends StatefulWidget {
 
 class _AddNewTransactionScreenBodyState
     extends State<AddNewTransactionScreenBody> {
+  late final TransactionBloc _transactionBloc;
+  late TextEditingController amountController;
+
+  bool isValid = false;
+  @override
+  void initState() {
+    super.initState();
+
+    _transactionBloc = TransactionBloc();
+
+    // Initialize controllers with existing state values
+    amountController = TextEditingController(
+      text: _transactionBloc.state.amount,
+    );
+  }
+
+  @override
+  void dispose() {
+    // Always dispose controllers
+    amountController.dispose();
+    _transactionBloc.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TransactionBloc, TransactionState>(
@@ -74,7 +99,6 @@ class _AddNewTransactionScreenBodyState
                                 ? null
                                 : state.sourceSelection,
                             heading: "Source selection",
-
                             onChanged: (value) {
                               context.read<TransactionBloc>().add(
                                 SourceSelectionChanged(value),
@@ -82,16 +106,19 @@ class _AddNewTransactionScreenBodyState
                             },
                           ),
                           const SizedBox(height: 10),
+
+                          // Controlled Text Field
                           CustomTextField(
+                            controller: amountController,
                             heading: "Amount",
                             hintText: "Enter Amount",
-                            initialValue: state.amount,
                             onChanged: (value) {
                               context.read<TransactionBloc>().add(
                                 AmountChanged(value),
                               );
                             },
                           ),
+
                           const SizedBox(height: 10),
                           DateField(
                             heading: "Date",
@@ -160,6 +187,7 @@ class _AddNewTransactionScreenBodyState
                                       context.read<TransactionBloc>().add(
                                         UndoTransaction(),
                                       );
+                                      amountController.text = '';
                                     },
                                     style: TextButton.styleFrom(
                                       backgroundColor: Color.fromARGB(
@@ -187,12 +215,19 @@ class _AddNewTransactionScreenBodyState
                                 // Save Button
                                 Expanded(
                                   child: ElevatedButton(
-                                    onPressed: () {
-                                      context.read<TransactionBloc>().add(
-                                        SubmitTransaction(),
-                                      );
-                                      Navigator.of(context).pop();
-                                    },
+                                    onPressed: state.isValid
+                                        ? () {
+                                            context.read<TransactionBloc>().add(
+                                              SubmitTransaction(context),
+                                            );
+                                            Navigator.of(context).pop();
+                                          }
+                                        : () {
+                                            showErrorSnackBar(
+                                              context,
+                                              "Please make sure to fill all the fields",
+                                            );
+                                          },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Theme.of(
                                         context,

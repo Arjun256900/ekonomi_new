@@ -1,49 +1,78 @@
+import '../AddNewTransaction/transaction_list_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ekonomi_new/bloc/transaction/transaction_event.dart';
 import 'package:ekonomi_new/bloc/transaction/transaction_state.dart';
 
+import 'package:intl/intl.dart';
+import '../AddNewTransaction/transaction_list_event.dart';
+
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   TransactionBloc() : super(TransactionState.initial()) {
     on<DebitOrCreditChanged>((event, emit) {
-      emit(state.copyWith(debitOrCredit: event.value));
+      final newState = state.copyWith(debitOrCredit: event.value);
+      emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
 
     on<AmountChanged>((event, emit) {
-      emit(state.copyWith(amount: event.value));
+      final newState = state.copyWith(amount: event.value);
+      emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
 
     on<DateChanged>((event, emit) {
-      emit(state.copyWith(date: event.value));
+      final newState = state.copyWith(date: event.value);
+      emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
 
     on<SourceSelectionChanged>((event, emit) {
-      emit(state.copyWith(sourceSelection: event.value));
+      final newState = state.copyWith(sourceSelection: event.value);
+      emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
 
     on<CategoryChanged>((event, emit) {
-      emit(state.copyWith(category: event.value));
+      final newState = state.copyWith(category: event.value);
+      emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
 
     on<FilepathChanged>((event, emit) {
-      emit(state.copyWith(filepath: event.value));
+      final newState = state.copyWith(filepath: event.value);
+      emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
     on<UndoTransaction>((event, emit) {
-      emit(state.copyWith(
-    debitOrCredit: '',
-    amount: '',
-    date: '',
-    sourceSelection: '',
-    category: '',
-    filepath: '',
-  ));
+      emit(
+        state.copyWith(
+          debitOrCredit: '',
+          amount: '',
+          date: '',
+          sourceSelection: '',
+          category: '',
+          filepath: '',
+        ),
+      );
     });
     on<SubmitTransaction>((event, emit) {
       if (_formIsValid(state)) {
-        print(state.toJson());
-        // Optionally: emit success state or trigger listener
+        final transactionJson = state.toJson();
+
+        final now = DateTime.now();
+        transactionJson['time'] = DateFormat('h a').format(now);
+
+        DateTime parsedDate;
+        try {
+          parsedDate = DateFormat('dd/MM/yyyy').parse(state.date);
+        } catch (_) {
+          parsedDate = now; // fallback
+        }
+        print(parsedDate);
+
+        transactionJson['date'] = DateFormat('MMM d').format(parsedDate);
+
+        event.context.read<TransactionListBloc>().add(
+          AddTransactionEvent(transactionJson),
+        );
+
+        print(transactionJson);
       } else {
         print("Form is not valid.");
-        // emit(state.copyWith());
       }
     });
   }
