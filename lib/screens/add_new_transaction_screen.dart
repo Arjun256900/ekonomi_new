@@ -215,12 +215,19 @@ class _AddNewTransactionScreenBodyState
                                 // Save Button
                                 Expanded(
                                   child: ElevatedButton(
-                                    onPressed: () {
-                                      context.read<TransactionBloc>().add(
-                                        SubmitTransaction(context),
-                                      );
-                                      Navigator.of(context).pop();
-                                    },
+                                    onPressed: state.isValid
+                                        ? () {
+                                            context.read<TransactionBloc>().add(
+                                              SubmitTransaction(context),
+                                            );
+                                            Navigator.of(context).pop();
+                                          }
+                                        : () {
+                                            showErrorSnackBar(
+                                              context,
+                                              "Please make sure to fill all the fields",
+                                            );
+                                          },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Theme.of(
                                         context,

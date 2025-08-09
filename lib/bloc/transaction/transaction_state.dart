@@ -21,7 +21,7 @@ class TransactionState {
 
   factory TransactionState.initial() {
     return TransactionState(
-      debitOrCredit: '',
+      debitOrCredit: 'Credit',
       amount: '',
       date: '',
       sourceSelection: '',
