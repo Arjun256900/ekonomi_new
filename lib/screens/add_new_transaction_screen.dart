@@ -211,11 +211,8 @@ class _AddNewTransactionScreenBodyState extends State<AddNewTransactionScreenBod
                                 Expanded(
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      
                                         context.read<TransactionBloc>().add(SubmitTransaction(context));
-                                      
-
-                                      Navigator.of(context).pop();
+                                        Navigator.of(context).pop();
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Theme.of(

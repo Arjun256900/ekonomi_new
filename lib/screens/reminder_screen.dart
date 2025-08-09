@@ -43,22 +43,25 @@ class _ReminderScreenState extends State<ReminderScreen> {
                   child: TransactionList(
                     transactions: [
                       TransactionItem(
-                        dateTime: 'Jun 5 6 pm',
+                        date: 'Jun 5',
+                        time: "6 pm",
                         heading: 'Swiggy',
                         sendOrReceived: 'Send',
                         amount: '300',
                       ),
                       TransactionItem(
-                        dateTime: 'Jun 5 6 pm',
-                        heading: 'Swiggy',
-                        sendOrReceived: 'Received',
-                        amount: '2829',
-                      ),
-                      TransactionItem(
-                        dateTime: 'Jun 5 6 pm',
+                        date: 'Jun 5',
+                        time: "6 pm",
                         heading: 'Swiggy',
                         sendOrReceived: 'Send',
-                        amount: '679',
+                        amount: '300',
+                      ),
+                      TransactionItem(
+                        date: 'Jun 5',
+                        time: "6 pm",
+                        heading: 'Swiggy',
+                        sendOrReceived: 'Send',
+                        amount: '300',
                       ),
                     ],
                   ),

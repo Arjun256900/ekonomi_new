@@ -100,7 +100,8 @@ class TransactionScreen extends StatelessWidget {
                             return TransactionList(
                               transactions: state.transactions.map((tx) {
                                 return TransactionItem(
-                                  dateTime: tx['date'] + ' ' + tx['time'] ?? '',
+                                  date: tx['date']  ?? '',
+                                  time: tx['time'] ?? '',
                                   heading: tx['category'] ?? '',
                                   sendOrReceived: tx['debitOrCredit'] ?? '',
                                   amount: tx['amount'] ?? '',

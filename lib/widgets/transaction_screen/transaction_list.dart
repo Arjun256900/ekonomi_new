@@ -2,13 +2,15 @@ import 'package:ekonomi_new/widgets/transaction_screen/transaction_card.dart';
 import 'package:flutter/material.dart';
 
 class TransactionItem {
-  final String dateTime;
+  final String date;
+  final String time;
   final String heading;
   final String sendOrReceived;
   final String amount;
 
   const TransactionItem({
-    required this.dateTime,
+    required this.date,
+    required this.time,
     required this.heading,
     required this.sendOrReceived,
     required this.amount,
@@ -86,16 +88,32 @@ class TransactionList extends StatelessWidget {
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
                             width: 45,
-                            child: Text(
-                              tx.dateTime,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey[600],
-                              ),
+                            height: 68,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  tx.date,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                                Text(
+                                  tx.time,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(width: 35),

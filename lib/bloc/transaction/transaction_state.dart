@@ -8,7 +8,7 @@ class TransactionState {
   // final bool showErrors;
 
   TransactionState({
-    required this.debitOrCredit,
+     this.debitOrCredit = "Credit",
     required this.amount,
     required this.date,
     required this.sourceSelection,
