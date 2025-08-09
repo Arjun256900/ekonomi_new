@@ -5,7 +5,6 @@ import 'package:ekonomi_new/widgets/general/add_btn_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ekonomi_new/widgets/goal_screen/goal_list_item.dart';
-// import 'package:ekonomi_new/widgets/add_container.dart';
 
 class SetGoal extends StatelessWidget {
   const SetGoal({super.key});

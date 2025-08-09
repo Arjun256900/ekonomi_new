@@ -32,7 +32,7 @@ class TransactionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GestureDetector(
-                    onTap: () => {}, // this shoud be added there apfter
+                    onTap: () => {},
                     child: Container(
                       width: 369,
                       height: 79,

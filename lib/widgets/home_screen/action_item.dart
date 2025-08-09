@@ -5,7 +5,7 @@ class ActionItem {
   final String title, subtitle;
   final IconData icon;
   final bool filled;
-  final Widget navigation;
+  final Widget? navigation;
   ActionItem({
     required this.title,
     required this.subtitle,
@@ -17,12 +17,18 @@ class ActionItem {
 
 class ActionCard extends StatelessWidget {
   final ActionItem item;
-  const ActionCard({required this.item});
+  const ActionCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {Navigator.of(context,).push(CupertinoPageRoute(builder: (context) => item.navigation))},
+      onTap: () => {
+        item.navigation != null
+            ? Navigator.of(
+                context,
+              ).push(CupertinoPageRoute(builder: (context) => item.navigation!))
+            : () => {},
+      },
       child: Card(
         color: item.filled ? Color(0xFF048B94) : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

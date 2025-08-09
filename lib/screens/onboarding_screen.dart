@@ -118,6 +118,7 @@ class OnboardingScreen extends StatelessWidget {
                                     );
                                   } else {
                                     provider.nextPage();
+
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

@@ -1,4 +1,3 @@
-// lib/screens/add_new_goal.dart
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/widgets/back_button.dart';
 import 'package:flutter/material.dart';
@@ -10,20 +9,46 @@ import 'package:ekonomi_new/widgets/form_widgets/custom_text_field.dart';
 import 'package:ekonomi_new/widgets/form_widgets/dateField.dart';
 import 'package:ekonomi_new/widgets/form_widgets/dropDownField.dart';
 
-class AddNewGoal extends StatelessWidget {
+class AddNewGoal extends StatefulWidget {
   const AddNewGoal({super.key});
+
+  @override
+  State<AddNewGoal> createState() => _AddNewGoalState();
+}
+
+class _AddNewGoalState extends State<AddNewGoal> {
+  late final FormBloc _formBloc;
+  late final TextEditingController _goalNameController;
+  late final TextEditingController _amountController;
+
+  @override
+  void initState() {
+    super.initState();
+    _formBloc = FormBloc();
+    // initialize controllers from bloc's current state (if any)
+    _goalNameController = TextEditingController(text: _formBloc.state.goalName);
+    _amountController = TextEditingController(text: _formBloc.state.amount);
+  }
+
+  @override
+  void dispose() {
+    _goalNameController.dispose();
+    _amountController.dispose();
+    _formBloc.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Positioned.fill(child: Background()),
+        // Keep GestureDetector to dismiss keyboard on outside tap
         GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: BlocProvider<FormBloc>(
-            create: (_) => FormBloc(),
+          child: BlocProvider.value(
+            value: _formBloc,
             child: Scaffold(
-              
               backgroundColor: Colors.transparent,
               resizeToAvoidBottomInset: true,
               appBar: AppBar(
@@ -45,18 +70,24 @@ class AddNewGoal extends StatelessWidget {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+                            // IMPORTANT: pass controller instead of initialValue
                             CustomTextField(
                               heading: "Goal Name",
                               hintText: "Enter your Goal Name",
-                              initialValue: state.goalName,
-                              onChanged: (v) => bloc.add(GoalNameChanged(v)),
+                              controller: _goalNameController,
+                              onChanged: (v) {
+                                bloc.add(GoalNameChanged(v));
+                              },
                             ),
                             const SizedBox(height: 8),
                             CustomTextField(
                               heading: "Target Amount",
                               hintText: "How much do you want to save",
-                              initialValue: state.amount,
-                              onChanged: (v) => bloc.add(TargetAmountChanged(v)),
+                              controller: _amountController,
+                              keyboardType: TextInputType.number,
+                              onChanged: (v) {
+                                bloc.add(TargetAmountChanged(v));
+                              },
                             ),
                             const SizedBox(height: 8),
                             DateField(
@@ -83,11 +114,12 @@ class AddNewGoal extends StatelessWidget {
                             ),
                             const SizedBox(height: 15),
                             ElevatedButton(
-                              onPressed:state.isValid ? () {
+                              onPressed: state.isValid
+                                  ? () {
                                       bloc.add(SubmitGoal());
                                       Navigator.of(context).pop();
                                     }
-                                    : null,
+                                  : null,
                               style: ElevatedButton.styleFrom(
                                 fixedSize: const Size(double.infinity, 48),
                                 shape: RoundedRectangleBorder(
