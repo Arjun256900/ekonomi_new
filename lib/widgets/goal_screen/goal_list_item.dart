@@ -128,6 +128,7 @@ class GoalListItem extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8.5),
+                  
                   buildRow('Deadline', deadline),
                   const SizedBox(height: 8.5),
                   buildRow('Source Amount', sourceAccount),
