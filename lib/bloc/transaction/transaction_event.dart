@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 abstract class TransactionEvent {}
 
 class DebitOrCreditChanged extends TransactionEvent {
@@ -30,6 +32,9 @@ class FilepathChanged extends TransactionEvent {
   FilepathChanged(this.value);
 }
 
-class SubmitTransaction extends TransactionEvent {}
+class SubmitTransaction extends TransactionEvent {
+  final BuildContext context;
+  SubmitTransaction(this.context);
+}
 
 class UndoTransaction extends TransactionEvent {} 

@@ -1,4 +1,5 @@
 import 'package:ekonomi_new/background/backGround.dart';
+import 'package:ekonomi_new/bloc/goal/form_bloc.dart';
 import 'package:ekonomi_new/widgets/back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,9 +30,28 @@ class AddNewTransactionScreenBody extends StatefulWidget {
   State<AddNewTransactionScreenBody> createState() =>
       _AddNewTransactionScreenBodyState();
 }
+class _AddNewTransactionScreenBodyState extends State<AddNewTransactionScreenBody> {
+  late final TransactionBloc _transactionBloc;
+  late TextEditingController amountController;
 
-class _AddNewTransactionScreenBodyState
-    extends State<AddNewTransactionScreenBody> {
+  @override
+  void initState() {
+    super.initState();
+
+    _transactionBloc = TransactionBloc();
+
+    // Initialize controllers with existing state values
+    amountController = TextEditingController(text: _transactionBloc.state.amount);
+  }
+
+  @override
+  void dispose() {
+    // Always dispose controllers
+    amountController.dispose();
+    _transactionBloc.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TransactionBloc, TransactionState>(
@@ -74,7 +94,6 @@ class _AddNewTransactionScreenBodyState
                                 ? null
                                 : state.sourceSelection,
                             heading: "Source selection",
-
                             onChanged: (value) {
                               context.read<TransactionBloc>().add(
                                 SourceSelectionChanged(value),
@@ -82,16 +101,19 @@ class _AddNewTransactionScreenBodyState
                             },
                           ),
                           const SizedBox(height: 10),
+
+                          // Controlled Text Field
                           CustomTextField(
+                            controller: amountController,
                             heading: "Amount",
                             hintText: "Enter Amount",
-                            initialValue: state.amount,
                             onChanged: (value) {
                               context.read<TransactionBloc>().add(
                                 AmountChanged(value),
                               );
                             },
                           ),
+
                           const SizedBox(height: 10),
                           DateField(
                             heading: "Date",
@@ -160,6 +182,7 @@ class _AddNewTransactionScreenBodyState
                                       context.read<TransactionBloc>().add(
                                         UndoTransaction(),
                                       );
+                                      amountController.text = '';
                                     },
                                     style: TextButton.styleFrom(
                                       backgroundColor: Color.fromARGB(
@@ -188,9 +211,10 @@ class _AddNewTransactionScreenBodyState
                                 Expanded(
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      context.read<TransactionBloc>().add(
-                                        SubmitTransaction(),
-                                      );
+                                      
+                                        context.read<TransactionBloc>().add(SubmitTransaction(context));
+                                      
+
                                       Navigator.of(context).pop();
                                     },
                                     style: ElevatedButton.styleFrom(

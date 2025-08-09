@@ -1,10 +1,15 @@
 import 'package:ekonomi_new/background/backGround.dart';
+import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
+import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_state.dart';
+import 'package:ekonomi_new/screens/add_new_transaction_screen.dart';
 import 'package:ekonomi_new/widgets/back_button.dart';
 import 'package:ekonomi_new/widgets/general/filter_widget.dart';
 import 'package:ekonomi_new/widgets/new_transaction.dart';
 import 'package:ekonomi_new/widgets/transaction_screen/transaction_list.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TransactionScreen extends StatelessWidget {
   const TransactionScreen({super.key});
@@ -32,7 +37,13 @@ class TransactionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GestureDetector(
-                    onTap: () => {},
+                    onTap: () => {
+                      Navigator.of(context).push(
+                        CupertinoPageRoute(
+                          builder: (context) => AddNewTransactionScreen(),
+                        ),
+                      ),
+                    },
                     child: Container(
                       width: 369,
                       height: 79,
@@ -77,59 +88,27 @@ class TransactionScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 25),
                   Expanded(
-                    child: TransactionList(
-                      transactions: [
-                        TransactionItem(
-                          dateTime: 'Jun 5 6 pm',
-                          heading: 'Swiggy',
-                          sendOrReceived: 'Send',
-                          amount: '300',
+                    child:
+                        BlocBuilder<TransactionListBloc, TransactionListState>(
+                          builder: (context, state) {
+                            if (state.transactions.isEmpty) {
+                              return Center(
+                                child: Text("No transactions yet."),
+                              );
+                            }
+
+                            return TransactionList(
+                              transactions: state.transactions.map((tx) {
+                                return TransactionItem(
+                                  dateTime: tx['date'] + ' ' + tx['time'] ?? '',
+                                  heading: tx['category'] ?? '',
+                                  sendOrReceived: tx['debitOrCredit'] ?? '',
+                                  amount: tx['amount'] ?? '',
+                                );
+                              }).toList(),
+                            );
+                          },
                         ),
-                        TransactionItem(
-                          dateTime: 'Jun 5 6 pm',
-                          heading: 'Swiggy',
-                          sendOrReceived: 'Send',
-                          amount: '300',
-                        ),
-                        TransactionItem(
-                          dateTime: 'Jun 5 6 pm',
-                          heading: 'Swiggy',
-                          sendOrReceived: 'Received',
-                          amount: '1508',
-                        ),
-                        TransactionItem(
-                          dateTime: 'Jun 5 6 pm',
-                          heading: 'Swiggy',
-                          sendOrReceived: 'Send',
-                          amount: '300',
-                        ),
-                        TransactionItem(
-                          dateTime: 'Jun 5 6 pm',
-                          heading: 'Swiggy',
-                          sendOrReceived: 'Send',
-                          amount: '300',
-                        ),
-                        TransactionItem(
-                          dateTime: 'Jun 5 6 pm',
-                          heading: 'Swiggy',
-                          sendOrReceived: 'Send',
-                          amount: '300',
-                        ),
-                        TransactionItem(
-                          dateTime: 'Jun 5 6 pm',
-                          heading: 'Swiggy',
-                          sendOrReceived: 'Send',
-                          amount: '300',
-                        ),
-                        TransactionItem(
-                          dateTime: 'Jun 5 6 pm',
-                          heading: 'Swiggy',
-                          sendOrReceived: 'Send',
-                          amount: '300',
-                        ),
-                        //  more items can be added (from the backend)
-                      ],
-                    ),
                   ),
                 ],
               ),

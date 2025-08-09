@@ -1,5 +1,7 @@
 
 
+import 'package:flutter/material.dart';
+
 abstract class GoalEvent {}
 
 class GoalNameChanged extends GoalEvent {
@@ -27,5 +29,6 @@ class SourceAccountChanged extends GoalEvent{
 }
 
 class SubmitGoal extends GoalEvent {
-
+final BuildContext context;
+  SubmitGoal(this.context);
 }

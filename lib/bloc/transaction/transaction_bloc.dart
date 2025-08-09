@@ -1,6 +1,10 @@
+import '../AddNewTransaction/transaction_list_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ekonomi_new/bloc/transaction/transaction_event.dart';
 import 'package:ekonomi_new/bloc/transaction/transaction_state.dart';
+
+import 'package:intl/intl.dart';
+import '../AddNewTransaction/transaction_list_event.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   TransactionBloc() : super(TransactionState.initial()) {
@@ -28,22 +32,41 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       emit(state.copyWith(filepath: event.value));
     });
     on<UndoTransaction>((event, emit) {
-      emit(state.copyWith(
-    debitOrCredit: '',
-    amount: '',
-    date: '',
-    sourceSelection: '',
-    category: '',
-    filepath: '',
-  ));
+      emit(
+        state.copyWith(
+          debitOrCredit: '',
+          amount: '',
+          date: '',
+          sourceSelection: '',
+          category: '',
+          filepath: '',
+        ),
+      );
     });
     on<SubmitTransaction>((event, emit) {
       if (_formIsValid(state)) {
-        print(state.toJson());
-        // Optionally: emit success state or trigger listener
+        final transactionJson = state.toJson();
+
+        final now = DateTime.now();
+        transactionJson['time'] = DateFormat('h a').format(now);
+
+        DateTime parsedDate;
+        try {
+          parsedDate = DateFormat('dd/MM/yyyy').parse(state.date);
+        } catch (_) {
+          parsedDate = now; // fallback
+        }
+        print(parsedDate);
+
+        transactionJson['date'] = DateFormat('MMM d').format(parsedDate);
+
+        event.context.read<TransactionListBloc>().add(
+          AddTransactionEvent(transactionJson),
+        );
+
+        print(transactionJson);
       } else {
         print("Form is not valid.");
-        // emit(state.copyWith());
       }
     });
   }

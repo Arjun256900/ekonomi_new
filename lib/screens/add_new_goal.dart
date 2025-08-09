@@ -116,7 +116,7 @@ class _AddNewGoalState extends State<AddNewGoal> {
                             ElevatedButton(
                               onPressed: state.isValid
                                   ? () {
-                                      bloc.add(SubmitGoal());
+                                      bloc.add(SubmitGoal(context));
                                       Navigator.of(context).pop();
                                     }
                                   : null,
