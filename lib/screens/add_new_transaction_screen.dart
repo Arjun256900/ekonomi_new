@@ -1,6 +1,6 @@
 import 'package:ekonomi_new/background/backGround.dart';
-import 'package:ekonomi_new/bloc/goal/form_bloc.dart';
 import 'package:ekonomi_new/widgets/back_button.dart';
+import 'package:ekonomi_new/widgets/general/error_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ekonomi_new/bloc/transaction/transaction_bloc.dart';
@@ -30,10 +30,13 @@ class AddNewTransactionScreenBody extends StatefulWidget {
   State<AddNewTransactionScreenBody> createState() =>
       _AddNewTransactionScreenBodyState();
 }
-class _AddNewTransactionScreenBodyState extends State<AddNewTransactionScreenBody> {
+
+class _AddNewTransactionScreenBodyState
+    extends State<AddNewTransactionScreenBody> {
   late final TransactionBloc _transactionBloc;
   late TextEditingController amountController;
 
+  bool isValid = false;
   @override
   void initState() {
     super.initState();
@@ -41,7 +44,9 @@ class _AddNewTransactionScreenBodyState extends State<AddNewTransactionScreenBod
     _transactionBloc = TransactionBloc();
 
     // Initialize controllers with existing state values
-    amountController = TextEditingController(text: _transactionBloc.state.amount);
+    amountController = TextEditingController(
+      text: _transactionBloc.state.amount,
+    );
   }
 
   @override
@@ -211,8 +216,10 @@ class _AddNewTransactionScreenBodyState extends State<AddNewTransactionScreenBod
                                 Expanded(
                                   child: ElevatedButton(
                                     onPressed: () {
-                                        context.read<TransactionBloc>().add(SubmitTransaction(context));
-                                        Navigator.of(context).pop();
+                                      context.read<TransactionBloc>().add(
+                                        SubmitTransaction(context),
+                                      );
+                                      Navigator.of(context).pop();
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Theme.of(

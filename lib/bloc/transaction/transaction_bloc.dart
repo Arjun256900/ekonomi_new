@@ -9,7 +9,7 @@ import '../AddNewTransaction/transaction_list_event.dart';
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   TransactionBloc() : super(TransactionState.initial()) {
     on<DebitOrCreditChanged>((event, emit) {
-      emit(state.copyWith(debitOrCredit: event.value));
+      // emit(state.copyWith(debitOrCredit: event.value, isValid: _formIsValid(newState)));
     });
 
     on<AmountChanged>((event, emit) {

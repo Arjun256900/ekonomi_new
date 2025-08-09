@@ -94,23 +94,30 @@ class _AddNewGoalState extends State<AddNewGoal> {
                               heading: "Target Date",
                               hintText: "Select Target Date",
                               selectedDate: state.date,
-                              onDateSelected: (v) => bloc.add(TargetDateChanged(v)),
+                              onDateSelected: (v) =>
+                                  bloc.add(TargetDateChanged(v)),
                             ),
                             const SizedBox(height: 8),
                             Dropdownfield(
                               heading: "Priority Level",
-                              items: ['low', 'medium', 'high'],
-                              selectedValue: state.priority.isEmpty ? null : state.priority,
+                              items: ['Low', 'Medium', 'High'],
+                              selectedValue: state.priority.isEmpty
+                                  ? null
+                                  : state.priority,
                               hintText: 'medium',
-                              onChanged: (v) => bloc.add(PrioityLevelChanged(v)),
+                              onChanged: (v) =>
+                                  bloc.add(PrioityLevelChanged(v)),
                             ),
                             const SizedBox(height: 8),
                             Dropdownfield(
                               heading: "Set Source Account",
                               items: ['Account A', 'Account B', 'Account C'],
-                              hintText:  'Select Source Account',
-                              selectedValue: state.sourceAccount.isEmpty ? null : state.sourceAccount,
-                              onChanged: (v) => bloc.add(SourceAccountChanged(v)),
+                              hintText: 'Select Source Account',
+                              selectedValue: state.sourceAccount.isEmpty
+                                  ? null
+                                  : state.sourceAccount,
+                              onChanged: (v) =>
+                                  bloc.add(SourceAccountChanged(v)),
                             ),
                             const SizedBox(height: 15),
                             ElevatedButton(
@@ -126,7 +133,7 @@ class _AddNewGoalState extends State<AddNewGoal> {
                                   borderRadius: BorderRadius.circular(7),
                                   side: const BorderSide(
                                     width: 0.5,
-                                    color: Color.fromRGBO(0,0,0,0.45),
+                                    color: Color.fromRGBO(0, 0, 0, 0.45),
                                   ),
                                 ),
                                 backgroundColor: Theme.of(context).primaryColor,
