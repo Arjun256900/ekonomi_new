@@ -1,6 +1,6 @@
 import 'package:ekonomi_new/bloc/AddNewGoal/goal_list_bloc.dart';
 import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
-import 'package:ekonomi_new/screens/ChatBot.dart';
+import 'package:ekonomi_new/screens/chatbot_screen.dart';
 import 'package:ekonomi_new/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

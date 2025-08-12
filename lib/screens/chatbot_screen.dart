@@ -23,14 +23,14 @@ class Chatbot extends StatelessWidget {
                   height: 46,
                   width: 106,
                   alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(194, 224, 229, 1),
+                    borderRadius: BorderRadius.circular(23),
+                  ),
                   child: const Text(
                     "History",
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(194, 224, 229, 1),
-                    borderRadius: BorderRadius.circular(23),
                   ),
                 ),
               ),
@@ -142,7 +142,7 @@ class _ChatConvoState extends State<ChatConvo> {
                               color: Color.fromRGBO(6, 139, 147, 0.25),
                               strokeAlign: 1,
                             ),
-                            borderRadius: BorderRadius.circular(11)
+                            borderRadius: BorderRadius.circular(11),
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(15.0),
@@ -170,7 +170,9 @@ class _ChatConvoState extends State<ChatConvo> {
           color: const Color.fromRGBO(6, 139, 147, 0.18),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Padding(
-            padding:  EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.08,),
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height * 0.08,
+            ),
             child: Row(
               children: [
                 Expanded(
