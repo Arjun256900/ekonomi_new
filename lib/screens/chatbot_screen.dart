@@ -15,7 +15,7 @@ class Chatbot extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             automaticallyImplyLeading: false,
-            leading: backButtonLeading(),
+            leading: BackButtonLeading(),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),
@@ -29,7 +29,7 @@ class Chatbot extends StatelessWidget {
                   ),
                   child: const Text(
                     "History",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
                   ),
                 ),

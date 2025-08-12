@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class backButtonLeading extends StatelessWidget {
-  const backButtonLeading({super.key});
+class BackButtonLeading extends StatelessWidget {
+  const BackButtonLeading({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -61,8 +61,14 @@ class _AddNewSpendingState extends State<AddNewSpending> {
                   resizeToAvoidBottomInset: true,
                   appBar: AppBar(
                     automaticallyImplyLeading: false,
-                    leading: backButtonLeading(),
-                    title: const Text("Add Spending"),
+                    leading: BackButtonLeading(),
+                    title: const Text(
+                      "Add Spending",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
                     backgroundColor: Colors.transparent,
                   ),
                   body: SafeArea(
@@ -75,23 +81,25 @@ class _AddNewSpendingState extends State<AddNewSpending> {
                             CustomTextField(
                               heading: "Enter Amount",
                               hintText: "Enter how much did you spend?",
-                              onChanged: (val) => context.read<SpendingBloc>().add(
-                                AmountChanged(val),
-                              ),
+                              onChanged: (val) => context
+                                  .read<SpendingBloc>()
+                                  .add(AmountChanged(val)),
                             ),
                             const SizedBox(height: 10),
                             DateField(
                               heading: "Date",
                               hintText: "Select date",
-                              onDateSelected: (date) =>
-                                  context.read<SpendingBloc>().add(DateChanged(date)),
+                              onDateSelected: (date) => context
+                                  .read<SpendingBloc>()
+                                  .add(DateChanged(date)),
                             ),
                             const SizedBox(height: 10),
                             CustomTextField2(
                               heading: "Notes",
                               hintText: "Enter notes about your spending.",
-                              onChanged: (val) =>
-                                  context.read<SpendingBloc>().add(NotesChanged(val)),
+                              onChanged: (val) => context
+                                  .read<SpendingBloc>()
+                                  .add(NotesChanged(val)),
                             ),
                             const SizedBox(height: 10),
                             Text.rich(
@@ -116,7 +124,8 @@ class _AddNewSpendingState extends State<AddNewSpending> {
                             ),
                             const SizedBox(height: 7),
                             FilePickerWidget(
-                              subtext: "Select the suitable document for upload here",
+                              subtext:
+                                  "Select the suitable document for upload here",
                               onFilePicked: (path) => context
                                   .read<SpendingBloc>()
                                   .add(FilepathChanged(path)),
@@ -124,7 +133,9 @@ class _AddNewSpendingState extends State<AddNewSpending> {
                             ),
                             const SizedBox(height: 10),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 12),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                              ),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -146,7 +157,9 @@ class _AddNewSpendingState extends State<AddNewSpending> {
                                           vertical: 14,
                                         ),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius: BorderRadius.circular(
+                                            6,
+                                          ),
                                         ),
                                       ),
                                       child: const Text('Undo'),
@@ -177,7 +190,9 @@ class _AddNewSpendingState extends State<AddNewSpending> {
                                           vertical: 14,
                                         ),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius: BorderRadius.circular(
+                                            6,
+                                          ),
                                         ),
                                         elevation: 0,
                                       ),

@@ -73,11 +73,11 @@ class _AddNewTransactionScreenBodyState
                 resizeToAvoidBottomInset: true,
                 appBar: AppBar(
                   automaticallyImplyLeading: false,
-                  leading: backButtonLeading(),
+                  leading: BackButtonLeading(),
                   backgroundColor: const Color.fromARGB(0, 240, 240, 240),
                   title: const Text(
                     "Add Transaction",
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                   ),
                 ),
                 body: SafeArea(
@@ -111,7 +111,7 @@ class _AddNewTransactionScreenBodyState
                           CustomTextField(
                             controller: amountController,
                             heading: "Amount",
-                            hintText: "Enter Amount",                            
+                            hintText: "Enter Amount",
                             keyboardType: TextInputType.number,
                             onChanged: (value) {
                               context.read<TransactionBloc>().add(

@@ -15,6 +15,8 @@ class ReminderScreen extends StatefulWidget {
 class _ReminderScreenState extends State<ReminderScreen> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         Positioned.fill(child: Background()),
@@ -22,26 +24,72 @@ class _ReminderScreenState extends State<ReminderScreen> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            leading: backButtonLeading(),
+            leading: BackButtonLeading(),
             backgroundColor: Colors.transparent,
             title: Text(
               "Reminders",
-              style: TextStyle(fontWeight: FontWeight.w600),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                FilterWidget(
-                  filters: ['All', 'Overdue', 'Due today', 'Upcoming'],
-                ),
-                const SizedBox(height: 15),
-                MonthCalendar(),
-                const SizedBox(height: 15),
-                Expanded(
-                  child: TransactionList(
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: screenHeight * 0.02,
+                left: screenWidth * 0.02,
+                right: screenWidth * 0.02,
+              ),
+              child: Column(
+                children: [
+                  FilterWidget(
+                    filters: ['All', 'Overdue', 'Due today', 'Upcoming'],
+                  ),
+                  const SizedBox(height: 15),
+                  MonthCalendar(),
+                  const SizedBox(height: 15),
+                  TransactionList(
                     transactions: [
+                      TransactionItem(
+                        date: 'Jun 5',
+                        time: "6 pm",
+                        heading: 'Swiggy',
+                        sendOrReceived: 'Send',
+                        amount: '300',
+                      ),
+                      TransactionItem(
+                        date: 'Jun 5',
+                        time: "6 pm",
+                        heading: 'Swiggy',
+                        sendOrReceived: 'Send',
+                        amount: '300',
+                      ),
+                      TransactionItem(
+                        date: 'Jun 5',
+                        time: "6 pm",
+                        heading: 'Swiggy',
+                        sendOrReceived: 'Send',
+                        amount: '300',
+                      ),
+                      TransactionItem(
+                        date: 'Jun 5',
+                        time: "6 pm",
+                        heading: 'Swiggy',
+                        sendOrReceived: 'Send',
+                        amount: '300',
+                      ),
+                      TransactionItem(
+                        date: 'Jun 5',
+                        time: "6 pm",
+                        heading: 'Swiggy',
+                        sendOrReceived: 'Send',
+                        amount: '300',
+                      ),
+                      TransactionItem(
+                        date: 'Jun 5',
+                        time: "6 pm",
+                        heading: 'Swiggy',
+                        sendOrReceived: 'Send',
+                        amount: '300',
+                      ),
                       TransactionItem(
                         date: 'Jun 5',
                         time: "6 pm",
@@ -65,8 +113,8 @@ class _ReminderScreenState extends State<ReminderScreen> {
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

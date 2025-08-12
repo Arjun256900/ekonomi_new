@@ -21,10 +21,10 @@ class SetGoal extends StatelessWidget {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            leading: backButtonLeading(),
+            leading: BackButtonLeading(),
             title: const Text(
               "Goal",
-              style: TextStyle(fontWeight: FontWeight.w600),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             actions: [
               AddBtnAppbar(

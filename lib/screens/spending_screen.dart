@@ -26,11 +26,11 @@ class _SpendingScreenState extends State<SpendingScreen> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              leading: backButtonLeading(),
+              leading: BackButtonLeading(),
               backgroundColor: Colors.transparent,
               title: Text(
                 "Spending",
-                style: TextStyle(fontWeight: FontWeight.w600),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
               actions: [
                 AddBtnAppbar(

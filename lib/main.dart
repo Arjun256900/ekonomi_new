@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.transparent,
-        // body: OnboardingScreen(),
-        body: Chatbot(),
+        body: OnboardingScreen(),
+        // body: Chatbot(),
       ),
       theme: ThemeData(primaryColor: Color(0xFF03969D)),
     );

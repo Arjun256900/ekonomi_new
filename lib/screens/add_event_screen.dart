@@ -31,11 +31,11 @@ class _AddEventScreenState extends State<AddEventScreen> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              leading: backButtonLeading(),
+              leading: BackButtonLeading(),
               backgroundColor: Colors.transparent,
               title: Text(
                 "Add Event",
-                style: TextStyle(fontWeight: FontWeight.w600),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
             ),
             body: Padding(
