@@ -6,18 +6,18 @@ class MonthCalendar extends StatefulWidget {
   final List<int> highlightedDays; // e.g. [5, 15, 18]
 
   MonthCalendar({
-    Key? key,
+    super.key,
     DateTime? initialMonth,
     this.highlightedDays = const [],
-  }) : initialMonth = initialMonth ?? DateTime.now(),
-       super(key: key);
+  }) : initialMonth = initialMonth ?? DateTime.now();
 
   @override
+  // ignore: library_private_types_in_public_api
   _MonthCalendarState createState() => _MonthCalendarState();
 }
 
 class _MonthCalendarState extends State<MonthCalendar> {
-  late DateTime _displayedMonth;
+  late DateTime _displayedMonth; // this is the current month
 
   @override
   void initState() {
@@ -60,7 +60,7 @@ class _MonthCalendarState extends State<MonthCalendar> {
     List<Widget> dayRows = [];
 
     // Weekday titles
-    final weekdayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    final weekdayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'SA'];
 
     dayRows.add(
       Row(
@@ -98,7 +98,7 @@ class _MonthCalendarState extends State<MonthCalendar> {
                 child: Container(
                   margin: const EdgeInsets.all(4),
                   padding: const EdgeInsets.symmetric(
-                    vertical: 8,
+                    vertical: 3,
                     horizontal: 6,
                   ),
                   decoration: isHighlighted
@@ -110,8 +110,8 @@ class _MonthCalendarState extends State<MonthCalendar> {
                   child: Text(
                     dayCounter.toString(),
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: isSunday ? Colors.green : Colors.grey[800],
+                      fontWeight: FontWeight.bold,
+                      color: isSunday ? Color(0xff03969D) : Colors.grey[500],
                     ),
                   ),
                 ),
@@ -125,18 +125,35 @@ class _MonthCalendarState extends State<MonthCalendar> {
       if (dayCounter > daysInMonth) break;
     }
 
+    String prevMonthName = DateFormat.MMMM().format(
+      DateTime(_displayedMonth.year, _displayedMonth.month - 1),
+    );
+
+    String nextMonthName = DateFormat.MMMM().format(
+      DateTime(_displayedMonth.year, _displayedMonth.month + 1),
+    );
+
     return Column(
       children: [
         // Header
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: _prevMonth,
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.grey[500]),
+                    onPressed: _prevMonth,
+                  ),
+                  Text(
+                    prevMonthName,
+                    style: TextStyle(color: Colors.grey[500], fontSize: 13),
+                  ),
+                ],
               ),
+
               Text(
                 monthLabel,
                 style: TextStyle(
@@ -145,9 +162,20 @@ class _MonthCalendarState extends State<MonthCalendar> {
                   color: Color(0xFF03969D),
                 ),
               ),
-              IconButton(
-                icon: Icon(Icons.arrow_forward_ios),
-                onPressed: _nextMonth,
+              Row(
+                children: [
+                  Text(
+                    nextMonthName,
+                    style: TextStyle(color: Colors.grey[500], fontSize: 13),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey[500],
+                    ),
+                    onPressed: _nextMonth,
+                  ),
+                ],
               ),
             ],
           ),
@@ -155,10 +183,10 @@ class _MonthCalendarState extends State<MonthCalendar> {
         // Calendar Container
         Container(
           margin: const EdgeInsets.all(12),
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.only(top: 30, bottom: 40, left: 20, right: 20),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(35),
             boxShadow: [
               BoxShadow(
                 color: Colors.black12,
