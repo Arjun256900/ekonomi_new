@@ -10,33 +10,40 @@ class Chatbot extends StatelessWidget {
     return Stack(
       children: [
         Positioned.fill(child: Background()),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            automaticallyImplyLeading: false,
-            leading: BackButtonLeading(),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: Container(
-                  height: 46,
-                  width: 106,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(194, 224, 229, 1),
-                    borderRadius: BorderRadius.circular(23),
+        Positioned.fill(
+          child: SafeArea(
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                automaticallyImplyLeading: false,
+                leading: BackButtonLeading(),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: Container(
+                      height: 46,
+                      width: 106,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(194, 224, 229, 1),
+                        borderRadius: BorderRadius.circular(23),
+                      ),
+                      child: const Text(
+                        "History",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
-                  child: const Text(
-                    "History",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+                ],
               ),
-            ],
+              body: const ChatConvo(),
+            ),
           ),
-          body: const ChatConvo(),
         ),
       ],
     );

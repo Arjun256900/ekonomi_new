@@ -68,187 +68,198 @@ class _AddNewTransactionScreenBodyState
             Positioned.fill(child: Background()),
             GestureDetector(
               onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                resizeToAvoidBottomInset: true,
-                appBar: AppBar(
-                  automaticallyImplyLeading: false,
-                  leading: BackButtonLeading(),
-                  backgroundColor: const Color.fromARGB(0, 240, 240, 240),
-                  title: const Text(
-                    "Add Transaction",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+              child: SafeArea(
+                child: Scaffold(
+                  backgroundColor: Colors.transparent,
+                  resizeToAvoidBottomInset: true,
+                  appBar: AppBar(
+                    automaticallyImplyLeading: false,
+                    leading: BackButtonLeading(),
+                    backgroundColor: const Color.fromARGB(0, 240, 240, 240),
+                    title: const Text(
+                      "Add Transaction",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
-                ),
-                body: SafeArea(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text("Transaction type"),
-                          const SizedBox(height: 10),
-                          DebitCreditToggle(isDebit: isDebit),
+                  body: SafeArea(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Transaction type"),
+                            const SizedBox(height: 10),
+                            DebitCreditToggle(isDebit: isDebit),
 
-                          const SizedBox(height: 15),
-                          Dropdownfield(
-                            items: ["Cash", "Online"],
-                            hintText: 'Cash',
-                            selectedValue: state.sourceSelection.isEmpty
-                                ? null
-                                : state.sourceSelection,
-                            heading: "Source selection",
-                            onChanged: (value) {
-                              context.read<TransactionBloc>().add(
-                                SourceSelectionChanged(value),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 10),
-
-                          // Controlled Text Field
-                          CustomTextField(
-                            controller: amountController,
-                            heading: "Amount",
-                            hintText: "Enter Amount",
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) {
-                              context.read<TransactionBloc>().add(
-                                AmountChanged(value),
-                              );
-                            },
-                          ),
-
-                          const SizedBox(height: 10),
-                          DateField(
-                            heading: "Date",
-                            hintText: "Select Date of Transaction",
-                            onDateSelected: (value) {
-                              context.read<TransactionBloc>().add(
-                                DateChanged(value),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                          Dropdownfield(
-                            items: ["Food", "Others"],
-                            hintText: "Eg. Food",
-                            heading: "Category",
-                            selectedValue: state.category.isEmpty
-                                ? null
-                                : state.category,
-                            onChanged: (value) {
-                              context.read<TransactionBloc>().add(
-                                CategoryChanged(value),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "Upload bill copy",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: " (optional)",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
+                            const SizedBox(height: 15),
+                            Dropdownfield(
+                              items: ["Cash", "Online"],
+                              hintText: 'Cash',
+                              selectedValue: state.sourceSelection.isEmpty
+                                  ? null
+                                  : state.sourceSelection,
+                              heading: "Source selection",
+                              onChanged: (value) {
+                                context.read<TransactionBloc>().add(
+                                  SourceSelectionChanged(value),
+                                );
+                              },
                             ),
-                          ),
-                          const SizedBox(height: 7),
-                          FilePickerWidget(
-                            subtext:
-                                "Select the suitable document for upload here",
-                            filepath: state.filepath,
-                            onFilePicked: (path) {
-                              context.read<TransactionBloc>().add(
-                                FilepathChanged(path),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 35),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12),
-                            child: Row(
-                              children: [
-                                // Undo Button
-                                Expanded(
-                                  child: TextButton(
-                                    onPressed: () {
-                                      context.read<TransactionBloc>().add(
-                                        UndoTransaction(),
-                                      );
-                                      amountController.text = '';
-                                    },
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: Color.fromARGB(
-                                        255,
-                                        255,
-                                        255,
-                                        255,
-                                      ),
-                                      foregroundColor: Colors.black87,
-                                      side: BorderSide(
-                                        color: Color.fromRGBO(0, 0, 0, 0.1),
-                                        width: 0.5,
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 14,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                    ),
-                                    child: const Text('Undo'),
-                                  ),
-                                ),
-                                const SizedBox(width: 16),
-                                // Save Button
-                                Expanded(
-                                  child: ElevatedButton(
-                                    onPressed: state.isValid
-                                        ? () {
-                                            context.read<TransactionBloc>().add(
-                                              SubmitTransaction(context),
-                                            );
-                                            Navigator.of(context).pop();
-                                          }
-                                        : () {
-                                            showErrorSnackBar(
-                                              context,
-                                              "Please make sure to fill all the fields",
-                                            );
-                                          },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(
-                                        context,
-                                      ).primaryColor,
-                                      foregroundColor: Colors.white,
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 14,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      elevation: 0,
-                                    ),
-                                    child: const Text('Save'),
-                                  ),
-                                ),
-                              ],
+                            const SizedBox(height: 10),
+
+                            // Controlled Text Field
+                            CustomTextField(
+                              controller: amountController,
+                              heading: "Amount",
+                              hintText: "Enter Amount",
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) {
+                                context.read<TransactionBloc>().add(
+                                  AmountChanged(value),
+                                );
+                              },
                             ),
-                          ),
-                        ],
+
+                            const SizedBox(height: 10),
+                            DateField(
+                              heading: "Date",
+                              hintText: "Select Date of Transaction",
+                              onDateSelected: (value) {
+                                context.read<TransactionBloc>().add(
+                                  DateChanged(value),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                            Dropdownfield(
+                              items: ["Food", "Others"],
+                              hintText: "Eg. Food",
+                              heading: "Category",
+                              selectedValue: state.category.isEmpty
+                                  ? null
+                                  : state.category,
+                              onChanged: (value) {
+                                context.read<TransactionBloc>().add(
+                                  CategoryChanged(value),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Upload bill copy",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: " (optional)",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 7),
+                            FilePickerWidget(
+                              subtext:
+                                  "Select the suitable document for upload here",
+                              filepath: state.filepath,
+                              onFilePicked: (path) {
+                                context.read<TransactionBloc>().add(
+                                  FilepathChanged(path),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 35),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: Row(
+                                children: [
+                                  // Undo Button
+                                  Expanded(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        context.read<TransactionBloc>().add(
+                                          UndoTransaction(),
+                                        );
+                                        amountController.text = '';
+                                      },
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Color.fromARGB(
+                                          255,
+                                          255,
+                                          255,
+                                          255,
+                                        ),
+                                        foregroundColor: Colors.black87,
+                                        side: BorderSide(
+                                          color: Color.fromRGBO(0, 0, 0, 0.1),
+                                          width: 0.5,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 14,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            6,
+                                          ),
+                                        ),
+                                      ),
+                                      child: const Text('Undo'),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  // Save Button
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: state.isValid
+                                          ? () {
+                                              context
+                                                  .read<TransactionBloc>()
+                                                  .add(
+                                                    SubmitTransaction(context),
+                                                  );
+                                              Navigator.of(context).pop();
+                                            }
+                                          : () {
+                                              showErrorSnackBar(
+                                                context,
+                                                "Please make sure to fill all the fields",
+                                              );
+                                            },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Theme.of(
+                                          context,
+                                        ).primaryColor,
+                                        foregroundColor: Colors.white,
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 14,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            6,
+                                          ),
+                                        ),
+                                        elevation: 0,
+                                      ),
+                                      child: const Text('Save'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

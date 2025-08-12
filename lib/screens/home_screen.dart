@@ -15,7 +15,7 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   static const Color primaryColor = Color.fromRGBO(6, 139, 147, 1);
-  
+
   int _selectedIndex = 0;
   bool isopenAlert = false;
 
