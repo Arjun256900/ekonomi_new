@@ -78,7 +78,7 @@ class SetGoal extends StatelessWidget {
                                     heading: goal['goalName'] ?? "",
                                     priority: goal['priority'] ?? "Low",
                                     sourceAccount: goal['sourceAccount'] ?? "",
-                                    percentage: "50", // constant
+                                    percentage: "50", // constant for now
                                   ),
                                   const SizedBox(height: 10),
                                 ],

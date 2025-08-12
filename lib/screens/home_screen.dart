@@ -230,7 +230,7 @@ class HomeTab extends StatelessWidget {
             SizedBox(height: 16),
             ActionGrid(),
             SizedBox(height: 16),
-            isopenAlert ? AlertDash() : SizedBox.shrink(),
+            AlertDash(),
           ],
         ),
       ),
