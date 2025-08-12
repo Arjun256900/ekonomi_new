@@ -29,7 +29,7 @@ class Chatbot extends StatelessWidget {
                   ),
                   child: const Text(
                     "History",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
                   ),
                 ),

@@ -28,7 +28,7 @@ class TransactionScreen extends StatelessWidget {
               backgroundColor: Colors.transparent,
               title: Text(
                 "Transaction Management",
-                style: TextStyle(fontWeight: FontWeight.w600),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
             ),
             body: Padding(
@@ -100,7 +100,7 @@ class TransactionScreen extends StatelessWidget {
                             return TransactionList(
                               transactions: state.transactions.map((tx) {
                                 return TransactionItem(
-                                  date: tx['date']  ?? '',
+                                  date: tx['date'] ?? '',
                                   time: tx['time'] ?? '',
                                   heading: tx['category'] ?? '',
                                   sendOrReceived: tx['debitOrCredit'] ?? '',

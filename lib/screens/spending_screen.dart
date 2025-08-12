@@ -30,7 +30,7 @@ class _SpendingScreenState extends State<SpendingScreen> {
               backgroundColor: Colors.transparent,
               title: Text(
                 "Spending",
-                style: TextStyle(fontWeight: FontWeight.w600),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
               actions: [
                 AddBtnAppbar(

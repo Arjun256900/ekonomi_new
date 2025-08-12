@@ -56,7 +56,7 @@ class _AddNewGoalState extends State<AddNewGoal> {
                 leading: backButtonLeading(),
                 title: Text(
                   "Add New Goal",
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                 ),
                 backgroundColor: Colors.transparent,
               ),

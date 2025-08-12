@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AddBtnAppbar extends StatelessWidget {
   final String title;
   final VoidCallback ontap;
-  AddBtnAppbar({super.key, required this.ontap, required this.title});
+  const AddBtnAppbar({super.key, required this.ontap, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,8 @@ class AddBtnAppbar extends StatelessWidget {
               ),
               CircleAvatar(
                 radius: 17.0,
-                child: Icon(Icons.add, color: Colors.black, size: 20),
                 backgroundColor: Color.fromRGBO(237, 237, 237, 1),
+                child: Icon(Icons.add, color: Colors.black, size: 20),
               ),
             ],
           ),

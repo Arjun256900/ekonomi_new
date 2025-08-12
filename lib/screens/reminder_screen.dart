@@ -1,7 +1,7 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/widgets/back_button.dart';
 import 'package:ekonomi_new/widgets/general/filter_widget.dart';
-import 'package:ekonomi_new/widgets/general/month_calender.dart';
+import 'package:ekonomi_new/widgets/reminder_screen/month_calender.dart';
 import 'package:ekonomi_new/widgets/transaction_screen/transaction_list.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,6 @@ class _ReminderScreenState extends State<ReminderScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         Positioned.fill(child: Background()),
@@ -28,7 +27,7 @@ class _ReminderScreenState extends State<ReminderScreen> {
             backgroundColor: Colors.transparent,
             title: Text(
               "Reminders",
-              style: TextStyle(fontWeight: FontWeight.w600),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
           ),
           body: SingleChildScrollView(
