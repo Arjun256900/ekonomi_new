@@ -70,7 +70,6 @@ class _AddNewGoalState extends State<AddNewGoal> {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            
                             CustomTextField(
                               heading: "Goal Name",
                               hintText: "Enter your Goal Name",
@@ -104,7 +103,7 @@ class _AddNewGoalState extends State<AddNewGoal> {
                               selectedValue: state.priority.isEmpty
                                   ? null
                                   : state.priority,
-                              hintText: 'medium',
+                              hintText: 'Medium',
                               onChanged: (v) =>
                                   bloc.add(PrioityLevelChanged(v)),
                             ),
