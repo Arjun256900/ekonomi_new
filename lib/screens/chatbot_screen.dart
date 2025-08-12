@@ -15,7 +15,7 @@ class Chatbot extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             automaticallyImplyLeading: false,
-            leading: backButtonLeading(),
+            leading: BackButtonLeading(),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),

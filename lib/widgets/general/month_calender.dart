@@ -125,13 +125,13 @@ class _MonthCalendarState extends State<MonthCalendar> {
       if (dayCounter > daysInMonth) break;
     }
 
-    String prevMonthName = DateFormat.MMMM().format(
-      DateTime(_displayedMonth.year, _displayedMonth.month - 1),
-    );
+    String prevMonthName = DateFormat.MMMM()
+        .format(DateTime(_displayedMonth.year, _displayedMonth.month - 1))
+        .substring(0, 3);
 
-    String nextMonthName = DateFormat.MMMM().format(
-      DateTime(_displayedMonth.year, _displayedMonth.month + 1),
-    );
+    String nextMonthName = DateFormat.MMMM()
+        .format(DateTime(_displayedMonth.year, _displayedMonth.month + 1))
+        .substring(0, 3);
 
     return Column(
       children: [
@@ -186,7 +186,7 @@ class _MonthCalendarState extends State<MonthCalendar> {
           padding: EdgeInsets.only(top: 30, bottom: 40, left: 20, right: 20),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(35),
+            borderRadius: BorderRadius.circular(25),
             boxShadow: [
               BoxShadow(
                 color: Colors.black12,

@@ -31,7 +31,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              leading: backButtonLeading(),
+              leading: BackButtonLeading(),
               backgroundColor: Colors.transparent,
               title: Text(
                 "Add Event",

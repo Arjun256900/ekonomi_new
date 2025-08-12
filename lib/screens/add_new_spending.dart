@@ -61,7 +61,7 @@ class _AddNewSpendingState extends State<AddNewSpending> {
                   resizeToAvoidBottomInset: true,
                   appBar: AppBar(
                     automaticallyImplyLeading: false,
-                    leading: backButtonLeading(),
+                    leading: BackButtonLeading(),
                     title: const Text(
                       "Add Spending",
                       style: TextStyle(

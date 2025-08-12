@@ -53,7 +53,7 @@ class _AddNewGoalState extends State<AddNewGoal> {
               resizeToAvoidBottomInset: true,
               appBar: AppBar(
                 automaticallyImplyLeading: false,
-                leading: backButtonLeading(),
+                leading: BackButtonLeading(),
                 title: Text(
                   "Add New Goal",
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),

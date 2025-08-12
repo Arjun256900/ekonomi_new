@@ -73,7 +73,7 @@ class _AddNewTransactionScreenBodyState
                 resizeToAvoidBottomInset: true,
                 appBar: AppBar(
                   automaticallyImplyLeading: false,
-                  leading: backButtonLeading(),
+                  leading: BackButtonLeading(),
                   backgroundColor: const Color.fromARGB(0, 240, 240, 240),
                   title: const Text(
                     "Add Transaction",

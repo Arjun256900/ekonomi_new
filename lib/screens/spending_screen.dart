@@ -26,7 +26,7 @@ class _SpendingScreenState extends State<SpendingScreen> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              leading: backButtonLeading(),
+              leading: BackButtonLeading(),
               backgroundColor: Colors.transparent,
               title: Text(
                 "Spending",

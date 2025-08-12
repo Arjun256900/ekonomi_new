@@ -24,7 +24,7 @@ class TransactionScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              leading: backButtonLeading(),
+              leading: BackButtonLeading(),
               backgroundColor: Colors.transparent,
               title: Text(
                 "Transaction Management",
