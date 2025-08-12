@@ -2,34 +2,27 @@ import 'package:ekonomi_new/bloc/AddNewSpending/spending_event.dart';
 import 'package:ekonomi_new/bloc/AddNewSpending/spending_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-class SpendingBloc extends Bloc<SpendingEvent,SpendingState>{
-  SpendingBloc(): super(SpendingState.initial()){
-    on<AmountChanged>((event,emit){
-      final newState =  state.copyWith(amount: event.value);
+
+class SpendingBloc extends Bloc<SpendingEvent, SpendingState> {
+  SpendingBloc() : super(SpendingState.initial()) {
+    on<AmountChanged>((event, emit) {
+      final newState = state.copyWith(amount: event.value);
       emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
-    on<DateChanged>((event,emit){
-      final newState =  state.copyWith(date: event.value);
+    on<DateChanged>((event, emit) {
+      final newState = state.copyWith(date: event.value);
       emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
-    on<NotesChanged>((event,emit){
-      final newState =  state.copyWith(notes: event.value);
+    on<NotesChanged>((event, emit) {
+      final newState = state.copyWith(notes: event.value);
       emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
-    on<FilepathChanged>((event,emit){
-      final newState =  state.copyWith(filepath: event.value);
+    on<FilepathChanged>((event, emit) {
+      final newState = state.copyWith(filepath: event.value);
       emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
     on<UndoSpending>((event, emit) {
-      emit(
-        state.copyWith(
-          
-          amount: '',
-          date: '',
-          notes: '',
-          filepath: '',
-        ),
-      );
+      emit(state.copyWith(amount: '', date: '', notes: '', filepath: ''));
     });
     on<SubmitSpending>((event, emit) {
       if (_formIsValid(state)) {
@@ -49,7 +42,6 @@ class SpendingBloc extends Bloc<SpendingEvent,SpendingState>{
         print("Form is not valid.");
       }
     });
-
   }
   bool _formIsValid(SpendingState s) {
     return s.amount.isNotEmpty &&
