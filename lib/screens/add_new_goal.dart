@@ -70,7 +70,7 @@ class _AddNewGoalState extends State<AddNewGoal> {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            // IMPORTANT: pass controller instead of initialValue
+                            
                             CustomTextField(
                               heading: "Goal Name",
                               hintText: "Enter your Goal Name",

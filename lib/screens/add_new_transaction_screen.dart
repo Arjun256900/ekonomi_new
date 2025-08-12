@@ -111,7 +111,8 @@ class _AddNewTransactionScreenBodyState
                           CustomTextField(
                             controller: amountController,
                             heading: "Amount",
-                            hintText: "Enter Amount",
+                            hintText: "Enter Amount",                            
+                            keyboardType: TextInputType.number,
                             onChanged: (value) {
                               context.read<TransactionBloc>().add(
                                 AmountChanged(value),
