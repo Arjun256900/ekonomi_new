@@ -22,19 +22,23 @@ class AddEventScreen extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
+
     return BlocProvider(
       create: (_) => AddEventBloc(),
       child: Stack(
         children: [
           const Positioned.fill(child: Background()),
           Positioned.fill(
+
             child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
                 automaticallyImplyLeading: false,
+
                 leading: const BackButtonLeading(),
                 backgroundColor: Colors.transparent,
                 title: const Text(
+
                   "Add Event",
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                 ),
@@ -45,6 +49,7 @@ class AddEventScreen extends StatelessWidget {
                   right: screenWidth * 0.04,
                   top: screenHeight * 0.025,
                 ),
+
                 child: BlocBuilder<AddEventBloc, AddEventState>(
                   builder: (context, state) {
                     return SingleChildScrollView(
@@ -191,6 +196,7 @@ class AddEventScreen extends StatelessWidget {
                       ),
                     );
                   },
+
                 ),
               ),
             ),
