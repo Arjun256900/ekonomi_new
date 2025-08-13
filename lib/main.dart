@@ -1,7 +1,11 @@
 import 'package:ekonomi_new/bloc/AddNewGoal/goal_list_bloc.dart';
+import 'package:ekonomi_new/bloc/AddNewGoal/goal_list_event.dart';
 import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
+import 'package:ekonomi_new/screens/add_event_screen.dart';
 import 'package:ekonomi_new/screens/chatbot_screen.dart';
+import 'package:ekonomi_new/screens/ocassion_planner_screen.dart';
 import 'package:ekonomi_new/screens/onboarding_screen.dart';
+import 'package:ekonomi_new/screens/reminder_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,8 +32,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.transparent,
-        body: OnboardingScreen(),
-        // body: Chatbot(),
+        // body: OnboardingScreen(),
+        body: AddEventScreen(),
       ),
       theme: ThemeData(primaryColor: Color(0xFF03969D)),
     );
