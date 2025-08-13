@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.transparent,
         // body: OnboardingScreen(),
-        body: AddEventScreen(),
+        body: ReminderScreen(),
       ),
       theme: ThemeData(primaryColor: Color(0xFF03969D)),
     );

@@ -17,7 +17,7 @@ class _ReminderCardState extends State<ReminderCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Colors.white,
@@ -26,9 +26,17 @@ class _ReminderCardState extends State<ReminderCard> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset('assets/occasional_planner/occasional_planner_1.png'),
+              Container(
+                height: 42,
+                width: 42,
+                decoration: BoxDecoration(
+                  color: Colors.teal,
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                child: Icon(Icons.home, color: Colors.white),
+              ),
               Text(widget.reminderTitle),
               Text(widget.amount),
             ],
