@@ -1,4 +1,4 @@
-import 'package:ekonomi_new/screens/ocassion_planner_screen.dart';
+import 'package:ekonomi_new/screens/reminder_screen.dart';
 import 'package:ekonomi_new/screens/set_goal.dart';
 import 'package:ekonomi_new/screens/spending_screen.dart';
 import 'package:ekonomi_new/screens/transaction_screen.dart';
@@ -12,7 +12,7 @@ class ActionGrid extends StatelessWidget {
       subtitle: 'Boost your savings by adding funds now.',
       icon: Icons.add,
       filled: true,
-      navigation: OcassionPlannerScreen(),
+      navigation: ReminderScreen(),
     ),
     ActionItem(
       title: 'Goals',

@@ -56,153 +56,157 @@ class _AddNewSpendingState extends State<AddNewSpending> {
               const Positioned.fill(child: Background()),
               GestureDetector(
                 onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-                child: Scaffold(
-                  backgroundColor: Colors.transparent,
-                  resizeToAvoidBottomInset: true,
-                  appBar: AppBar(
-                    automaticallyImplyLeading: false,
-                    leading: BackButtonLeading(),
-                    title: const Text(
-                      "Add Spending",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    ),
+                child: SafeArea(
+                  child: Scaffold(
                     backgroundColor: Colors.transparent,
-                  ),
-                  body: SafeArea(
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomTextField(
-                              heading: "Enter Amount",
-                              hintText: "Enter how much did you spend?",
-                              onChanged: (val) => context
-                                  .read<SpendingBloc>()
-                                  .add(AmountChanged(val)),
-                            ),
-                            const SizedBox(height: 10),
-                            DateField(
-                              heading: "Date",
-                              hintText: "Select date",
-                              onDateSelected: (date) => context
-                                  .read<SpendingBloc>()
-                                  .add(DateChanged(date)),
-                            ),
-                            const SizedBox(height: 10),
-                            CustomTextField2(
-                              heading: "Notes",
-                              hintText: "Enter notes about your spending.",
-                              onChanged: (val) => context
-                                  .read<SpendingBloc>()
-                                  .add(NotesChanged(val)),
-                            ),
-                            const SizedBox(height: 10),
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  const TextSpan(
-                                    text: "Upload bill copy",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  const TextSpan(
-                                    text: " (optional)",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ],
+                    resizeToAvoidBottomInset: true,
+                    appBar: AppBar(
+                      automaticallyImplyLeading: false,
+                      leading: BackButtonLeading(),
+                      title: const Text(
+                        "Add Spending",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      ),
+                      backgroundColor: Colors.transparent,
+                    ),
+                    body: SafeArea(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomTextField(
+                                heading: "Enter Amount",
+                                hintText: "Enter how much did you spend?",
+                                onChanged: (val) => context
+                                    .read<SpendingBloc>()
+                                    .add(AmountChanged(val)),
                               ),
-                            ),
-                            const SizedBox(height: 7),
-                            FilePickerWidget(
-                              subtext:
-                                  "Select the suitable document for upload here",
-                              onFilePicked: (path) => context
-                                  .read<SpendingBloc>()
-                                  .add(FilepathChanged(path)),
-                              filepath: state.filepath,
-                            ),
-                            const SizedBox(height: 10),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
+                              const SizedBox(height: 10),
+                              DateField(
+                                heading: "Date",
+                                hintText: "Select date",
+                                onDateSelected: (date) => context
+                                    .read<SpendingBloc>()
+                                    .add(DateChanged(date)),
                               ),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: TextButton(
-                                      onPressed: () {
-                                        context.read<SpendingBloc>().add(
-                                          UndoSpending(),
-                                        );
-                                        amountController.text = '';
-                                      },
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: Colors.white,
-                                        foregroundColor: Colors.black87,
-                                        side: const BorderSide(
-                                          color: Color.fromRGBO(0, 0, 0, 0.1),
-                                          width: 0.5,
-                                        ),
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 14,
-                                        ),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            6,
+                              const SizedBox(height: 10),
+                              CustomTextField2(
+                                heading: "Notes",
+                                hintText: "Enter notes about your spending.",
+                                onChanged: (val) => context
+                                    .read<SpendingBloc>()
+                                    .add(NotesChanged(val)),
+                              ),
+                              const SizedBox(height: 10),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: "Upload bill copy",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    const TextSpan(
+                                      text: " (optional)",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 7),
+                              FilePickerWidget(
+                                subtext:
+                                    "Select the suitable document for upload here",
+                                onFilePicked: (path) => context
+                                    .read<SpendingBloc>()
+                                    .add(FilepathChanged(path)),
+                                filepath: state.filepath,
+                              ),
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextButton(
+                                        onPressed: () {
+                                          context.read<SpendingBloc>().add(
+                                            UndoSpending(),
+                                          );
+                                          amountController.text = '';
+                                        },
+                                        style: TextButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          foregroundColor: Colors.black87,
+                                          side: const BorderSide(
+                                            color: Color.fromRGBO(0, 0, 0, 0.1),
+                                            width: 0.5,
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 14,
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              6,
+                                            ),
                                           ),
                                         ),
+                                        child: const Text('Undo'),
                                       ),
-                                      child: const Text('Undo'),
                                     ),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: ElevatedButton(
-                                      onPressed: state.isValid
-                                          ? () {
-                                              context.read<SpendingBloc>().add(
-                                                SubmitSpending(context),
-                                              );
-                                              Navigator.of(context).pop();
-                                            }
-                                          : () {
-                                              showErrorSnackBar(
-                                                context,
-                                                "Please make sure to fill all the fields",
-                                              );
-                                            },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Theme.of(
-                                          context,
-                                        ).primaryColor,
-                                        foregroundColor: Colors.white,
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 14,
-                                        ),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            6,
+                                    const SizedBox(width: 16),
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: state.isValid
+                                            ? () {
+                                                context
+                                                    .read<SpendingBloc>()
+                                                    .add(
+                                                      SubmitSpending(context),
+                                                    );
+                                                Navigator.of(context).pop();
+                                              }
+                                            : () {
+                                                showErrorSnackBar(
+                                                  context,
+                                                  "Please make sure to fill all the fields",
+                                                );
+                                              },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Theme.of(
+                                            context,
+                                          ).primaryColor,
+                                          foregroundColor: Colors.white,
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 14,
                                           ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              6,
+                                            ),
+                                          ),
+                                          elevation: 0,
                                         ),
-                                        elevation: 0,
+                                        child: const Text('Save'),
                                       ),
-                                      child: const Text('Save'),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

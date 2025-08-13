@@ -2,7 +2,7 @@ import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/widgets/back_button.dart';
 import 'package:ekonomi_new/widgets/general/filter_widget.dart';
 import 'package:ekonomi_new/widgets/general/month_calender.dart';
-import 'package:ekonomi_new/widgets/transaction_screen/transaction_list.dart';
+import 'package:ekonomi_new/widgets/reminders_screen/reminder_transaction_list.dart';
 import 'package:flutter/material.dart';
 
 class ReminderScreen extends StatefulWidget {
@@ -20,100 +20,53 @@ class _ReminderScreenState extends State<ReminderScreen> {
     return Stack(
       children: [
         Positioned.fill(child: Background()),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            leading: BackButtonLeading(),
-            backgroundColor: Colors.transparent,
-            title: Text(
-              "Reminders",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-            ),
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: screenHeight * 0.02,
-                left: screenWidth * 0.02,
-                right: screenWidth * 0.02,
+        Positioned.fill(
+          child: SafeArea(
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                leading: BackButtonLeading(),
+                backgroundColor: Colors.transparent,
+                title: Text(
+                  "Reminders",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                ),
               ),
-              child: Column(
-                children: [
-                  FilterWidget(
-                    filters: ['All', 'Overdue', 'Due today', 'Upcoming'],
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: screenHeight * 0.02,
+                    left: screenWidth * 0.02,
+                    right: screenWidth * 0.02,
                   ),
-                  const SizedBox(height: 15),
-                  MonthCalendar(),
-                  const SizedBox(height: 15),
-                  TransactionList(
-                    transactions: [
-                      TransactionItem(
-                        date: 'Jun 5',
-                        time: "6 pm",
-                        heading: 'Swiggy',
-                        sendOrReceived: 'Send',
-                        amount: '300',
+                  child: Column(
+                    children: [
+                      FilterWidget(
+                        filters: ['All', 'Overdue', 'Due today', 'Upcoming'],
                       ),
-                      TransactionItem(
-                        date: 'Jun 5',
-                        time: "6 pm",
-                        heading: 'Swiggy',
-                        sendOrReceived: 'Send',
-                        amount: '300',
-                      ),
-                      TransactionItem(
-                        date: 'Jun 5',
-                        time: "6 pm",
-                        heading: 'Swiggy',
-                        sendOrReceived: 'Send',
-                        amount: '300',
-                      ),
-                      TransactionItem(
-                        date: 'Jun 5',
-                        time: "6 pm",
-                        heading: 'Swiggy',
-                        sendOrReceived: 'Send',
-                        amount: '300',
-                      ),
-                      TransactionItem(
-                        date: 'Jun 5',
-                        time: "6 pm",
-                        heading: 'Swiggy',
-                        sendOrReceived: 'Send',
-                        amount: '300',
-                      ),
-                      TransactionItem(
-                        date: 'Jun 5',
-                        time: "6 pm",
-                        heading: 'Swiggy',
-                        sendOrReceived: 'Send',
-                        amount: '300',
-                      ),
-                      TransactionItem(
-                        date: 'Jun 5',
-                        time: "6 pm",
-                        heading: 'Swiggy',
-                        sendOrReceived: 'Send',
-                        amount: '300',
-                      ),
-                      TransactionItem(
-                        date: 'Jun 5',
-                        time: "6 pm",
-                        heading: 'Swiggy',
-                        sendOrReceived: 'Send',
-                        amount: '300',
-                      ),
-                      TransactionItem(
-                        date: 'Jun 5',
-                        time: "6 pm",
-                        heading: 'Swiggy',
-                        sendOrReceived: 'Send',
-                        amount: '300',
+                      const SizedBox(height: 15),
+                      MonthCalendar(),
+                      const SizedBox(height: 15),
+                      ReminderTransactionList(
+                        reminderItems: [
+                          ReminderItem(
+                            reminderAmount: "5000",
+                            reminderTitle: "Loan EMI - HDFC",
+                            date: "9 Apr",
+                            time: "12am",
+                          ),
+                          ReminderItem(
+                            reminderAmount: "5000",
+                            reminderTitle: "Loan EMI - HDFC",
+                            date: "9 Apr",
+                            time: "12am",
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
           ),

@@ -20,98 +20,106 @@ class TransactionScreen extends StatelessWidget {
       children: [
         Positioned.fill(child: Background()),
         Positioned.fill(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              leading: BackButtonLeading(),
+          child: SafeArea(
+            child: Scaffold(
               backgroundColor: Colors.transparent,
-              title: Text(
-                "Transaction Management",
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                leading: BackButtonLeading(),
+                backgroundColor: Colors.transparent,
+                title: Text(
+                  "Transaction Management",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                ),
               ),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: () => {
-                      Navigator.of(context).push(
-                        CupertinoPageRoute(
-                          builder: (context) => AddNewTransactionScreen(),
+              body: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () => {
+                        Navigator.of(context).push(
+                          CupertinoPageRoute(
+                            builder: (context) => AddNewTransactionScreen(),
+                          ),
                         ),
-                      ),
-                    },
-                    child: Container(
-                      width: 369,
-                      height: 79,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.white,
-                      ),
+                      },
+                      child: Container(
+                        width: 369,
+                        height: 79,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
+                        ),
 
-                      child: Stack(
-                        alignment: AlignmentDirectional.centerStart,
-                        children: [
-                          Container(
-                            height: 48,
-                            width: 4,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(255, 215, 68, 1),
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(3),
-                                bottomRight: Radius.circular(3),
+                        child: Stack(
+                          alignment: AlignmentDirectional.centerStart,
+                          children: [
+                            Container(
+                              height: 48,
+                              width: 4,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 215, 68, 1),
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(3),
+                                  bottomRight: Radius.circular(3),
+                                ),
                               ),
                             ),
-                          ),
-                          NewTransaction(),
-                        ],
+                            NewTransaction(),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 25),
-                  Text(
-                    "Recent Transaction",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 25),
-                  FilterWidget(
-                    filters: [
-                      'All',
-                      '7 days',
-                      '30 days',
-                      '90 days',
-                      '180 days',
-                    ],
-                  ),
-                  const SizedBox(height: 25),
-                  Expanded(
-                    child:
-                        BlocBuilder<TransactionListBloc, TransactionListState>(
-                          builder: (context, state) {
-                            if (state.transactions.isEmpty) {
-                              return Center(
-                                child: Text("No transactions yet."),
-                              );
-                            }
-
-                            return TransactionList(
-                              transactions: state.transactions.map((tx) {
-                                return TransactionItem(
-                                  date: tx['date'] ?? '',
-                                  time: tx['time'] ?? '',
-                                  heading: tx['category'] ?? '',
-                                  sendOrReceived: tx['debitOrCredit'] ?? '',
-                                  amount: tx['amount'] ?? '',
+                    const SizedBox(height: 25),
+                    Text(
+                      "Recent Transaction",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 25),
+                    FilterWidget(
+                      filters: [
+                        'All',
+                        '7 days',
+                        '30 days',
+                        '90 days',
+                        '180 days',
+                      ],
+                    ),
+                    const SizedBox(height: 25),
+                    Expanded(
+                      child:
+                          BlocBuilder<
+                            TransactionListBloc,
+                            TransactionListState
+                          >(
+                            builder: (context, state) {
+                              if (state.transactions.isEmpty) {
+                                return Center(
+                                  child: Text("No transactions yet."),
                                 );
-                              }).toList(),
-                            );
-                          },
-                        ),
-                  ),
-                ],
+                              }
+
+                              return TransactionList(
+                                transactions: state.transactions.map((tx) {
+                                  return TransactionItem(
+                                    date: tx['date'] ?? '',
+                                    time: tx['time'] ?? '',
+                                    heading: tx['category'] ?? '',
+                                    sendOrReceived: tx['debitOrCredit'] ?? '',
+                                    amount: tx['amount'] ?? '',
+                                  );
+                                }).toList(),
+                              );
+                            },
+                          ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
