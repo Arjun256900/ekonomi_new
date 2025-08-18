@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class MonthCalendar extends StatefulWidget {
   final DateTime initialMonth;
-  final List<int> highlightedDays; // e.g. [5, 15, 18]
+  final List<int> highlightedDays;
 
   MonthCalendar({
     super.key,
@@ -12,12 +12,11 @@ class MonthCalendar extends StatefulWidget {
   }) : initialMonth = initialMonth ?? DateTime.now();
 
   @override
-  // ignore: library_private_types_in_public_api
   _MonthCalendarState createState() => _MonthCalendarState();
 }
 
 class _MonthCalendarState extends State<MonthCalendar> {
-  late DateTime _displayedMonth; // this is the current month
+  late DateTime _displayedMonth;
 
   @override
   void initState() {
@@ -54,12 +53,9 @@ class _MonthCalendarState extends State<MonthCalendar> {
       _displayedMonth.month,
     );
     final firstWeekday =
-        DateTime(_displayedMonth.year, _displayedMonth.month, 1).weekday %
-        7; // Sunday=0
-
+        DateTime(_displayedMonth.year, _displayedMonth.month, 1).weekday % 7;
     List<Widget> dayRows = [];
 
-    // Weekday titles
     final weekdayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'SA'];
 
     dayRows.add(
@@ -144,7 +140,7 @@ class _MonthCalendarState extends State<MonthCalendar> {
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.grey[500]),
+                    icon: Icon(Icons.arrow_back_ios, color: Colors.grey[500]),
                     onPressed: _prevMonth,
                   ),
                   Text(

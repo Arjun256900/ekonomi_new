@@ -1,4 +1,5 @@
 import 'package:ekonomi_new/background/backGround.dart';
+import 'package:ekonomi_new/widgets/Qr_camer.dart';
 import 'package:ekonomi_new/widgets/home_screen/alert_dash.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,12 @@ class _HomescreenState extends State<Homescreen> {
   List<Widget> get _screens => [
     HomeTab(isopenAlert: isopenAlert),
     Center(child: Text("Search Page", style: TextStyle(fontSize: 24))),
-    Center(child: Text("Scan Page", style: TextStyle(fontSize: 24))),
+   QrCamera(
+    onImageSelected: (imageBytes) {
+      // Here you have the image bytes ready for backend
+      print("Image selected: ${imageBytes?.lengthInBytes} bytes");
+    },
+  ),
     Center(child: Text("History Page", style: TextStyle(fontSize: 24))),
     Center(child: Text("Profile Page", style: TextStyle(fontSize: 24))),
   ];

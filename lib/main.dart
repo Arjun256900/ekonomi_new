@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.transparent,
-        // body: OnboardingScreen(),
-        body: ReminderScreen(),
+        body: OnboardingScreen(),
+        // body: ReminderScreen(),
       ),
       theme: ThemeData(primaryColor: Color(0xFF03969D)),
     );
