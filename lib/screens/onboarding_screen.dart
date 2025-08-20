@@ -36,7 +36,7 @@ class OnboardingScreen extends StatelessWidget {
                                 flex: 3,
                                 child: Image.asset(
                                   page.imagePath,
-                                  fit: BoxFit.contain,
+                                  fit: BoxFit.scaleDown,
                                 ),
                               ),
                               Padding(
