@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 
 class EventCard extends StatefulWidget {
   final String eventText;
-  final String imagePath;
-  const EventCard({
-    super.key,
-    required this.eventText,
-    required this.imagePath,
-  });
+  final IconData icon;
+  const EventCard({super.key, required this.eventText, required this.icon});
 
   @override
   State<EventCard> createState() => _EventCardState();
@@ -28,7 +24,10 @@ class _EventCardState extends State<EventCard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(widget.imagePath, height: 55, width: 55),
+              CircleAvatar(
+                backgroundColor: Color.fromRGBO(236, 236, 236, 1),
+                child: Icon(widget.icon, color: Colors.teal),
+              ),
               Text("Apr 15"),
             ],
           ),

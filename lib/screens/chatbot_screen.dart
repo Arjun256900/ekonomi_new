@@ -176,8 +176,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
   void _sendMessage() {
     final text = _controller.text.trim();
     if (text.isNotEmpty) {
-      // Use Navigator to access ChatConvo state or pass callback via constructor
-      // For now just print
+     
       print("Message sent: $text");
       _controller.clear();
     }

@@ -91,13 +91,11 @@ class _OcassionPlannerScreenState extends State<OcassionPlannerScreen> {
                             EventCard(
                               eventText:
                                   "Dad's Birthday for the first time in this world of the greatest of the attrocious",
-                              imagePath:
-                                  "assets/occasional_planner/occasional_planner_1.png",
+                              icon: Icons.celebration,
                             ),
                             EventCard(
                               eventText: "Shopping for Diwali",
-                              imagePath:
-                                  "assets/occasional_planner/occasional_planner_2.png",
+                              icon: Icons.confirmation_num,
                             ),
                           ],
                         ),

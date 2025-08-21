@@ -34,9 +34,10 @@ class ActionCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         elevation: item.filled ? 4 : 2,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               CircleAvatar(
                 backgroundColor: item.filled ? Colors.white : Colors.grey[200],
@@ -45,7 +46,7 @@ class ActionCard extends StatelessWidget {
                   color: item.filled ? Color(0xFF048B94) : Color(0xFF048B94),
                 ),
               ),
-              Spacer(),
+              // Spacer(),
               Text(
                 item.title,
                 style: TextStyle(
@@ -54,7 +55,7 @@ class ActionCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 4),
+              // SizedBox(height: 2),
               Text(
                 item.subtitle,
                 style: TextStyle(
