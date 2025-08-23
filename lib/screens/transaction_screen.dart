@@ -1,7 +1,6 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
 import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_state.dart';
-import 'package:ekonomi_new/screens/add_new_transaction_screen.dart';
 import 'package:ekonomi_new/widgets/general/back_button.dart';
 import 'package:ekonomi_new/widgets/general/filter_widget.dart';
 import 'package:ekonomi_new/widgets/transaction_screen/transaction_list.dart';
@@ -49,7 +48,10 @@ class TransactionScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Add New Transaction'),
+                                Text(
+                                  'Add New Transaction',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
                                 CircleAvatar(
                                   radius: 22,
                                   backgroundColor: Color.fromRGBO(

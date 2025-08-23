@@ -1,7 +1,9 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/screens/chatbot_screen.dart';
+import 'package:ekonomi_new/screens/history_screen.dart';
 import 'package:ekonomi_new/screens/reminder_screen.dart';
 import 'package:ekonomi_new/widgets/general/qr_camera.dart';
+import 'package:ekonomi_new/widgets/history_screen/history_card.dart';
 import 'package:ekonomi_new/widgets/home_screen/action_grid.dart';
 import 'package:ekonomi_new/widgets/home_screen/nav_item.dart';
 import 'package:ekonomi_new/widgets/home_screen/summary_card.dart';
@@ -32,7 +34,7 @@ class _HomescreenState extends State<Homescreen> {
         print("Image selected: ${imageBytes?.lengthInBytes} bytes");
       },
     ),
-    Center(child: Text("History Page", style: TextStyle(fontSize: 24))),
+    HistoryScreen(),
     Center(child: Text("Profile Page", style: TextStyle(fontSize: 24))),
   ];
 
@@ -122,16 +124,21 @@ class _HomescreenState extends State<Homescreen> {
                 )
               : null,
           body: SafeArea(child: _screens[_selectedIndex]),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.of(
-                context,
-              ).push(CupertinoPageRoute(builder: (context) => Chatbot()));
-            },
-            backgroundColor: primaryColor,
-            shape: CircleBorder(),
-            child: Icon(Icons.chat_bubble_outline_sharp, color: Colors.white),
-          ),
+          floatingActionButton: _selectedIndex == 0
+              ? FloatingActionButton(
+                  onPressed: () {
+                    Navigator.of(
+                      context,
+                    ).push(CupertinoPageRoute(builder: (context) => Chatbot()));
+                  },
+                  backgroundColor: primaryColor,
+                  shape: CircleBorder(),
+                  child: Icon(
+                    Icons.chat_bubble_outline_sharp,
+                    color: Colors.white,
+                  ),
+                )
+              : null,
           bottomNavigationBar: Container(
             height: 100,
             margin: EdgeInsets.all(16),
