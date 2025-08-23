@@ -1,9 +1,9 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/screens/chatbot_screen.dart';
 import 'package:ekonomi_new/screens/history_screen.dart';
+import 'package:ekonomi_new/screens/profile_screen.dart';
 import 'package:ekonomi_new/screens/reminder_screen.dart';
 import 'package:ekonomi_new/widgets/general/qr_camera.dart';
-import 'package:ekonomi_new/widgets/history_screen/history_card.dart';
 import 'package:ekonomi_new/widgets/home_screen/action_grid.dart';
 import 'package:ekonomi_new/widgets/home_screen/nav_item.dart';
 import 'package:ekonomi_new/widgets/home_screen/summary_card.dart';
@@ -35,7 +35,7 @@ class _HomescreenState extends State<Homescreen> {
       },
     ),
     HistoryScreen(),
-    Center(child: Text("Profile Page", style: TextStyle(fontSize: 24))),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -99,11 +99,7 @@ class _HomescreenState extends State<Homescreen> {
                             const SizedBox(width: 8),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(
-                                  CupertinoPageRoute(
-                                    builder: (context) => ReminderScreen(),
-                                  ),
-                                );
+                                // TODO
                               },
                               child: Container(
                                 height: 40,
@@ -140,7 +136,7 @@ class _HomescreenState extends State<Homescreen> {
                 )
               : null,
           bottomNavigationBar: Container(
-            height: 100,
+            height: 95,
             margin: EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: primaryColor,

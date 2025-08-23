@@ -18,8 +18,6 @@ class SavingRecommendation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // colors tuned to match the screenshot
-    const Color coral = Color(0xFFFF7F63);
     const Color teal = Color(0xFF008F8D);
     const Color subtitleGrey = Color(0xFF9EA7AB);
     const Color panelBorder = Color(0xFFDFF3F4);
