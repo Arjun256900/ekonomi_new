@@ -1,5 +1,5 @@
 import 'package:ekonomi_new/background/backGround.dart';
-import 'package:ekonomi_new/widgets/back_button.dart';
+import 'package:ekonomi_new/widgets/general/back_button.dart';
 import 'package:ekonomi_new/widgets/general/filter_widget.dart';
 import 'package:ekonomi_new/widgets/general/month_calender.dart';
 import 'package:ekonomi_new/widgets/reminders_screen/reminder_transaction_list.dart';

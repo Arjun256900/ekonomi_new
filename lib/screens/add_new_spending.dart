@@ -2,7 +2,7 @@ import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/bloc/AddNewSpending/spending_bloc.dart';
 import 'package:ekonomi_new/bloc/AddNewSpending/spending_event.dart';
 import 'package:ekonomi_new/bloc/AddNewSpending/spending_state.dart';
-import 'package:ekonomi_new/widgets/back_button.dart';
+import 'package:ekonomi_new/widgets/general/back_button.dart';
 import 'package:ekonomi_new/widgets/form_widgets/custom_text_field.dart';
 import 'package:ekonomi_new/widgets/form_widgets/dateField.dart';
 import 'package:ekonomi_new/widgets/form_widgets/file_picker.dart';

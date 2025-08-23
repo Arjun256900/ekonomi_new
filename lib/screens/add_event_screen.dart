@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:ekonomi_new/background/backGround.dart';
-import 'package:ekonomi_new/widgets/back_button.dart';
+import 'package:ekonomi_new/widgets/general/back_button.dart';
 import 'package:ekonomi_new/widgets/form_widgets/custom_text_field.dart';
 import 'package:ekonomi_new/widgets/form_widgets/dateField.dart';
 import 'package:ekonomi_new/widgets/form_widgets/dropDownField.dart';

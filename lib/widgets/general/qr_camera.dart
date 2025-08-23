@@ -14,7 +14,7 @@ class QrCamera extends StatefulWidget {
 
 class _QrCameraState extends State<QrCamera> {
   CameraController? _cameraController;
-  Uint8List? _selectedImage;
+  // Uint8List? _selectedImage;
   final ImagePicker _picker = ImagePicker();
   List<CameraDescription>? _cameras;
 
@@ -58,7 +58,7 @@ class _QrCameraState extends State<QrCamera> {
   // Show preview overlay
   void _showPreview(Uint8List bytes) {
     setState(() {
-      _selectedImage = bytes;
+      // _selectedImage = bytes;
     });
 
     showDialog(

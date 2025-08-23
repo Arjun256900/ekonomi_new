@@ -1,14 +1,13 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/screens/chatbot_screen.dart';
 import 'package:ekonomi_new/screens/reminder_screen.dart';
-import 'package:ekonomi_new/widgets/Qr_camer.dart';
-import 'package:ekonomi_new/widgets/home_screen/alert_dash.dart';
+import 'package:ekonomi_new/widgets/general/qr_camera.dart';
+import 'package:ekonomi_new/widgets/home_screen/action_grid.dart';
+import 'package:ekonomi_new/widgets/home_screen/nav_item.dart';
+import 'package:ekonomi_new/widgets/home_screen/summary_card.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:ekonomi_new/widgets/home_screen/action_grid.dart';
-import 'package:ekonomi_new/widgets/nav_item.dart';
-import 'package:ekonomi_new/widgets/home_screen/summary_card.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -23,13 +22,13 @@ class _HomescreenState extends State<Homescreen> {
   int _selectedIndex = 0;
   bool isopenAlert = false;
 
-  // Screens for each bottom nav item
+  // screens for each bottom nav item
   List<Widget> get _screens => [
     HomeTab(isopenAlert: isopenAlert),
     Center(child: Text("Search Page", style: TextStyle(fontSize: 24))),
     QrCamera(
       onImageSelected: (imageBytes) {
-        // Here you have the image bytes ready for backend
+        // image bytes ready for backend
         print("Image selected: ${imageBytes?.lengthInBytes} bytes");
       },
     ),
@@ -43,14 +42,10 @@ class _HomescreenState extends State<Homescreen> {
     });
   }
 
-  void _isOpenAlerts() {
-    setState(() {
-      isopenAlert = !isopenAlert;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         Positioned.fill(child: Background()),
@@ -63,30 +58,21 @@ class _HomescreenState extends State<Homescreen> {
                   elevation: 0,
                   automaticallyImplyLeading: false,
                   title: Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
+                    padding: EdgeInsets.only(
+                      top: screenHeight * 0.01,
+                      left: screenWidth * 0.001,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Hello, Azeem',
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 16,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'Welcome Back',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                        Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                          ),
+                          child: Image.asset("assets/home/home_explore.png"),
                         ),
                         Row(
                           children: [
@@ -105,12 +91,18 @@ class _HomescreenState extends State<Homescreen> {
                                   color: Colors.white,
                                   shape: BoxShape.circle,
                                 ),
-                                child: Icon(Icons.event),
+                                child: Icon(Icons.notifications),
                               ),
                             ),
-                            const SizedBox(width: 10),
+                            const SizedBox(width: 8),
                             GestureDetector(
-                              onTap: () => _isOpenAlerts(),
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  CupertinoPageRoute(
+                                    builder: (context) => ReminderScreen(),
+                                  ),
+                                );
+                              },
                               child: Container(
                                 height: 40,
                                 width: 40,
@@ -118,37 +110,7 @@ class _HomescreenState extends State<Homescreen> {
                                   color: Colors.white,
                                   shape: BoxShape.circle,
                                 ),
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.notifications,
-                                      color: Colors.black,
-                                    ),
-                                    Positioned(
-                                      top: 6,
-                                      right: 6,
-                                      child: Container(
-                                        height: 16,
-                                        width: 16,
-                                        decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            '3',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                child: Icon(Icons.search),
                               ),
                             ),
                           ],
@@ -156,10 +118,20 @@ class _HomescreenState extends State<Homescreen> {
                       ],
                     ),
                   ),
-                  toolbarHeight: 100,
+                  toolbarHeight: screenHeight * 0.06,
                 )
               : null,
           body: SafeArea(child: _screens[_selectedIndex]),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(
+                context,
+              ).push(CupertinoPageRoute(builder: (context) => Chatbot()));
+            },
+            backgroundColor: primaryColor,
+            shape: CircleBorder(),
+            child: Icon(Icons.chat_bubble_outline_sharp, color: Colors.white),
+          ),
           bottomNavigationBar: Container(
             height: 100,
             margin: EdgeInsets.all(16),
@@ -234,27 +206,6 @@ class _HomescreenState extends State<Homescreen> {
             ),
           ),
         ),
-
-        Positioned(
-          bottom: 130,
-          right: 20,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(
-                context,
-              ).push(CupertinoPageRoute(builder: (context) => Chatbot()));
-            },
-            child: Container(
-              height: 49,
-              width: 49,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: primaryColor,
-              ),
-              child: Icon(Icons.messenger_outline, color: Colors.white),
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -267,18 +218,42 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
+    final screenWidth = MediaQuery.of(context).size.width;
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.03,
+          vertical: 8,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Hello, Azeem',
+                    style: TextStyle(color: Colors.grey[600], fontSize: 16),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Welcome Back',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             SummaryCard(),
             SizedBox(height: 16),
             ActionGrid(),
             SizedBox(height: 16),
-            AlertDash(),
           ],
         ),
       ),

@@ -2,11 +2,9 @@ import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
 import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_state.dart';
 import 'package:ekonomi_new/screens/add_new_transaction_screen.dart';
-import 'package:ekonomi_new/widgets/back_button.dart';
+import 'package:ekonomi_new/widgets/general/back_button.dart';
 import 'package:ekonomi_new/widgets/general/filter_widget.dart';
-import 'package:ekonomi_new/widgets/new_transaction.dart';
 import 'package:ekonomi_new/widgets/transaction_screen/transaction_list.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,40 +35,47 @@ class TransactionScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () => {
-                        Navigator.of(context).push(
-                          CupertinoPageRoute(
-                            builder: (context) => AddNewTransactionScreen(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 70,
+                            padding: EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Add New Transaction'),
+                                CircleAvatar(
+                                  radius: 22,
+                                  backgroundColor: Color.fromRGBO(
+                                    232,
+                                    245,
+                                    246,
+                                    1,
+                                  ),
+                                  child: Icon(Icons.add, color: Colors.black),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      },
-                      child: Container(
-                        width: 369,
-                        height: 79,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.white,
+                        const SizedBox(width: 12),
+                        Container(
+                          height: 70,
+                          width: 70,
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
+                          ),
+                          child: Icon(Icons.mic_none_outlined, size: 25),
                         ),
-
-                        child: Stack(
-                          alignment: AlignmentDirectional.centerStart,
-                          children: [
-                            Container(
-                              height: 48,
-                              width: 4,
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(255, 215, 68, 1),
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(3),
-                                  bottomRight: Radius.circular(3),
-                                ),
-                              ),
-                            ),
-                            NewTransaction(),
-                          ],
-                        ),
-                      ),
+                      ],
                     ),
                     const SizedBox(height: 25),
                     Text(

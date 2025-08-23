@@ -2,7 +2,7 @@ import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/bloc/AddNewGoal/goal_list_bloc.dart';
 import 'package:ekonomi_new/bloc/AddNewGoal/goal_list_state.dart';
 import 'package:ekonomi_new/screens/add_new_goal.dart';
-import 'package:ekonomi_new/widgets/back_button.dart';
+import 'package:ekonomi_new/widgets/general/back_button.dart';
 import 'package:ekonomi_new/widgets/general/add_btn_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
