@@ -126,7 +126,37 @@ class _HomescreenState extends State<Homescreen> {
                                   color: Colors.white,
                                   shape: BoxShape.circle,
                                 ),
-                                child: Icon(Icons.notifications),
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.notifications,
+                                      color: Colors.black,
+                                    ),
+                                    Positioned(
+                                      top: 6,
+                                      right: 6,
+                                      child: Container(
+                                        height: 16,
+                                        width: 16,
+                                        decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            '3',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             const SizedBox(width: 8),
@@ -153,21 +183,16 @@ class _HomescreenState extends State<Homescreen> {
                 )
               : null,
           body: SafeArea(child: _screens[_selectedIndex]),
-          floatingActionButton: _selectedIndex == 0
-              ? FloatingActionButton(
-                  onPressed: () {
-                    Navigator.of(
-                      context,
-                    ).push(CupertinoPageRoute(builder: (context) => Chatbot()));
-                  },
-                  backgroundColor: primaryColor,
-                  shape: CircleBorder(),
-                  child: Icon(
-                    Icons.chat_bubble_outline_sharp,
-                    color: Colors.white,
-                  ),
-                )
-              : null,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(
+                context,
+              ).push(CupertinoPageRoute(builder: (context) => Chatbot()));
+            },
+            backgroundColor: primaryColor,
+            shape: CircleBorder(),
+            child: Icon(Icons.chat_bubble_outline_sharp, color: Colors.white),
+          ),
           bottomNavigationBar: Container(
             height: 95,
             margin: EdgeInsets.all(16),

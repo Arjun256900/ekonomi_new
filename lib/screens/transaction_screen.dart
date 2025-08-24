@@ -50,7 +50,10 @@ class TransactionScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   'Add New Transaction',
-                                  style: TextStyle(color: Colors.grey[600]),
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontSize: 15,
+                                  ),
                                 ),
                                 CircleAvatar(
                                   radius: 22,
