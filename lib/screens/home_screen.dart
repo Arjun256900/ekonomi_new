@@ -1,12 +1,14 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/screens/chatbot_screen.dart';
 import 'package:ekonomi_new/screens/history_screen.dart';
+import 'package:ekonomi_new/screens/opportunities_screen.dart';
 import 'package:ekonomi_new/screens/profile_screen.dart';
 import 'package:ekonomi_new/screens/reminder_screen.dart';
 import 'package:ekonomi_new/widgets/general/qr_camera.dart';
 import 'package:ekonomi_new/widgets/home_screen/action_grid.dart';
 import 'package:ekonomi_new/widgets/home_screen/nav_item.dart';
 import 'package:ekonomi_new/widgets/home_screen/summary_card.dart';
+import 'package:ekonomi_new/widgets/premium_dialog/premium_popup.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,28 @@ class _HomescreenState extends State<Homescreen> {
 
   int _selectedIndex = 0;
   bool isopenAlert = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // show popup after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showPremiumPopup();
+    });
+  }
+
+  void _showPremiumPopup() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.5),
+      builder: (context) {
+        return Center(
+          child: Material(color: Colors.transparent, child: PremiumPopup()),
+        );
+      },
+    );
+  }
 
   // screens for each bottom nav item
   List<Widget> get _screens => [
@@ -67,14 +91,23 @@ class _HomescreenState extends State<Homescreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              CupertinoPageRoute(
+                                builder: (context) => OpportunitiesScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                            ),
+                            child: Image.asset("assets/home/home_explore.png"),
                           ),
-                          child: Image.asset("assets/home/home_explore.png"),
                         ),
                         Row(
                           children: [

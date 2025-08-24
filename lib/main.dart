@@ -1,6 +1,8 @@
 import 'package:ekonomi_new/bloc/AddNewGoal/goal_list_bloc.dart';
 import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
+import 'package:ekonomi_new/screens/coupons.dart';
 import 'package:ekonomi_new/screens/onboarding_screen.dart';
+import 'package:ekonomi_new/widgets/premium_dialog/premium_popup.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.transparent,
 
         body: OnboardingScreen(),
-        // body: ReminderScreen(),
+        // body: PremiumPopup(),
       ),
       theme: ThemeData(primaryColor: Color(0xFF03969D)),
     );
