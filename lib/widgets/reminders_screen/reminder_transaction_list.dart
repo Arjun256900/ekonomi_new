@@ -121,6 +121,7 @@ class _ReminderTransactionListState extends State<ReminderTransactionList> {
                             child: ReminderCard(
                               reminderTitle: rm.reminderTitle,
                               amount: rm.reminderAmount,
+                              date: "Oct 06, 2024, 10:00 AM",
                             ),
                           ),
                         ],

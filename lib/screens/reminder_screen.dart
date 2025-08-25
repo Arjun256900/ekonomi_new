@@ -2,7 +2,7 @@ import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/widgets/general/back_button.dart';
 import 'package:ekonomi_new/widgets/general/filter_widget.dart';
 import 'package:ekonomi_new/widgets/general/month_calender.dart';
-import 'package:ekonomi_new/widgets/reminders_screen/reminder_transaction_list.dart';
+import 'package:ekonomi_new/widgets/reminders_screen/reminder_card.dart';
 import 'package:flutter/material.dart';
 
 class ReminderScreen extends StatefulWidget {
@@ -48,21 +48,25 @@ class _ReminderScreenState extends State<ReminderScreen> {
                       const SizedBox(height: 15),
                       MonthCalendar(),
                       const SizedBox(height: 15),
-                      ReminderTransactionList(
-                        reminderItems: [
-                          ReminderItem(
-                            reminderAmount: "5000",
-                            reminderTitle: "Loan EMI - HDFC",
-                            date: "9 Apr",
-                            time: "12am",
-                          ),
-                          ReminderItem(
-                            reminderAmount: "5000",
-                            reminderTitle: "Loan EMI - HDFC",
-                            date: "9 Apr",
-                            time: "12am",
-                          ),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.02,
+                        ),
+                        child: Column(
+                          children: [
+                            ReminderCard(
+                              reminderTitle: "Loan EMI - HDFC",
+                              amount: "₹5,000",
+                              date: "Oct 06, 2024, 10:00 AM",
+                            ),
+                            const SizedBox(height: 10),
+                            ReminderCard(
+                              reminderTitle: "Loan EMI - HDFC",
+                              amount: "₹5,000",
+                              date: "Oct 06, 2024, 10:00 AM",
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
