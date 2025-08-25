@@ -1,5 +1,6 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/screens/chatbot_screen.dart';
+import 'package:ekonomi_new/screens/coupons.dart';
 import 'package:ekonomi_new/screens/history_screen.dart';
 import 'package:ekonomi_new/screens/opportunities_screen.dart';
 import 'package:ekonomi_new/screens/profile_screen.dart';
@@ -95,7 +96,7 @@ class _HomescreenState extends State<Homescreen> {
                           onTap: () {
                             Navigator.of(context).push(
                               CupertinoPageRoute(
-                                builder: (context) => OpportunitiesScreen(),
+                                builder: (context) => CouponsScreen(),
                               ),
                             );
                           },

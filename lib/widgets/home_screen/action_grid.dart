@@ -1,4 +1,5 @@
 import 'package:ekonomi_new/screens/add_event_screen.dart';
+import 'package:ekonomi_new/screens/add_new_savings.dart';
 import 'package:ekonomi_new/screens/ocassion_planner_screen.dart';
 import 'package:ekonomi_new/screens/opportunities_screen.dart';
 import 'package:ekonomi_new/screens/set_goal.dart';
@@ -14,7 +15,7 @@ class ActionGrid extends StatelessWidget {
       subtitle: 'Boost your savings by adding funds now.',
       icon: Icons.add,
       filled: true,
-      navigation: OpportunitiesScreen(),
+      navigation: AddNewSavings(),
     ),
     ActionItem(
       title: 'Goals',
