@@ -1,7 +1,5 @@
 import 'package:ekonomi_new/background/backGround.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class PremiumPopup extends StatefulWidget {
   const PremiumPopup({super.key});
@@ -65,7 +63,7 @@ class _PremiumPopupState extends State<PremiumPopup> {
 
                     PremiumCard(
                       title: "Premium",
-                      backgroundColor: Colors.white!,
+                      backgroundColor: Colors.white,
                       points: [
                         "Smart financial suggestions",
                         "Track your investments real-time",

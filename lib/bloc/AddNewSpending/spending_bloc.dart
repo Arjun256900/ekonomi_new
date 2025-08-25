@@ -1,6 +1,7 @@
 import 'package:ekonomi_new/bloc/AddNewSpending/spending_event.dart';
 import 'package:ekonomi_new/bloc/AddNewSpending/spending_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 class SpendingBloc extends Bloc<SpendingEvent, SpendingState> {
@@ -36,7 +37,7 @@ class SpendingBloc extends Bloc<SpendingEvent, SpendingState> {
         } catch (_) {
           parsedDate = now; // fallback
         }
-
+        print(parsedDate);
         print(transactionJson);
       } else {
         print("Form is not valid.");

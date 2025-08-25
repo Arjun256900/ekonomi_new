@@ -1,20 +1,19 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class CouponCard extends StatefulWidget {
   final String offer;
   final String name;
-  final String valid_amount;
-  final String till_date;
+  final String validAmount;
+  final String tillDate;
   final bool isNew;
 
   const CouponCard({
     super.key,
     required this.offer,
     required this.name,
-    required this.valid_amount,
-    required this.till_date,
+    required this.validAmount,
+    required this.tillDate,
     this.isNew = true,
   });
 
@@ -47,7 +46,7 @@ class _CouponCardState extends State<CouponCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Logo
-                  Container(
+                  SizedBox(
                     height: 40,
                     width: 40,
                     child: Image.asset(
@@ -69,7 +68,7 @@ class _CouponCardState extends State<CouponCard> {
                           ),
                         ),
                         Text(
-                          "valid on orders above ${widget.valid_amount}, till ${widget.till_date}",
+                          "valid on orders above ${widget.validAmount}, till ${widget.tillDate}",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,
