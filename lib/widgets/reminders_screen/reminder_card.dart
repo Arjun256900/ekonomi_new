@@ -19,7 +19,7 @@ class _ReminderCardState extends State<ReminderCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Colors.white,
@@ -35,14 +35,37 @@ class _ReminderCardState extends State<ReminderCard> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.home),
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7.0),
+                          color: Color.fromRGBO(249, 115, 88, 1),
+                        ),
+
+                        child: Icon(Icons.payment, color: Colors.white),
+                      ),
                       SizedBox(width: 10),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              Text(widget.reminderTitle),
-                              Text(widget.amount),
+                              Text(
+                                widget.reminderTitle,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                widget.amount,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ],
                           ),
                           Text(widget.date),
@@ -65,12 +88,15 @@ class _ReminderCardState extends State<ReminderCard> {
                   ),
                   backgroundColor: Theme.of(context).primaryColor,
                 ),
-                child: const Text(
-                  "Pay now",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: const Text(
+                    "Pay now",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
