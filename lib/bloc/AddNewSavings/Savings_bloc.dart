@@ -1,5 +1,6 @@
 import 'package:ekonomi_new/bloc/AddNewSavings/Savings_State.dart';
 import 'package:ekonomi_new/bloc/AddNewSavings/Savings_event.dart';
+import 'package:ekonomi_new/bloc/Global/savingsGlobal.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
@@ -31,6 +32,10 @@ class SavingsBloc extends Bloc<SavingsEvent, SavingsState> {
         "dropdown1": state.Category,
         "dropdown2": state.Payment,
       };
+
+      // ✅ Add to global savings list
+      SavingsGlobal().addSaving(json);
+
       emit(state.copyWith(saved: true, jsonResult: json));
     });
   }
