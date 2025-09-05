@@ -1,7 +1,12 @@
 import 'dart:typed_data';
+import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_event.dart';
 
 class QrCamera extends StatefulWidget {
   final void Function(Uint8List?) onImageSelected;
@@ -56,6 +61,10 @@ class _QrCameraState extends State<QrCamera> {
   }
 
   // Show preview overlay
+  // Add at top of file:
+  // import 'package:flutter_bloc/flutter_bloc.dart';
+  // import 'package:ekonomi_new/bloc/transaction/transaction_event.dart';
+
   void _showPreview(Uint8List bytes) {
     setState(() {
       // _selectedImage = bytes;
@@ -87,7 +96,34 @@ class _QrCameraState extends State<QrCamera> {
               child: IconButton(
                 icon: Icon(Icons.check_circle, color: Colors.green, size: 40),
                 onPressed: () {
-                  widget.onImageSelected(bytes); // send to backend
+                  widget.onImageSelected(bytes);
+
+                  try {
+                    final transactionListBloc = context
+                        .read<TransactionListBloc>();
+                    final now = DateTime.now();
+                    final time = DateFormat('h a').format(now);
+                    final date = DateFormat('MMM d').format(now);
+
+                    for (int i = 1; i <= 10; i++) {
+                      final Map<String, dynamic> dummy = {
+                        "debitOrCredit": (i % 2 == 0) ? "Debit" : "Credit",
+                        "amount": (100 * i).toString(),
+                        "date": date,
+                        "sourceSelection": "Dummy Source $i",
+                        "category": "Dummy Category",
+                        "filepath": "dummy_path_$i",
+                        "time": time,
+                      };
+                      transactionListBloc.add(AddTransactionEvent(dummy));
+                    }
+                    print(
+                      "Dispatched 10 dummy transactions to TransactionListBloc",
+                    );
+                  } catch (e) {
+                    print("Error dispatching dummy txns: $e");
+                  }
+
                   Navigator.of(context).pop();
                 },
               ),

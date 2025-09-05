@@ -75,6 +75,30 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         print("Form is not valid.");
       }
     });
+
+    // NEW: handle adding 10 dummy transactions
+    on<AddDummyTransactions>((event, emit) {
+      final now = DateTime.now();
+      final time = DateFormat('h a').format(now);
+      final date = DateFormat('MMM d').format(now);
+
+      for (int i = 1; i <= 10; i++) {
+        final Map<String, dynamic> dummy = {
+          "debitOrCredit": (i % 2 == 0) ? "Debit" : "Credit",
+          "amount": (100 * i).toString(),
+          "date": date,
+          "sourceSelection": "Dummy Source $i",
+          "category": "Dummy Category",
+          "filepath": "dummy_path_$i",
+          "time": time,
+        };
+
+        // dispatch to the TransactionListBloc (same pattern as SubmitTransaction)
+        event.context.read<TransactionListBloc>().add(
+          AddTransactionEvent(dummy),
+        );
+      }
+    });
   }
 
   bool _formIsValid(TransactionState s) {

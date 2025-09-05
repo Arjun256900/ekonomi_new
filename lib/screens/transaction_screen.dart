@@ -56,28 +56,39 @@ class TransactionScreen extends StatelessWidget {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Add New Transaction',
-                                    style: TextStyle(
-                                      color: Colors.grey[600],
-                                      fontSize: 15,
-                                    ),
+                              child: GestureDetector(
+                                onTap: () => Navigator.of(context).push(
+                                  CupertinoPageRoute(
+                                    builder: (context) =>
+                                        AddNewTransactionScreen(),
                                   ),
-                                  CircleAvatar(
-                                    radius: 22,
-                                    backgroundColor: Color.fromRGBO(
-                                      232,
-                                      245,
-                                      246,
-                                      1,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Add New Transaction',
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 15,
+                                      ),
                                     ),
-                                    child: Icon(Icons.add, color: Colors.black),
-                                  ),
-                                ],
+                                    CircleAvatar(
+                                      radius: 22,
+                                      backgroundColor: Color.fromRGBO(
+                                        232,
+                                        245,
+                                        246,
+                                        1,
+                                      ),
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
