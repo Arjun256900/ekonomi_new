@@ -66,73 +66,116 @@ class _QrCameraState extends State<QrCamera> {
   // import 'package:ekonomi_new/bloc/transaction/transaction_event.dart';
 
   void _showPreview(Uint8List bytes) {
-    setState(() {
-      // _selectedImage = bytes;
-    });
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (_) => Dialog(
+      backgroundColor: Colors.black,
+      insetPadding: EdgeInsets.zero,
+      child: Stack(
+        children: [
+          Center(child: Image.memory(bytes, fit: BoxFit.contain)),
 
-    showDialog(
-      context: context,
-      barrierDismissible: false, // force user to choose
-      builder: (_) => Dialog(
-        backgroundColor: Colors.black,
-        insetPadding: EdgeInsets.zero,
-        child: Stack(
-          children: [
-            Center(child: Image.memory(bytes, fit: BoxFit.contain)),
-            // Buttons
-            Positioned(
-              bottom: 20,
-              left: 20,
-              child: IconButton(
-                icon: Icon(Icons.close, color: Colors.red, size: 40),
-                onPressed: () {
-                  Navigator.of(context).pop(); // cancel
-                },
-              ),
+          // Cancel button
+          Positioned(
+            bottom: 20,
+            left: 20,
+            child: IconButton(
+              icon: const Icon(Icons.close, color: Colors.red, size: 40),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            Positioned(
-              bottom: 20,
-              right: 20,
-              child: IconButton(
-                icon: Icon(Icons.check_circle, color: Colors.green, size: 40),
-                onPressed: () {
-                  widget.onImageSelected(bytes);
+          ),
 
-                  try {
-                    final transactionListBloc = context
-                        .read<TransactionListBloc>();
-                    final now = DateTime.now();
-                    final time = DateFormat('h a').format(now);
-                    final date = DateFormat('MMM d').format(now);
+          // Confirm button
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: IconButton(
+              icon: const Icon(Icons.check_circle,
+                  color: Colors.green, size: 40),
+              onPressed: () {
+                widget.onImageSelected(bytes);
 
-                    for (int i = 1; i <= 10; i++) {
-                      final Map<String, dynamic> dummy = {
-                        "debitOrCredit": (i % 2 == 0) ? "Debit" : "Credit",
-                        "amount": (100 * i).toString(),
-                        "date": date,
-                        "sourceSelection": "Dummy Source $i",
-                        "category": "Dummy Category",
-                        "filepath": "dummy_path_$i",
-                        "time": time,
-                      };
-                      transactionListBloc.add(AddTransactionEvent(dummy));
-                    }
-                    print(
-                      "Dispatched 10 dummy transactions to TransactionListBloc",
-                    );
-                  } catch (e) {
-                    print("Error dispatching dummy txns: $e");
-                  }
+                final now = DateTime.now();
+                final time = DateFormat('h a').format(now);
+                final date = DateFormat('MMM d').format(now);
 
-                  Navigator.of(context).pop();
-                },
-              ),
+                final transactions = List.generate(10, (i) {
+                  return {
+                    "debitOrCredit": (i % 2 == 0) ? "Debit" : "Credit",
+                    "amount": (100 * (i + 1)).toString(),
+                    "date": date,
+                    "sourceSelection": "Dummy Source ${i + 1}",
+                    "category": "Dummy Category",
+                    "filepath": "dummy_path_${i + 1}",
+                    "time": time,
+                  };
+                });
+
+                Navigator.of(context).pop(); // close image preview dialog
+
+                // Show transaction list in another dialog
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) => Dialog(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Text(
+                            "Preview Transactions",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 400, // scrollable area
+                          width: double.maxFinite,
+                          child: ListView.builder(
+                            itemCount: transactions.length,
+                            itemBuilder: (context, index) {
+                              final txn = transactions[index];
+                              return ListTile(
+                                title: Text(
+                                  "${txn["debitOrCredit"]} - ${txn["amount"]}",
+                                ),
+                                subtitle: Text(
+                                  "${txn["date"]} ${txn["time"]} | "
+                                  "${txn["sourceSelection"]} | "
+                                  "${txn["category"]}",
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              final bloc =
+                                  context.read<TransactionListBloc>();
+                              for (var txn in transactions) {
+                                bloc.add(AddTransactionEvent(txn));
+                              }
+                              Navigator.of(context).pop(); // close preview
+                            },
+                            child: const Text("OK"),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   @override
   void dispose() {
