@@ -217,8 +217,8 @@ class _HomescreenState extends State<Homescreen> {
                     ontap: () => _onItemTapped(0),
                   ),
                   NavItem(
-                    icon: Icons.search,
-                    label: 'Search',
+                    icon: Icons.mic,
+                    label: 'Voice',
                     selected: _selectedIndex == 1,
                     ontap: () => _onItemTapped(1),
                   ),
