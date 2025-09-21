@@ -1,3 +1,6 @@
+import 'package:ekonomi_new/bloc/Global/Spendings_bloc.dart';
+import 'package:ekonomi_new/bloc/Global/savingsGlobal.dart';
+
 import '../AddNewTransaction/transaction_list_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ekonomi_new/bloc/transaction/transaction_event.dart';
@@ -68,6 +71,11 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         event.context.read<TransactionListBloc>().add(
           AddTransactionEvent(transactionJson),
         );
+        if (transactionJson['debitOrCredit'] == "Debit") {
+          SpendingsGlobal().addTransaction(transactionJson);
+        } else {
+          SavingsGlobal().addSaving(transactionJson);
+        }
 
         print(transactionJson);
       } else {
@@ -76,26 +84,17 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     });
 
     // NEW: handle adding 10 dummy transactions
-    on<AddDummyTransactions>((event, emit) {
-      final now = DateTime.now();
-      final time = DateFormat('h a').format(now);
-      final date = DateFormat('MMM d').format(now);
+    on<AddTransaction>((event, emit) {
+      // Add to TransactionListBloc
+      event.context.read<TransactionListBloc>().add(
+        AddTransactionEvent(event.transaction),
+      );
 
-      for (int i = 1; i <= 10; i++) {
-        final Map<String, dynamic> dummy = {
-          "debitOrCredit": (i % 2 == 0) ? "Debit" : "Credit",
-          "amount": (100 * i).toString(),
-          "date": date,
-          "sourceSelection": "Dummy Source $i",
-          "category": "Dummy Category",
-          "filepath": "dummy_path_$i",
-          "time": time,
-        };
-
-        // dispatch to the TransactionListBloc (same pattern as SubmitTransaction)
-        event.context.read<TransactionListBloc>().add(
-          AddTransactionEvent(dummy),
-        );
+      // Update Spendings or Savings
+      if (event.transaction['debitOrCredit'] == "Debit") {
+        SpendingsGlobal().addTransaction(event.transaction);
+      } else {
+        SavingsGlobal().addSaving(event.transaction);
       }
     });
   }

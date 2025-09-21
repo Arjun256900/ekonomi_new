@@ -27,7 +27,7 @@ class SummaryCard extends StatelessWidget {
               valueListenable: SpendingsGlobal().spendingListNotifier,
               builder: (context, _, __) {
                 final globalTotal =
-                    SpendingsGlobal().calculateTotalSum(transactionList);
+                    SpendingsGlobal().calculateTotalSum();
 
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

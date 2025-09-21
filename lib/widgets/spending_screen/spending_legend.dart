@@ -5,7 +5,7 @@ class SpendingLegend extends StatelessWidget {
   final List<String> labels;
 
   /// Corresponding percentage values (this needs to be matched according to the pie chart)
-  final List<int> percentages;
+  final List<double> percentages;
 
   /// Colors for each category bar.
   final List<Color> colors;
@@ -41,6 +41,7 @@ class SpendingLegend extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 width: 10,
@@ -52,18 +53,36 @@ class SpendingLegend extends StatelessWidget {
               ),
               SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  labels[index],
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey[700],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment(-1.0, -0.7), // left, above center
+                        child: Text(
+                          labels[index],
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment(1.0, 0.7), // right, below center
+                        child: Text(
+                          '${percentages[index].toInt()}%',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                '${percentages[index]}%',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ],
           ),

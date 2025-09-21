@@ -39,8 +39,9 @@ class SubmitTransaction extends TransactionEvent {
 
 class UndoTransaction extends TransactionEvent {}
 
-// NEW: event to add 10 dummy transactions via the TransactionBloc
-class AddDummyTransactions extends TransactionEvent {
+class AddTransaction extends TransactionEvent {
+  final Map<String, dynamic> transaction;
   final BuildContext context;
-  AddDummyTransactions(this.context);
+
+  AddTransaction(this.transaction, this.context);
 }

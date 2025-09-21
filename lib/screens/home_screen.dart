@@ -51,7 +51,7 @@ class _HomescreenState extends State<Homescreen> {
   // screens for each bottom nav item
   List<Widget> get _screens => [
     HomeTab(isopenAlert: isopenAlert),
-    Center(child: Text("Search Page", style: TextStyle(fontSize: 24))),
+    Center(child: Text("Voice Page", style: TextStyle(fontSize: 24))),
     QrCamera(
       onImageSelected: (imageBytes) {
         // image bytes ready for backend

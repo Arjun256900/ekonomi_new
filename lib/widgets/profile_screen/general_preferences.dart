@@ -1,3 +1,5 @@
+import 'package:ekonomi_new/screens/coupons.dart';
+import 'package:ekonomi_new/screens/reminder_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,7 @@ class GeneralPreferences extends StatelessWidget {
           // Personal Information
           GestureDetector(
             onTap: () {
-              print("Personal information tapped"); // ✅ Handle navigation here
+              // ✅ Handle navigation here
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +64,9 @@ class GeneralPreferences extends StatelessWidget {
           // Coupons
           GestureDetector(
             onTap: () {
-              print("Coupons tapped");
+              Navigator.of(
+                context,
+              ).push(CupertinoPageRoute(builder: (context) => CouponsScreen()));
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +87,9 @@ class GeneralPreferences extends StatelessWidget {
           // Reminders
           GestureDetector(
             onTap: () {
-              print("Reminders tapped");
+              Navigator.of(context).push(
+                CupertinoPageRoute(builder: (context) => ReminderScreen()),
+              );
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -136,7 +136,7 @@ class _AddNewTransactionScreenBodyState
                             ),
                             const SizedBox(height: 10),
                             Dropdownfield(
-                              items: ["Food", "Others"],
+                              items: ["Food", "Bills","Travel","Others"],
                               hintText: "Eg. Food",
                               heading: "Category",
                               selectedValue: state.category.isEmpty

@@ -14,9 +14,9 @@ class TransactionCard extends StatelessWidget {
 
   Color getDebitOrCredit(BuildContext context, String debitOrCredit) {
     switch (sendOrReceived.toLowerCase()) {
-      case 'send':
+      case 'debit':
         return const Color(0xFFFF0000);
-      case 'received':
+      case 'credit':
         return Theme.of(context).primaryColor;
       default:
         return const Color(0xFFF97358);
@@ -24,7 +24,7 @@ class TransactionCard extends StatelessWidget {
   }
 
   String getDebitOrCreditIcon(String debitOrCredit) {
-    return sendOrReceived.toLowerCase() == 'send' ? '-' : '';
+    return sendOrReceived.toLowerCase() == 'debit' ? '-' : '';
   }
 
   @override
@@ -56,10 +56,11 @@ class TransactionCard extends StatelessWidget {
             const SizedBox(width: 12),
 
             // Text content
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Flexible(
+              flex: 5,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     heading,
@@ -68,24 +69,29 @@ class TransactionCard extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: Colors.black,
                     ),
-                    overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 4),
+
                   Text(
-                    sendOrReceived,
-                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                    sendOrReceived + " ",
+                    style: TextStyle(color: Colors.grey, fontSize: 14),
                   ),
                 ],
               ),
             ),
 
             // Amount
-            Text(
-              '${getDebitOrCreditIcon(sendOrReceived)}₹$amount',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: getDebitOrCredit(context, sendOrReceived),
+            Flexible(
+              flex: 3,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  '${getDebitOrCreditIcon(sendOrReceived)} ₹$amount',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: getDebitOrCredit(context, sendOrReceived),
+                  ),
+                ),
               ),
             ),
           ],

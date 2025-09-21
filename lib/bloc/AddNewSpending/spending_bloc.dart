@@ -42,7 +42,7 @@ class SpendingBloc extends Bloc<SpendingEvent, SpendingState> {
         spendingJson['date'] = DateFormat('MMM d').format(parsedDate);
 
         
-        SpendingsGlobal().addSpending(spendingJson);
+        // SpendingsGlobal().addSpending(spendingJson);
 
         print("Spending Added: $spendingJson");
 

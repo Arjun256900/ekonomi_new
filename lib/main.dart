@@ -1,5 +1,6 @@
 import 'package:ekonomi_new/bloc/AddNewGoal/goal_list_bloc.dart';
 import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
+import 'package:ekonomi_new/bloc/transaction/transaction_bloc.dart';
 import 'package:ekonomi_new/screens/onboarding_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ void main() {
         BlocProvider<TransactionListBloc>(
           create: (context) => TransactionListBloc(),
         ),
+         BlocProvider<TransactionBloc>(create: (_) => TransactionBloc()),
       ],
       child: MyApp(),
     ),
