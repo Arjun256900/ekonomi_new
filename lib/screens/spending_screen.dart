@@ -1,10 +1,7 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/bloc/Global/Spendings_bloc.dart';
-import 'package:ekonomi_new/screens/add_new_spending.dart';
 import 'package:ekonomi_new/widgets/general/back_button.dart';
-import 'package:ekonomi_new/widgets/general/add_btn_appbar.dart';
 import 'package:ekonomi_new/widgets/general/filter_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ekonomi_new/widgets/spending_screen/spending_chart.dart';
 import 'package:ekonomi_new/widgets/spending_screen/spending_legend.dart';
@@ -53,10 +50,10 @@ class _SpendingScreenState extends State<SpendingScreen> {
                   valueListenable: SpendingsGlobal().categoryTotalsNotifier,
                   builder: (context, categoryMap, _) {
                     // extract values in your desired order
-                    final bills = categoryMap['bills'] ?? 0;
-                    final travel = categoryMap['travel'] ?? 0;
-                    final food = categoryMap['food'] ?? 0;
-                    final others = categoryMap['others'] ?? 0;
+                    // final bills = categoryMap['bills'] ?? 0;
+                    // final travel = categoryMap['travel'] ?? 0;
+                    // final food = categoryMap['food'] ?? 0;
+                    // final others = categoryMap['others'] ?? 0;
 
                     // total for display
                     final total = SpendingsGlobal().calculateTotalSum();

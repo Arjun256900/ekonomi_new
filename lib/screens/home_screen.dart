@@ -55,7 +55,7 @@ class _HomescreenState extends State<Homescreen> {
     QrCamera(
       onImageSelected: (imageBytes) {
         // image bytes ready for backend
-        print("Image selected: ${imageBytes?.lengthInBytes} bytes");
+        // print("Image selected: ${imageBytes?.lengthInBytes} bytes");
       },
     ),
     HistoryScreen(),
@@ -183,89 +183,96 @@ class _HomescreenState extends State<Homescreen> {
                 )
               : null,
           body: SafeArea(child: _screens[_selectedIndex]),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.of(
-                context,
-              ).push(CupertinoPageRoute(builder: (context) => Chatbot()));
-            },
-            backgroundColor: primaryColor,
-            shape: CircleBorder(),
-            child: Icon(Icons.chat_bubble_outline_sharp, color: Colors.white),
-          ),
-          bottomNavigationBar: Container(
-            height: 95,
-            margin: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-                bottomLeft: Radius.circular(24),
-                bottomRight: Radius.circular(24),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  NavItem(
-                    icon: Icons.home,
-                    label: 'Home',
-                    selected: _selectedIndex == 0,
-                    ontap: () => _onItemTapped(0),
+          floatingActionButton: _selectedIndex == 2
+              ? null
+              : FloatingActionButton(
+                  onPressed: () {
+                    Navigator.of(
+                      context,
+                    ).push(CupertinoPageRoute(builder: (context) => Chatbot()));
+                  },
+                  backgroundColor: primaryColor,
+                  shape: CircleBorder(),
+                  child: Icon(
+                    Icons.chat_bubble_outline_sharp,
+                    color: Colors.white,
                   ),
-                  NavItem(
-                    icon: Icons.mic,
-                    label: 'Voice',
-                    selected: _selectedIndex == 1,
-                    ontap: () => _onItemTapped(1),
-                  ),
-
-                  GestureDetector(
-                    onTap: () => _onItemTapped(2),
-                    child: Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white.withOpacity(0.5),
-                      ),
-                      child: Center(
-                        child: Container(
-                          height: 64,
-                          width: 64,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: Icon(
-                            Icons.qr_code,
-                            size: 28,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
+                ),
+          bottomNavigationBar: _selectedIndex == 2
+              ? null
+              : Container(
+                  height: 95,
+                  margin: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(24),
+                      bottomRight: Radius.circular(24),
                     ),
                   ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        NavItem(
+                          icon: Icons.home,
+                          label: 'Home',
+                          selected: _selectedIndex == 0,
+                          ontap: () => _onItemTapped(0),
+                        ),
+                        NavItem(
+                          icon: Icons.mic,
+                          label: 'Voice',
+                          selected: _selectedIndex == 1,
+                          ontap: () => _onItemTapped(1),
+                        ),
 
-                  NavItem(
-                    icon: Icons.history,
-                    label: 'History',
-                    selected: _selectedIndex == 3,
-                    ontap: () => _onItemTapped(3),
+                        GestureDetector(
+                          onTap: () => _onItemTapped(2),
+                          child: Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white.withOpacity(0.5),
+                            ),
+                            child: Center(
+                              child: Container(
+                                height: 64,
+                                width: 64,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                                child: Icon(
+                                  Icons.qr_code,
+                                  size: 28,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        NavItem(
+                          icon: Icons.history,
+                          label: 'History',
+                          selected: _selectedIndex == 3,
+                          ontap: () => _onItemTapped(3),
+                        ),
+                        NavItem(
+                          icon: Icons.person,
+                          label: 'Profile',
+                          selected: _selectedIndex == 4,
+                          ontap: () => _onItemTapped(4),
+                        ),
+                      ],
+                    ),
                   ),
-                  NavItem(
-                    icon: Icons.person,
-                    label: 'Profile',
-                    selected: _selectedIndex == 4,
-                    ontap: () => _onItemTapped(4),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
         ),
       ],
     );
