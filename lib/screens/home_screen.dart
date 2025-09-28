@@ -4,6 +4,7 @@ import 'package:ekonomi_new/screens/coupons.dart';
 import 'package:ekonomi_new/screens/history_screen.dart';
 import 'package:ekonomi_new/screens/profile_screen.dart';
 import 'package:ekonomi_new/screens/reminder_screen.dart';
+import 'package:ekonomi_new/screens/voice_screen.dart';
 import 'package:ekonomi_new/widgets/general/qr_camera.dart';
 import 'package:ekonomi_new/widgets/home_screen/action_grid.dart';
 import 'package:ekonomi_new/widgets/home_screen/nav_item.dart';
@@ -51,7 +52,7 @@ class _HomescreenState extends State<Homescreen> {
   // screens for each bottom nav item
   List<Widget> get _screens => [
     HomeTab(isopenAlert: isopenAlert),
-    Center(child: Text("Voice Page", style: TextStyle(fontSize: 24))),
+    VoiceScreen(),
     QrCamera(
       onImageSelected: (imageBytes) {
         // image bytes ready for backend
@@ -183,9 +184,8 @@ class _HomescreenState extends State<Homescreen> {
                 )
               : null,
           body: SafeArea(child: _screens[_selectedIndex]),
-          floatingActionButton: _selectedIndex == 2
-              ? null
-              : FloatingActionButton(
+          floatingActionButton: _selectedIndex == 0
+              ? FloatingActionButton(
                   onPressed: () {
                     Navigator.of(
                       context,
@@ -197,7 +197,8 @@ class _HomescreenState extends State<Homescreen> {
                     Icons.chat_bubble_outline_sharp,
                     color: Colors.white,
                   ),
-                ),
+                )
+              : null,
           bottomNavigationBar: _selectedIndex == 2
               ? null
               : Container(

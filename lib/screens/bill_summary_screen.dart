@@ -86,44 +86,46 @@ class _BillSummaryScreenState extends State<BillSummaryScreen> {
     return Stack(
       children: [
         Positioned.fill(child: Background()),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            leading: const BackButtonLeading(),
-            title: const Text(
-              "Your Bill Summary",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
+        Positioned.fill(
+          child: Scaffold(
             backgroundColor: Colors.transparent,
-          ),
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
+            appBar: AppBar(
+              elevation: 0,
+              automaticallyImplyLeading: false,
+              leading: const BackButtonLeading(),
+              title: const Text(
+                "Your Bill Summary",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              backgroundColor: Colors.transparent,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Bill thumbnails section
-                _buildBillThumbnails(),
-                const SizedBox(height: 24),
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Bill thumbnails section
+                  _buildBillThumbnails(),
+                  const SizedBox(height: 24),
 
-                // Bill items section
-                ...billItems.map((item) => _buildItemCard(item)).toList(),
-                const SizedBox(height: 24),
+                  // Bill items section
+                  ...billItems.map((item) => _buildItemCard(item)).toList(),
+                  const SizedBox(height: 24),
 
-                // Alternatives section
-                const Text(
-                  'Alternatives',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                ...alternativeItems
-                    .map((item) => _buildAlternativeCard(item))
-                    .toList(),
-              ],
+                  // Alternatives section
+                  const Text(
+                    'Alternatives',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 16),
+                  ...alternativeItems
+                      .map((item) => _buildAlternativeCard(item))
+                      .toList(),
+                ],
+              ),
             ),
           ),
         ),
