@@ -1,6 +1,7 @@
 import 'package:ekonomi_new/bloc/AddNewGoal/goal_list_bloc.dart';
 import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
 import 'package:ekonomi_new/bloc/transaction/transaction_bloc.dart';
+import 'package:ekonomi_new/screens/add_new_debt.dart';
 import 'package:ekonomi_new/screens/onboarding_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -30,9 +31,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.transparent,
-
         body: OnboardingScreen(),
-        // body: PremiumPopup(),
+        // body: AddNewDebt(),
       ),
       theme: ThemeData(primaryColor: Color(0xFF03969D)),
     );
