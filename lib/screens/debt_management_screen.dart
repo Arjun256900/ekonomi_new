@@ -1,5 +1,8 @@
 import 'package:ekonomi_new/background/backGround.dart';
+import 'package:ekonomi_new/screens/add_new_debt.dart';
 import 'package:ekonomi_new/widgets/general/back_button.dart';
+import 'package:ekonomi_new/widgets/general/filter_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DebtManagementScreen extends StatefulWidget {
@@ -73,6 +76,7 @@ class _DebtManagementScreenState extends State<DebtManagementScreen> {
                   children: [
                     const SizedBox(height: 8),
                     _buildFilterChips(),
+                    // FilterWidget(filters: ['All', 'Loans', 'Cards']),
                     const SizedBox(height: 12),
                     _buildSummaryCard(),
                     const SizedBox(height: 12),
@@ -362,7 +366,16 @@ class _DebtManagementScreenState extends State<DebtManagementScreen> {
   Widget _buildBottomButtons(MediaQueryData mq) {
     return Row(
       children: [
-        Expanded(child: _actionButton('Add Debt', onTap: () {})),
+        Expanded(
+          child: _actionButton(
+            'Add Debt',
+            onTap: () {
+              Navigator.of(
+                context,
+              ).push(CupertinoPageRoute(builder: (context) => AddNewDebt()));
+            },
+          ),
+        ),
         const SizedBox(width: 10),
         Expanded(child: _actionButton('Set Reminder', onTap: () {})),
         const SizedBox(width: 10),

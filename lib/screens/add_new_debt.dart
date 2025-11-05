@@ -153,13 +153,13 @@ class _NewDebtState extends State<NewDebt> {
           child: Column(
             children: [
               Dropdownfield(
+                heading: "Loan Type",
                 items: ["Personal Loan", "Home Loan", "Car Loan"],
                 hintText: "Personal Loan",
-                heading: "Loan Type",
                 onChanged: (value) {
                   bloc.add(LoanTypeChanged(value));
                 },
-                selectedValue: state.loanType,
+                selectedValue: state.loanType.isEmpty ? null : state.loanType,
               ),
               const SizedBox(height: 10),
 
@@ -170,7 +170,7 @@ class _NewDebtState extends State<NewDebt> {
                 onChanged: (value) {
                   bloc.add(LenderNameChanged(value));
                 },
-                selectedValue: state.lenderName,
+                selectedValue: state.lenderName.isEmpty ? null : state.lenderName,
               ),
               const SizedBox(height: 10),
 
@@ -244,18 +244,19 @@ class _NewDebtState extends State<NewDebt> {
 
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
                         bloc.add(FormSubmitted());
                         if (state.isValid) {
                           final json = state.toJson();
                           debugPrint('Final Loan Data: $json');
-                          showDialog(
+                          await showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
                               title: const Text("Loan Data"),
                               content: Text(json.toString()),
                             ),
                           );
+                          Navigator.of(context).pop();
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
