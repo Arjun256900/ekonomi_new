@@ -76,6 +76,23 @@ class _VoiceScreenState extends State<VoiceScreen> {
                         : const SizedBox.shrink(),
                   ),
                 ),
+                Container(
+                  height: 18.0, // Match the Marquee's container height
+                  width: 12.0, // The width of the fade effect
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        // Start with the background color (fully opaque)
+                        Colors.white,
+
+                        // End with the background color (fully transparent)
+                        Colors.white.withAlpha(0),
+                      ],
+                    ),
+                  ),
+                ),
                 // Text field
                 _buildTextField(),
                 const SizedBox(height: 30),

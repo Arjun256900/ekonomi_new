@@ -1,6 +1,7 @@
 import 'package:ekonomi_new/background/backGround.dart';
 import 'package:ekonomi_new/screens/chatbot_screen.dart';
 import 'package:ekonomi_new/screens/coupons.dart';
+import 'package:ekonomi_new/screens/debt_management_screen.dart';
 import 'package:ekonomi_new/screens/history_screen.dart';
 import 'package:ekonomi_new/screens/profile_screen.dart';
 import 'package:ekonomi_new/screens/reminder_screen.dart';
@@ -163,7 +164,12 @@ class _HomescreenState extends State<Homescreen> {
                             const SizedBox(width: 8),
                             GestureDetector(
                               onTap: () {
-                                // TODO
+                                Navigator.of(context).push(
+                                  CupertinoPageRoute(
+                                    builder: (context) =>
+                                        DebtManagementScreen(),
+                                  ),
+                                );
                               },
                               child: Container(
                                 height: 40,
