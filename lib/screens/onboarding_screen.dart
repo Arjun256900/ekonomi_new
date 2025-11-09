@@ -96,7 +96,7 @@ class OnboardingScreen extends StatelessWidget {
                                         : 8,
                                     decoration: BoxDecoration(
                                       color: provider.currentPage == index
-                                          ? Colors.teal
+                                          ? Theme.of(context).primaryColor
                                           : Colors.grey[300],
                                       borderRadius: BorderRadius.circular(4),
                                     ),
@@ -121,7 +121,7 @@ class OnboardingScreen extends StatelessWidget {
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.teal,
+                                  backgroundColor:Theme.of(context).primaryColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(7),
                                   ),

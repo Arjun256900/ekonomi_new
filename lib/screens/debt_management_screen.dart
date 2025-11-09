@@ -4,6 +4,7 @@ import 'package:ekonomi_new/widgets/general/back_button.dart';
 import 'package:ekonomi_new/widgets/general/filter_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DebtManagementScreen extends StatefulWidget {
   const DebtManagementScreen({super.key});
@@ -13,8 +14,8 @@ class DebtManagementScreen extends StatefulWidget {
 }
 
 class _DebtManagementScreenState extends State<DebtManagementScreen> {
-  static const Color _teal = Color(0xFF0CA79A);
-  static const double _cardRadius = 12.0;
+  
+  static double get _cardRadius => 12.0;
 
   // sample data
   final List<_DebtItem> _items = const [
@@ -52,6 +53,7 @@ class _DebtManagementScreenState extends State<DebtManagementScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Color _teal= Theme.of(context).primaryColor;
     final mq = MediaQuery.of(context);
     return Stack(
       children: [
@@ -107,6 +109,7 @@ class _DebtManagementScreenState extends State<DebtManagementScreen> {
   }
 
   Widget _buildFilterChips() {
+    final Color _teal= Theme.of(context).primaryColor;
     final labels = ['All', 'Loans', 'Cards'];
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -194,6 +197,7 @@ class _DebtManagementScreenState extends State<DebtManagementScreen> {
   }
 
   Widget _buildProgressCard() {
+    final Color _teal= Theme.of(context).primaryColor;
     const progressPercent = 0.28; // 28%
     return Container(
       padding: const EdgeInsets.all(14),
@@ -233,7 +237,7 @@ class _DebtManagementScreenState extends State<DebtManagementScreen> {
                   child: CircularProgressIndicator(
                     value: progressPercent,
                     strokeWidth: 8,
-                    valueColor: const AlwaysStoppedAnimation(_teal),
+                    valueColor:  AlwaysStoppedAnimation(_teal),
                     backgroundColor: Colors.transparent,
                   ),
                 ),
@@ -266,7 +270,7 @@ class _DebtManagementScreenState extends State<DebtManagementScreen> {
                     value: progressPercent,
                     minHeight: 12,
                     backgroundColor: Colors.grey.shade300,
-                    valueColor: const AlwaysStoppedAnimation(_teal),
+                    valueColor:  AlwaysStoppedAnimation(_teal),
                   ),
                 ),
                 const SizedBox(height: 8),

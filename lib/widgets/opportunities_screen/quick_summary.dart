@@ -10,7 +10,7 @@ class QuickSummary extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFF03969D),
+        color:Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(

@@ -47,7 +47,7 @@ class _AppPreferencesState extends State<AppPreferences> {
                   height: 25,
                   width: 50,
                   child: CupertinoSwitch(
-                    activeTrackColor: Color(0xFF03969D),
+                    activeTrackColor:Theme.of(context).primaryColor,
                     value: isSwitched,
                     onChanged: (bool newValue) {
                       setState(() {

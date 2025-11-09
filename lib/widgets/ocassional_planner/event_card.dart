@@ -26,7 +26,7 @@ class _EventCardState extends State<EventCard> {
             children: [
               CircleAvatar(
                 backgroundColor: Color.fromRGBO(236, 236, 236, 1),
-                child: Icon(widget.icon, color: Colors.teal),
+                child: Icon(widget.icon, color: Theme.of(context).primaryColor),
               ),
               Text("Apr 15"),
             ],

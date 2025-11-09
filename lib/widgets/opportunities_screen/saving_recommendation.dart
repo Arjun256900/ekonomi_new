@@ -18,7 +18,7 @@ class SavingRecommendation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color teal = Color(0xFF008F8D);
+    final Color teal = Theme.of(context).primaryColor;
     const Color subtitleGrey = Color(0xFF9EA7AB);
     const Color panelBorder = Color(0xFFDFF3F4);
 
@@ -81,7 +81,7 @@ class SavingRecommendation extends StatelessWidget {
                     behavior: HitTestBehavior.opaque,
                     child: Text(
                       buttonText,
-                      style: const TextStyle(
+                      style:  TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
                         color: teal,

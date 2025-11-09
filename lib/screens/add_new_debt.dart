@@ -57,11 +57,11 @@ class _AddNewDebtState extends State<AddNewDebt> {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: selectedOption == 0
-                                  ? Colors.teal
+                                  ?Theme.of(context).primaryColor
                                   : Colors.white,
                               border: Border.all(
                                 color: selectedOption == 0
-                                    ? Colors.teal
+                                    ?Theme.of(context).primaryColor
                                     : Colors.black,
                                 width: 1,
                               ),
@@ -91,11 +91,11 @@ class _AddNewDebtState extends State<AddNewDebt> {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: selectedOption == 1
-                                  ? Colors.teal
+                                  ? Theme.of(context).primaryColor
                                   : Colors.white,
                               border: Border.all(
                                 color: selectedOption == 1
-                                    ? Colors.teal
+                                    ? Theme.of(context).primaryColor
                                     : Colors.black,
                                 width: 1,
                               ),

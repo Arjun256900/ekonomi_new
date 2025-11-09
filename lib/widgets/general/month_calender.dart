@@ -99,7 +99,7 @@ class _MonthCalendarState extends State<MonthCalendar> {
                   ),
                   decoration: isHighlighted
                       ? BoxDecoration(
-                          color: Colors.teal[100],
+                          color:Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(6),
                         )
                       : null,
@@ -107,7 +107,7 @@ class _MonthCalendarState extends State<MonthCalendar> {
                     dayCounter.toString(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: isSunday ? Color(0xff03969D) : Colors.grey[500],
+                      color: isSunday ?Theme.of(context).primaryColor: Colors.grey[500],
                     ),
                   ),
                 ),
@@ -155,7 +155,7 @@ class _MonthCalendarState extends State<MonthCalendar> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF03969D),
+                  color:Theme.of(context).primaryColor,
                 ),
               ),
               Row(

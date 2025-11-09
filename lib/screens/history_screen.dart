@@ -137,15 +137,15 @@ class _HistoryScreenState extends State<HistoryScreen>
                                                     ? FontWeight.w700
                                                     : FontWeight.w400,
                                                 color: selected
-                                                    ? const Color(0xFF03969D)
+                                                    ? Theme.of(context).primaryColor
                                                     : Colors.black,
                                               ),
                                             ),
                                             if (selected)
-                                              const Icon(
+                                               Icon(
                                                 Icons.check,
                                                 size: 18,
-                                                color: Color(0xFF03969D),
+                                                color:Theme.of(context).primaryColor,
                                               ),
                                           ],
                                         ),
@@ -164,7 +164,7 @@ class _HistoryScreenState extends State<HistoryScreen>
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF03969D),
+                        color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
 

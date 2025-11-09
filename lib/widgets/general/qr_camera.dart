@@ -19,7 +19,7 @@ class QrCamera extends StatefulWidget {
   const QrCamera({super.key, required this.onImageSelected});
 
   // Define the primary color from the design
-  static const Color primaryColor = Color.fromRGBO(6, 139, 147, 1);
+  
 
   @override
   State<QrCamera> createState() => _QrCameraState();
@@ -99,6 +99,7 @@ class _QrCameraState extends State<QrCamera> {
   }
 
   void _showTransactionList(List<Map<String, dynamic>> transactions) {
+    
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -135,7 +136,7 @@ class _QrCameraState extends State<QrCamera> {
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: QrCamera.primaryColor,
+                  backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -167,6 +168,7 @@ class _QrCameraState extends State<QrCamera> {
 
   @override
   Widget build(BuildContext context) {
+    final Color primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
       // Light gradient background like the design
       body: Container(
@@ -193,7 +195,7 @@ class _QrCameraState extends State<QrCamera> {
                           gradient: LinearGradient(
                             colors: [
                               Colors.transparent,
-                              QrCamera.primaryColor.withOpacity(0.06),
+                              primaryColor.withOpacity(0.06),
                               Colors.transparent,
                             ],
                             begin: Alignment.topCenter,
@@ -250,7 +252,7 @@ class _QrCameraState extends State<QrCamera> {
         child: Text(
           text,
           style: TextStyle(
-            color: isSelected ? QrCamera.primaryColor : Colors.black,
+            color: isSelected ?Theme.of(context).primaryColor : Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -297,7 +299,7 @@ class _QrCameraState extends State<QrCamera> {
   Widget _buildScannerCorner(Alignment alignment) {
     const double cornerLength = 36.0;
     const double thickness = 4.5;
-    final Color cornerColor = QrCamera.primaryColor;
+    final Color cornerColor = Theme.of(context).primaryColor;
 
     // determine which sides to draw
     final bool top = alignment.y < 0;
@@ -467,8 +469,8 @@ class _QrCameraState extends State<QrCamera> {
                             child: Container(
                               width: 58,
                               height: 58,
-                              decoration: const BoxDecoration(
-                                color: QrCamera.primaryColor,
+                              decoration:  BoxDecoration(
+                                color: Theme.of(context).primaryColor,
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(
@@ -528,8 +530,8 @@ class _QrCameraState extends State<QrCamera> {
       onPressed: enabled ? onPressed : null,
       style: ElevatedButton.styleFrom(
         backgroundColor: enabled
-            ? QrCamera.primaryColor
-            : QrCamera.primaryColor.withOpacity(0.45),
+            ? Theme.of(context).primaryColor
+            : Theme.of(context).primaryColor.withOpacity(0.45),
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),

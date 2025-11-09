@@ -1,4 +1,5 @@
 import 'package:ekonomi_new/screens/add_event_screen.dart';
+import 'package:ekonomi_new/screens/add_new_debt.dart';
 import 'package:ekonomi_new/screens/add_new_savings.dart';
 import 'package:ekonomi_new/screens/ocassion_planner_screen.dart';
 import 'package:ekonomi_new/screens/set_goal.dart';
@@ -45,11 +46,13 @@ class ActionGrid extends StatelessWidget {
       navigation: OcassionPlannerScreen(),
     ),
     ActionItem(
-      title: 'Add Event',
+      // title: 'Add Event',
+      title: 'Add Debt',
       subtitle: 'Plan and Save Your Moments',
       icon: Icons.confirmation_num,
       filled: false,
-      navigation: AddEventScreen(),
+      // navigation: AddEventScreen(),
+      navigation: AddNewDebt(),
     ),
   ];
 
