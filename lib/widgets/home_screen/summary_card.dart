@@ -1,8 +1,6 @@
-import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
 import 'package:ekonomi_new/bloc/Global/Spendings_bloc.dart';
 import 'package:ekonomi_new/bloc/Global/savingsGlobal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SummaryCard extends StatelessWidget {
   const SummaryCard({super.key});
@@ -10,8 +8,8 @@ class SummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ✅ get transaction list from bloc
-    final transactionList =
-        context.watch<TransactionListBloc>().state.transactions;
+    // final transactionList =
+    //     context.watch<TransactionListBloc>().state.transactions;
 
     return Card(
       color: Colors.white,
@@ -26,8 +24,7 @@ class SummaryCard extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: SpendingsGlobal().spendingListNotifier,
               builder: (context, _, __) {
-                final globalTotal =
-                    SpendingsGlobal().calculateTotalSum();
+                final globalTotal = SpendingsGlobal().calculateTotalSum();
 
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,7 +34,10 @@ class SummaryCard extends StatelessWidget {
                       children: [
                         Text(
                           'Spendings',
-                          style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 14,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Text(
@@ -51,7 +51,9 @@ class SummaryCard extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFF048B94),
                         borderRadius: BorderRadius.circular(12),

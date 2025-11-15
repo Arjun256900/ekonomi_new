@@ -6,7 +6,6 @@ import 'package:ekonomi_new/widgets/form_widgets/custom_text_field.dart';
 import 'package:ekonomi_new/widgets/form_widgets/dateField.dart';
 import 'package:ekonomi_new/widgets/form_widgets/dropDownField.dart';
 import 'package:ekonomi_new/widgets/general/back_button.dart';
-import 'package:ekonomi_new/widgets/general/error_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -57,13 +56,13 @@ class _AddNewDebtState extends State<AddNewDebt> {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: selectedOption == 0
-                                  ?Theme.of(context).primaryColor
+                                  ? Theme.of(context).primaryColor
                                   : Colors.white,
                               border: Border.all(
                                 color: selectedOption == 0
-                                    ?Theme.of(context).primaryColor
+                                    ? Theme.of(context).primaryColor
                                     : Colors.black,
-                                width: 1,
+                                width: 0.4,
                               ),
                               borderRadius: BorderRadius.circular(17),
                             ),
@@ -97,7 +96,7 @@ class _AddNewDebtState extends State<AddNewDebt> {
                                 color: selectedOption == 1
                                     ? Theme.of(context).primaryColor
                                     : Colors.black,
-                                width: 1,
+                                width: 0.4,
                               ),
                               borderRadius: BorderRadius.circular(17),
                             ),
@@ -170,7 +169,9 @@ class _NewDebtState extends State<NewDebt> {
                 onChanged: (value) {
                   bloc.add(LenderNameChanged(value));
                 },
-                selectedValue: state.lenderName.isEmpty ? null : state.lenderName,
+                selectedValue: state.lenderName.isEmpty
+                    ? null
+                    : state.lenderName,
               ),
               const SizedBox(height: 10),
 
@@ -244,7 +245,7 @@ class _NewDebtState extends State<NewDebt> {
 
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         bloc.add(FormSubmitted());
                         if (state.isValid) {
                           final json = state.toJson();

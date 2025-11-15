@@ -1,6 +1,5 @@
 import 'package:ekonomi_new/bloc/AddNewSpending/spending_event.dart';
 import 'package:ekonomi_new/bloc/AddNewSpending/spending_state.dart';
-import 'package:ekonomi_new/bloc/Global/Spendings_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';

@@ -1,4 +1,3 @@
-import 'package:ekonomi_new/screens/add_event_screen.dart';
 import 'package:ekonomi_new/screens/add_new_debt.dart';
 import 'package:ekonomi_new/screens/add_new_savings.dart';
 import 'package:ekonomi_new/screens/ocassion_planner_screen.dart';
