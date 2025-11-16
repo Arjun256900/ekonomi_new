@@ -1,3 +1,5 @@
+import 'package:ekonomi_new/screens/debt_repayment_strategies.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoanCard extends StatefulWidget {
@@ -112,7 +114,11 @@ class _LoanCardState extends State<LoanCard> {
   // ──────────────────── Custom Styled Button ────────────────────
   Widget _styledButton(String label) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).push(
+          CupertinoPageRoute(builder: (context) => DebtRepaymentStrategies()),
+        );
+      },
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
         padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),

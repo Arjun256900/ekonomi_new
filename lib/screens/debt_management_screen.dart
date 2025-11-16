@@ -68,7 +68,7 @@ class _DebtManagementScreenState extends State<DebtManagementScreen> {
                 backgroundColor: const Color.fromARGB(0, 240, 240, 240),
                 elevation: 0,
                 title: const Text(
-                  "Saving History",
+                  "Debt management",
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                 ),
               ),

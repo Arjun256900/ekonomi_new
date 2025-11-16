@@ -18,7 +18,6 @@ class QrCamera extends StatefulWidget {
   const QrCamera({super.key, required this.onImageSelected});
 
   // Define the primary color from the design
-  
 
   @override
   State<QrCamera> createState() => _QrCameraState();
@@ -98,7 +97,6 @@ class _QrCameraState extends State<QrCamera> {
   }
 
   void _showTransactionList(List<Map<String, dynamic>> transactions) {
-    
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -251,7 +249,7 @@ class _QrCameraState extends State<QrCamera> {
         child: Text(
           text,
           style: TextStyle(
-            color: isSelected ?Theme.of(context).primaryColor : Colors.black,
+            color: isSelected ? Theme.of(context).primaryColor : Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -468,7 +466,7 @@ class _QrCameraState extends State<QrCamera> {
                             child: Container(
                               width: 58,
                               height: 58,
-                              decoration:  BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 shape: BoxShape.circle,
                               ),
