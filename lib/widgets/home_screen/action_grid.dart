@@ -51,7 +51,7 @@ class ActionGrid extends StatelessWidget {
       icon: Icons.confirmation_num,
       filled: false,
       // navigation: AddEventScreen(),
-      navigation: AddNewDebt(),
+      navigation: AddNewDebt(selectedOption: 0,),
     ),
   ];
 

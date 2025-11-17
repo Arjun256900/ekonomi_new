@@ -124,7 +124,7 @@ class _DebtManagementScreenState extends State<DebtManagementScreen> {
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       CupertinoPageRoute(
-                                        builder: (context) => AddNewDebt(),
+                                        builder: (context) => AddNewDebt(selectedOption: 0,),
                                       ),
                                     );
                                   },

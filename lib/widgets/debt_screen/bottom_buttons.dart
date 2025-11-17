@@ -20,7 +20,7 @@ class _BottomButtonsState extends State<BottomButtons> {
             onTap: () {
               Navigator.of(
                 context,
-              ).push(CupertinoPageRoute(builder: (context) => AddNewDebt()));
+              ).push(CupertinoPageRoute(builder: (context) => AddNewDebt(selectedOption: 0,)));
             },
           ),
         ),

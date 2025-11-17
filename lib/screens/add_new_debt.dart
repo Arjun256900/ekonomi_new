@@ -10,16 +10,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddNewDebt extends StatefulWidget {
-  const AddNewDebt({super.key});
+  final int selectedOption;
+  const AddNewDebt({required this.selectedOption , super.key});
 
   @override
   State<AddNewDebt> createState() => _AddNewDebtState();
 }
 
 class _AddNewDebtState extends State<AddNewDebt> {
-  int selectedOption = 0;
+  
   @override
   Widget build(BuildContext context) {
+    int selectedOption = widget.selectedOption;
     return Stack(
       children: [
         const Positioned.fill(child: Background()),

@@ -1,3 +1,4 @@
+import 'package:ekonomi_new/screens/add_new_debt.dart';
 import 'package:ekonomi_new/screens/debt_repayment_strategies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -99,9 +100,9 @@ class _LoanCardState extends State<LoanCard> {
               // ───────── Buttons ─────────
               Row(
                 children: [
-                  _styledButton("View Info"),
+                  _styledButton("View Info" , DebtRepaymentStrategies()),
                   SizedBox(width: screenWidth * 0.02),
-                  _styledButton("Repay"),
+                  _styledButton("Repay" , AddNewDebt(selectedOption: 1,)),
                 ],
               ),
             ],
@@ -111,12 +112,11 @@ class _LoanCardState extends State<LoanCard> {
     );
   }
 
-  // ──────────────────── Custom Styled Button ────────────────────
-  Widget _styledButton(String label) {
+  Widget _styledButton(String label,Widget nextOne) {
     return ElevatedButton(
       onPressed: () {
         Navigator.of(context).push(
-          CupertinoPageRoute(builder: (context) => DebtRepaymentStrategies()),
+          CupertinoPageRoute(builder: (context) => nextOne),
         );
       },
       style: ElevatedButton.styleFrom(
