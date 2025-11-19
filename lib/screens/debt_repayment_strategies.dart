@@ -294,6 +294,7 @@ class _DebtRepaymentStrategiesState extends State<DebtRepaymentStrategies> {
                     // Chart card
                     Expanded(
                       child: Card(
+                        color: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -378,7 +379,7 @@ class _DebtRepaymentStrategiesState extends State<DebtRepaymentStrategies> {
                                       // strategy line (blue)
                                       _buildLine(
                                         _strategyData,
-                                        color: theme.colorScheme.primary,
+                                        color: theme.primaryColor,
                                       ),
                                     ],
                                   ),
@@ -405,6 +406,7 @@ class _DebtRepaymentStrategiesState extends State<DebtRepaymentStrategies> {
                                 ],
                               ),
                               Slider(
+                                activeColor: theme.primaryColor,
                                 min: 0,
                                 max: 50000,
                                 divisions: 100,
@@ -425,6 +427,7 @@ class _DebtRepaymentStrategiesState extends State<DebtRepaymentStrategies> {
                       children: [
                         Expanded(
                           child: Card(
+                            color: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -455,6 +458,7 @@ class _DebtRepaymentStrategiesState extends State<DebtRepaymentStrategies> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Card(
+                            color: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -493,14 +497,15 @@ class _DebtRepaymentStrategiesState extends State<DebtRepaymentStrategies> {
                       child: ElevatedButton(
                         onPressed: _applyStrategy,
                         style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.primaryColor,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Apply Strategy',
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),
                     ),
