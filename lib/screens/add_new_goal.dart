@@ -74,6 +74,7 @@ class _AddNewGoalState extends State<AddNewGoal> {
                                 heading: "Goal Name",
                                 hintText: "Enter your Goal Name",
                                 controller: _goalNameController,
+                                keyboardType: TextInputType.name,
                                 onChanged: (v) {
                                   bloc.add(GoalNameChanged(v));
                                 },

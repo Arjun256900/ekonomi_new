@@ -1,98 +1,65 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatefulWidget {
+class CustomTextField extends StatelessWidget {
+  final TextEditingController controller;
   final String heading;
   final String hintText;
-  final String initialValue;
-  final TextEditingController? controller;
-  final ValueChanged<String>? onChanged;
-  final TextInputType? keyboardType;
-  final int? maxLines;
+  final TextInputType keyboardType;
+  final ValueChanged<String> onChanged;
+  final bool obscureText;
+  final Widget? suffixIcon;
+  final int maxLines;
 
   const CustomTextField({
     super.key,
+    required this.controller,
     required this.heading,
     required this.hintText,
-    this.initialValue = '',
-    this.controller,
-    this.onChanged,
-    this.keyboardType,
+    required this.keyboardType,
+    required this.onChanged,
+    this.obscureText = false,
+    this.suffixIcon,
     this.maxLines = 1,
   });
-
-  @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
-}
-
-class _CustomTextFieldState extends State<CustomTextField> {
-  late TextEditingController _controller;
-  late bool _ownsController;
-
-  @override
-  void initState() {
-    super.initState();
-    _ownsController = widget.controller == null;
-    _controller =
-        widget.controller ?? TextEditingController(text: widget.initialValue);
-  }
-
-  @override
-  void didUpdateWidget(covariant CustomTextField oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (oldWidget.controller != widget.controller) {
-      // dispose the old internal controller if owned it
-      if (_ownsController) {
-        _controller.dispose();
-      }
-
-      _ownsController = widget.controller == null;
-      _controller =
-          widget.controller ?? TextEditingController(text: widget.initialValue);
-    }
-
-    // If initialValue changed and we own the controller and the field is empty,
-    // update the text once (prevents clobbering user typing).
-    if (_ownsController &&
-        widget.initialValue != oldWidget.initialValue &&
-        (_controller.text.isEmpty)) {
-      _controller.text = widget.initialValue;
-    }
-  }
-
-  @override
-  void dispose() {
-    if (_ownsController) {
-      _controller.dispose();
-    }
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        /// Heading
         Text(
-          widget.heading,
-          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+          heading,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+          ),
         ),
-        const SizedBox(height: 4),
+
+        const SizedBox(height: 6),
+
+        /// Text Field
         ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 54),
+          constraints: const BoxConstraints(minHeight: 54),
           child: TextFormField(
-            controller: _controller,
-            onChanged: widget.onChanged,
-            keyboardType: widget.keyboardType,
-            maxLines: widget.maxLines,
+            controller: controller,
+            onChanged: onChanged,
+            keyboardType: keyboardType,
+            obscureText: obscureText,
+            maxLines: maxLines,
+            style: const TextStyle(fontSize: 14),
             decoration: InputDecoration(
-              hintText: widget.hintText,
+              hintText: hintText,
               hintStyle: const TextStyle(
-                color: Color.fromRGBO(0, 0, 0, 0.3),
-                fontSize: 14,
+                color: Color.fromRGBO(0, 0, 0, 0.4),
               ),
+              suffixIcon: suffixIcon,
               filled: true,
               fillColor: Colors.white,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 16,
+              ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(7),
                 borderSide: const BorderSide(
@@ -103,8 +70,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(7),
                 borderSide: const BorderSide(
-                  color: Color.fromRGBO(0, 0, 0, 0.3),
-                  width: 0.5,
+                  color: Color.fromRGBO(0, 0, 0, 0.6),
+                  width: 0.7,
                 ),
               ),
             ),

@@ -82,6 +82,8 @@ class _AddNewSpendingState extends State<AddNewSpending> {
                               CustomTextField(
                                 heading: "Enter Amount",
                                 hintText: "Enter how much did you spend?",
+                                controller: amountController,
+                                keyboardType: TextInputType.number,
                                 onChanged: (val) => context
                                     .read<SpendingBloc>()
                                     .add(AmountChanged(val)),

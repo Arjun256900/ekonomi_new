@@ -10,10 +10,18 @@ import 'package:ekonomi_new/widgets/form_widgets/custom_text_field.dart';
 import 'package:ekonomi_new/widgets/form_widgets/dateField.dart';
 import 'package:ekonomi_new/widgets/form_widgets/dropDownField.dart';
 
-class AddEventScreen extends StatelessWidget {
+class AddEventScreen extends StatefulWidget {
   const AddEventScreen({super.key});
 
   static const Color primaryColor = Color.fromRGBO(6, 139, 147, 1);
+
+  @override
+  State<AddEventScreen> createState() => _AddEventScreenState();
+}
+
+class _AddEventScreenState extends State<AddEventScreen> {
+  final TextEditingController EventNameController = TextEditingController();
+  final TextEditingController BudgetController = TextEditingController();
 
   final options = const ['Yes', 'No'];
 
@@ -22,14 +30,12 @@ class AddEventScreen extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-
     return BlocProvider(
       create: (_) => AddEventBloc(),
       child: Stack(
         children: [
           const Positioned.fill(child: Background()),
           Positioned.fill(
-
             child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
@@ -38,7 +44,6 @@ class AddEventScreen extends StatelessWidget {
                 leading: const BackButtonLeading(),
                 backgroundColor: Colors.transparent,
                 title: const Text(
-
                   "Add Event",
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                 ),
@@ -53,13 +58,14 @@ class AddEventScreen extends StatelessWidget {
                 child: BlocBuilder<AddEventBloc, AddEventState>(
                   builder: (context, state) {
                     return SingleChildScrollView(
-                      
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomTextField(
                             heading: 'Event title',
                             hintText: "Enter Event",
+                            controller: EventNameController,
+                            keyboardType: TextInputType.name,
                             onChanged: (value) => context
                                 .read<AddEventBloc>()
                                 .add(TitleChanged(value)),
@@ -76,6 +82,8 @@ class AddEventScreen extends StatelessWidget {
                           CustomTextField(
                             heading: 'Budget',
                             hintText: "Enter the budget",
+                            controller: BudgetController,
+                            keyboardType: TextInputType.number,
                             onChanged: (value) => context
                                 .read<AddEventBloc>()
                                 .add(BudgetChanged(value)),
@@ -92,9 +100,9 @@ class AddEventScreen extends StatelessWidget {
                             hintText: "Save Weakly",
                             heading: "Saving Strategy",
                             onChanged: (value) {
-                              context
-                                  .read<AddEventBloc>()
-                                  .add(SavingStrategyChanged(value));
+                              context.read<AddEventBloc>().add(
+                                SavingStrategyChanged(value),
+                              );
                             },
                             selectedValue: state.strategy.isEmpty
                                 ? "Save weakly"
@@ -110,11 +118,11 @@ class AddEventScreen extends StatelessWidget {
                                   Radio<String>(
                                     value: option,
                                     groupValue: state.linkToGoal,
-                                    activeColor: primaryColor,
+                                    activeColor: AddEventScreen.primaryColor,
                                     onChanged: (value) {
-                                      context
-                                          .read<AddEventBloc>()
-                                          .add(LinkToGoalChanged(value));
+                                      context.read<AddEventBloc>().add(
+                                        LinkToGoalChanged(value),
+                                      );
                                     },
                                   ),
                                   Text(option),
@@ -130,14 +138,15 @@ class AddEventScreen extends StatelessWidget {
                               const Text("Add in Reminder"),
                               const SizedBox(width: 8),
                               GestureDetector(
-                                onTap: () => context
-                                    .read<AddEventBloc>()
-                                    .add(ReminderToggled()),
+                                onTap: () => context.read<AddEventBloc>().add(
+                                  ReminderToggled(),
+                                ),
                                 child: Container(
                                   width: 24,
                                   height: 24,
-                                  padding:
-                                      const EdgeInsets.all(4), // space inside box
+                                  padding: const EdgeInsets.all(
+                                    4,
+                                  ), // space inside box
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(6),
@@ -145,9 +154,10 @@ class AddEventScreen extends StatelessWidget {
                                   child: state.isReminderSelected
                                       ? Container(
                                           decoration: BoxDecoration(
-                                            color: primaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(9),
+                                            color: AddEventScreen.primaryColor,
+                                            borderRadius: BorderRadius.circular(
+                                              9,
+                                            ),
                                           ),
                                         )
                                       : null,
@@ -162,13 +172,14 @@ class AddEventScreen extends StatelessWidget {
                               onPressed: state.isSubmitting
                                   ? null
                                   : () {
-                                      context
-                                          .read<AddEventBloc>()
-                                          .add(SaveEventPressed());
+                                      context.read<AddEventBloc>().add(
+                                        SaveEventPressed(),
+                                      );
                                     },
                               style: ElevatedButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 14),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(7),
                                   side: const BorderSide(
@@ -176,12 +187,12 @@ class AddEventScreen extends StatelessWidget {
                                     color: Color.fromRGBO(0, 0, 0, 0.45),
                                   ),
                                 ),
-                                backgroundColor:
-                                    Theme.of(context).primaryColor,
+                                backgroundColor: Theme.of(context).primaryColor,
                               ),
                               child: state.isSubmitting
                                   ? const CircularProgressIndicator(
-                                      color: Colors.white)
+                                      color: Colors.white,
+                                    )
                                   : const Text(
                                       "Save Event",
                                       style: TextStyle(
@@ -196,7 +207,6 @@ class AddEventScreen extends StatelessWidget {
                       ),
                     );
                   },
-
                 ),
               ),
             ),
