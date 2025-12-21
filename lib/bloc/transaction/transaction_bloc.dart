@@ -39,6 +39,12 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       final newState = state.copyWith(filepath: event.value);
       emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
+    on<AllocationChanged>((event, emit) {
+  final newState = state.copyWith(allocationId: event.allocationId);
+  emit(newState.copyWith(isValid: _formIsValid(newState)));
+});
+
+
     on<UndoTransaction>((event, emit) {
       emit(
         state.copyWith(
@@ -48,9 +54,11 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
           sourceSelection: '',
           category: '',
           filepath: '',
+          allocationId: '', // NEW
         ),
       );
     });
+
     on<SubmitTransaction>((event, emit) {
       if (_formIsValid(state)) {
         final transactionJson = state.toJson();
@@ -105,6 +113,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         s.date.isNotEmpty &&
         s.sourceSelection.isNotEmpty &&
         s.category.isNotEmpty &&
-        s.filepath.isNotEmpty;
+        s.filepath.isNotEmpty &&
+        s.allocationId.isNotEmpty; // ✅ account required
   }
 }

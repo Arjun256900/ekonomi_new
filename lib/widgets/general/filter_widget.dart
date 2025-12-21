@@ -2,21 +2,36 @@ import 'package:flutter/material.dart';
 
 class FilterWidget extends StatefulWidget {
   final List<String> filters;
-  const FilterWidget({super.key,required this.filters});
+  final String? selectedFilter;
+  final ValueChanged<String>? onFilterChanged;
+
+  const FilterWidget({
+    super.key,
+    required this.filters,
+    this.selectedFilter,
+    this.onFilterChanged,
+  });
 
   @override
   State<FilterWidget> createState() => _FilterWidgetState();
 }
 
 class _FilterWidgetState extends State<FilterWidget> {
-  late List<String> filters;
-  String selected ='';
+  late String selected;
 
   @override
   void initState() {
     super.initState();
-    filters = widget.filters;
-    selected = filters[0];
+    selected = widget.selectedFilter ?? widget.filters[0];
+  }
+
+  @override
+  void didUpdateWidget(covariant FilterWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Update selected if parent changes it
+    if (widget.selectedFilter != null && widget.selectedFilter != selected) {
+      selected = widget.selectedFilter!;
+    }
   }
 
   @override
@@ -24,7 +39,7 @@ class _FilterWidgetState extends State<FilterWidget> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: filters.map((filter) {
+        children: widget.filters.map((filter) {
           final bool isSelected = selected == filter;
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
@@ -33,6 +48,9 @@ class _FilterWidgetState extends State<FilterWidget> {
                 setState(() {
                   selected = filter;
                 });
+                if (widget.onFilterChanged != null) {
+                  widget.onFilterChanged!(filter);
+                }
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(
@@ -41,7 +59,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 ),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? Color.fromRGBO(6, 138, 147, 1)
+                      ? const Color.fromRGBO(6, 138, 147, 1)
                       : Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(20),
                 ),

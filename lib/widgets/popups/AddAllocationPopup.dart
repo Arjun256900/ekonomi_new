@@ -76,7 +76,7 @@ class _AddAllocationPopupState extends State<AddAllocationPopup> {
               hintText: "e.g Rent",
               controller: _nameController,
               keyboardType: TextInputType.text,
-              onChanged: (_) {},
+              onChanged: (val) => _nameController.text = val,
             ),
 
             const SizedBox(height: 16),
@@ -87,7 +87,7 @@ class _AddAllocationPopupState extends State<AddAllocationPopup> {
               hintText: "Enter amount",
               controller: _amountController,
               keyboardType: TextInputType.number,
-              onChanged: (_) {},
+              onChanged: (val) => _amountController.text = val,
             ),
 
             const SizedBox(height: 16),
@@ -96,8 +96,8 @@ class _AddAllocationPopupState extends State<AddAllocationPopup> {
             Dropdownfield(
               heading: "Period",
               items: const ['Monthly', 'Weekly', 'Bi-weekly'],
-              selectedValue:"Weekly",
-              hintText: "Monthly",
+              selectedValue: period, // ✅ bind to state variable
+              hintText: "Select Period",
               onChanged: (v) => setState(() => period = v),
             ),
 

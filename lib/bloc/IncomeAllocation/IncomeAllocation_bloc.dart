@@ -1,8 +1,8 @@
-import 'package:ekonomi_new/bloc/IncomeAllocation/IncomeAlllocation_Events.dart';
-import 'package:ekonomi_new/bloc/IncomeAllocation/IncomeAllocation_State.dart';
-import 'package:ekonomi_new/models/IncomeAllocation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'IncomeAlllocation_Events.dart';
+import 'IncomeAllocation_State.dart';
+import '../../models/IncomeAllocation.dart';
 
 class IncomeAllocationBloc
     extends Bloc<IncomeAllocationEvent, IncomeAllocationState> {
@@ -10,70 +10,91 @@ class IncomeAllocationBloc
       : super(const IncomeAllocationState(
           totalIncome: 0,
           allocations: [],
+          selectedAllocationId: 'ALL',
         )) {
     on<LoadDefaultAllocations>(_loadDefaults);
     on<AddAllocation>(_add);
     on<UpdateAllocation>(_update);
     on<DeleteAllocation>(_delete);
+    on<SelectAllocation>(_selectAllocation);
   }
 
   void _loadDefaults(
-      LoadDefaultAllocations e, Emitter emit) {
+    LoadDefaultAllocations event,
+    Emitter<IncomeAllocationState> emit,
+  ) {
+    final defaults = [
+      IncomeAllocation(
+        id: 'tax',
+        title: 'Income Tax',
+        subtitle: 'Weekly',
+        amount: 0,
+        icon: Icons.receipt,
+        isDefault: true,
+      ),
+      IncomeAllocation(
+        id: 'home',
+        title: 'Home',
+        subtitle: 'Monthly',
+        amount: 0,
+        icon: Icons.home,
+        isDefault: true,
+      ),
+      IncomeAllocation(
+        id: 'groceries',
+        title: 'Groceries',
+        subtitle: 'Weekly',
+        amount: 0,
+        icon: Icons.shopping_cart,
+        isDefault: true,
+      ),
+    ];
+
     emit(
-      IncomeAllocationState(
-        totalIncome: e.totalIncome,
-        allocations: [
-          IncomeAllocation(
-            id: 'tax',
-            title: 'Income Tax',
-            subtitle: 'Default Account',
-            amount: 0,
-            icon: Icons.receipt,
-          ),
-          IncomeAllocation(
-            id: 'home',
-            title: 'Home',
-            subtitle: 'Rent/Mortgage',
-            amount: 0,
-            icon: Icons.home,
-          ),
-          IncomeAllocation(
-            id: 'groceries',
-            title: 'Groceries',
-            subtitle: 'Food & Supplies',
-            amount: 0,
-            icon: Icons.shopping_cart,
-          ),
-          IncomeAllocation(
-            id: 'debts',
-            title: 'Debts',
-            subtitle: 'Credit Card, Loans',
-            amount: 0,
-            icon: Icons.credit_card,
-          ),
-        ],
+      state.copyWith(
+        totalIncome: event.totalIncome,
+        allocations: defaults,
+        selectedAllocationId:
+            defaults.isNotEmpty ? defaults.first.id : 'ALL',
       ),
     );
   }
 
-  void _add(AddAllocation e, Emitter emit) {
+  void _add(AddAllocation event, Emitter<IncomeAllocationState> emit) {
+    final updated = [...state.allocations, event.allocation];
+    emit(
+      state.copyWith(
+        allocations: updated,
+        selectedAllocationId: event.allocation.id, // auto-select new
+      ),
+    );
+  }
+
+  void _update(UpdateAllocation event, Emitter<IncomeAllocationState> emit) {
+    final updated = state.allocations
+        .map((a) => a.id == event.allocation.id ? event.allocation : a)
+        .toList();
+
+    emit(state.copyWith(allocations: updated));
+  }
+
+  void _delete(DeleteAllocation event, Emitter<IncomeAllocationState> emit) {
+    final updated = state.allocations.where((a) => a.id != event.id).toList();
+
+    final selected = updated.any((a) => a.id == state.selectedAllocationId)
+        ? state.selectedAllocationId
+        : (updated.isNotEmpty ? updated.first.id : 'ALL');
+
     emit(state.copyWith(
-      allocations: [...state.allocations, e.allocation],
+      allocations: updated,
+      selectedAllocationId: selected,
     ));
   }
 
-  void _update(UpdateAllocation e, Emitter emit) {
+  void _selectAllocation(
+      SelectAllocation event, Emitter<IncomeAllocationState> emit) {
+    final exists = state.allocations.any((a) => a.id == event.allocationId);
     emit(state.copyWith(
-      allocations: state.allocations
-          .map((a) => a.id == e.allocation.id ? e.allocation : a)
-          .toList(),
-    ));
-  }
-
-  void _delete(DeleteAllocation e, Emitter emit) {
-    emit(state.copyWith(
-      allocations:
-          state.allocations.where((a) => a.id != e.id).toList(),
-    ));
+        selectedAllocationId: exists ? event.allocationId : 'ALL'));
   }
 }

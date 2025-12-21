@@ -5,30 +5,30 @@ class TransactionState {
   final String sourceSelection;
   final String category;
   final String filepath;
+  final String allocationId;
   final bool isValid;
-  // final bool showErrors;
 
   TransactionState({
-    this.debitOrCredit = "Credit",
+    required this.debitOrCredit,
     required this.amount,
     required this.date,
     required this.sourceSelection,
     required this.category,
     required this.filepath,
+    required this.allocationId,
     required this.isValid,
-    // required this.showErrors,
   });
 
   factory TransactionState.initial() {
     return TransactionState(
-      debitOrCredit: 'Credit',
+      debitOrCredit: '',
       amount: '',
       date: '',
       sourceSelection: '',
       category: '',
       filepath: '',
+      allocationId: '',
       isValid: false,
-      // showErrors: false,
     );
   }
 
@@ -39,8 +39,8 @@ class TransactionState {
     String? sourceSelection,
     String? category,
     String? filepath,
+    String? allocationId,
     bool? isValid,
-    // bool? showErrors,
   }) {
     return TransactionState(
       debitOrCredit: debitOrCredit ?? this.debitOrCredit,
@@ -49,19 +49,20 @@ class TransactionState {
       sourceSelection: sourceSelection ?? this.sourceSelection,
       category: category ?? this.category,
       filepath: filepath ?? this.filepath,
+      allocationId: allocationId ?? this.allocationId,
       isValid: isValid ?? this.isValid,
-      // showErrors: showErrors ?? this.showErrors,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "debitOrCredit": debitOrCredit,
-      "amount": amount,
-      "date": date,
-      "sourceSelection": sourceSelection,
-      "category": category,
-      "filepath": filepath,
+      'debitOrCredit': debitOrCredit,
+      'amount': amount,
+      'date': date,
+      'sourceSelection': sourceSelection,
+      'category': category,
+      'filepath': filepath,
+      'allocationId': allocationId,
     };
   }
 }

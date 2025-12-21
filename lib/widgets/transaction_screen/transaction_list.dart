@@ -1,5 +1,8 @@
+import 'package:ekonomi_new/bloc/IncomeAllocation/IncomeAllocation_bloc.dart';
 import 'package:ekonomi_new/widgets/transaction_screen/transaction_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
 
 class TransactionItem {
   final String date;
@@ -18,18 +21,72 @@ class TransactionItem {
 }
 
 class TransactionList extends StatelessWidget {
-  /// List of transaction entries to display.
-  final List<TransactionItem> transactions;
-
-  const TransactionList({super.key, required this.transactions});
+  const TransactionList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    //  fixed heights matching TransactionCard + separator
+    final transactionState = context.watch<TransactionListBloc>().state;
+    final allocationState = context.watch<IncomeAllocationBloc>().state;
+
+    final selectedAllocationId = allocationState.selectedAllocationId;
+
+    /// Date filter (optional)
+    final selectedDateFilter = transactionState.selectedDateFilter ?? 'All';
+
+    /// ✅ FILTER BY ALLOCATION (FIX)
+    List<Map<String, dynamic>> filteredTransactions =
+        selectedAllocationId == 'ALL'
+        ? transactionState.transactions
+        : transactionState.transactions
+              .where((t) => t['allocationId'] == selectedAllocationId)
+              .toList();
+
+    /// ✅ DATE FILTER
+    if (selectedDateFilter != 'All') {
+      final now = DateTime.now();
+      int days = 0;
+
+      switch (selectedDateFilter) {
+        case '7 days':
+          days = 7;
+          break;
+        case '30 days':
+          days = 30;
+          break;
+        case '90 days':
+          days = 90;
+          break;
+        case '180 days':
+          days = 180;
+          break;
+      }
+
+      filteredTransactions = filteredTransactions.where((t) {
+        final txDate = DateTime.tryParse(t['rawDate'] ?? '') ?? now;
+        return now.difference(txDate).inDays <= days;
+      }).toList();
+    }
+
+    /// Convert to UI model
+    final transactions = filteredTransactions.map((t) {
+      return TransactionItem(
+        date: t['date'] ?? '',
+        time: t['time'] ?? '',
+        heading: t['category'] ?? '',
+        sendOrReceived: t['sourceSelection'] ?? '',
+        amount: t['amount'] ?? '',
+      );
+    }).toList();
+
+    if (transactions.isEmpty) {
+      return const Center(
+        child: Text('No transactions', style: TextStyle(color: Colors.grey)),
+      );
+    }
+
     const double cardHeight = 68;
     const double separatorHeight = 12;
 
-    // calculate the total height of all transaction cards to dynamically resize the vertical divider
     final double listHeight =
         transactions.length * cardHeight +
         (transactions.length - 1) * separatorHeight;
@@ -38,9 +95,8 @@ class TransactionList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header row
           Row(
-            children: [
+            children: const [
               SizedBox(
                 width: 45,
                 child: Text(
@@ -49,7 +105,7 @@ class TransactionList extends StatelessWidget {
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
               ),
-              const SizedBox(width: 35),
+              SizedBox(width: 35),
               Text(
                 'Transactions',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
@@ -57,12 +113,10 @@ class TransactionList extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          // SizedBox drives stack height dynamically
           SizedBox(
             height: listHeight,
             child: Stack(
               children: [
-                // Vertical divider with dynamic height
                 Positioned(
                   left: 45 + 35 / 2,
                   top: 0,
@@ -70,16 +124,16 @@ class TransactionList extends StatelessWidget {
                   child: Container(
                     width: 4,
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(217, 217, 217, 0.39),
+                      color: const Color.fromRGBO(217, 217, 217, 0.39),
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
                 ),
-                // card items
                 Column(
                   children: transactions.asMap().entries.map((entry) {
                     final tx = entry.value;
                     final idx = entry.key;
+
                     return Padding(
                       padding: EdgeInsets.only(
                         bottom: idx == transactions.length - 1
@@ -88,14 +142,12 @@ class TransactionList extends StatelessWidget {
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
                             width: 45,
-                            height: 68,
+                            height: cardHeight,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
                                   tx.date,

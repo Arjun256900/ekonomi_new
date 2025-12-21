@@ -31,6 +31,12 @@ class FilepathChanged extends TransactionEvent {
   final String value;
   FilepathChanged(this.value);
 }
+class AllocationChanged extends TransactionEvent {
+  final String allocationId;
+  AllocationChanged(this.allocationId);
+}
+
+
 
 class SubmitTransaction extends TransactionEvent {
   final BuildContext context;

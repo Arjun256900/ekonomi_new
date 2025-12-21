@@ -6,6 +6,7 @@ class AddIncomeSource extends IncomeEvent {
   final IncomeSource source;
   AddIncomeSource(this.source);
 }
+
 class UpdateIncomeSource extends IncomeEvent {
   final int index;
   final IncomeSource updatedSource;
@@ -17,3 +18,6 @@ class DeleteIncomeSource extends IncomeEvent {
   final int index;
   DeleteIncomeSource(this.index);
 }
+
+/// ✅ NEW
+

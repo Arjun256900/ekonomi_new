@@ -107,32 +107,23 @@ class InocmeOnboard extends StatelessWidget {
                       ),
 
                       /// Save Button
+                      /// Save Button
                       Padding(
                         padding: const EdgeInsets.all(20),
                         child: SizedBox(
                           width: double.infinity,
                           child: OnboardBtn(
+                            caption: "Save",
+                            bgColor: Theme.of(context).primaryColor,
                             func: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => BlocProvider(
-                                    create: (context) =>
-                                        IncomeAllocationBloc()..add(
-                                          LoadDefaultAllocations(
-                                            context
-                                                .read<IncomeBloc>()
-                                                .state
-                                                .totalIncome,
-                                          ),
-                                        ),
-                                    child: const IncomeAllocationScreen(),
-                                  ),
+                                  builder: (_) =>
+                                      const IncomeAllocationScreen(),
                                 ),
                               );
                             },
-                            caption: "Save",
-                            bgColor: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),

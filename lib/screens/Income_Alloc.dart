@@ -21,171 +21,161 @@ class IncomeAllocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<IncomeBloc, IncomeState>(
-      listener: (context, incomeState) {
-        context.read<IncomeAllocationBloc>().add(
-          LoadDefaultAllocations(incomeState.totalIncome),
-        );
-      },
-      child: Stack(
-        children: [
-          Positioned.fill(child: Background()),
-          Positioned.fill(
-            child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-                automaticallyImplyLeading: false,
-                leading: BackButtonLeading(),
-                title: const Text(
-                  "Income Allocation",
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-                ),
-              ),
+    return Stack(
+      children: [
+        Positioned.fill(child: Background()),
+        Positioned.fill(
+          child: Scaffold(
+            appBar: AppBar(
               backgroundColor: Colors.transparent,
-              body: SafeArea(
-                child: BlocBuilder<IncomeAllocationBloc, IncomeAllocationState>(
-                  builder: (context, state) {
-                    final progress = state.totalIncome == 0
-                        ? 0.0
-                        : state.totalAllocated / state.totalIncome;
+              automaticallyImplyLeading: false,
+              leading: BackButtonLeading(),
+              title: const Text(
+                "Income Allocation",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+              ),
+            ),
+            backgroundColor: Colors.transparent,
+            body: SafeArea(
+              child: BlocBuilder<IncomeAllocationBloc, IncomeAllocationState>(
+                builder: (context, state) {
+                  final progress = state.totalIncome == 0
+                      ? 0.0
+                      : state.totalAllocated / state.totalIncome;
 
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /// TOTAL INCOME
-                        const SizedBox(height: 20),
-                        Center(
-                          child: Column(
-                            children: [
-                              Text(
-                                "\$${state.totalIncome.toStringAsFixed(2)}",
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 20),
+
+                      /// TOTAL INCOME
+                      Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              "\$${state.totalIncome.toStringAsFixed(2)}",
+                              style: const TextStyle(
+                                fontSize: 36,
+                                fontWeight: FontWeight.bold,
                               ),
-                              const SizedBox(height: 6),
-                              const Text(
-                                "Your Monthly Income",
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(height: 6),
+                            const Text(
+                              "Your Monthly Income",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
                         ),
+                      ),
 
-                        const SizedBox(height: 30),
+                      const SizedBox(height: 30),
 
-                        /// PROGRESS
-                        Padding(
+                      /// PROGRESS
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Text("Total Allocated"),
+                                const Spacer(),
+                                Text(
+                                  "\$${state.totalAllocated.toStringAsFixed(2)}",
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            LinearProgressIndicator(
+                              value: progress.clamp(0, 1),
+                              backgroundColor: Colors.white,
+                              color: Colors.teal,
+                              minHeight: 8,
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              "\$${state.remaining.toStringAsFixed(2)} remaining",
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      /// ALLOCATIONS LIST
+                      Expanded(
+                        child: ListView(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Total Allocated",
-                                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    "\$${state.totalAllocated.toStringAsFixed(2)}",
-                                    style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              LinearProgressIndicator(
-                                value: progress.clamp(0, 1),
-                                backgroundColor: Colors.grey.shade800,
-                                color: Colors.teal,
-                                minHeight: 8,
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                "\$${state.remaining.toStringAsFixed(2)} remaining",
-                                style: const TextStyle(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        const SizedBox(height: 20),
-
-                        /// SCROLLABLE LIST (ONLY SCROLLABLE)
-                        Expanded(
-                          child: ListView(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            children: [
-                              ...state.allocations.map(
-                                (allocation) => AllocationTile(
+                          children: [
+                            ...state.allocations.map(
+                              (allocation) => AllocationTile(
+                                allocation: allocation,
+                                onEdit: () => _openAllocationPopup(
+                                  context,
                                   allocation: allocation,
-                                  onEdit: () => _openAllocationPopup(
-                                    context,
-                                    allocation: allocation,
-                                  ),
-                                  onDelete: allocation.isDefault
-                                      ? null
-                                      : () => context
-                                            .read<IncomeAllocationBloc>()
-                                            .add(
-                                              DeleteAllocation(allocation.id),
-                                            ),
                                 ),
+                                onDelete: () => context
+                                    .read<IncomeAllocationBloc>()
+                                    .add(DeleteAllocation(allocation.id)),
                               ),
-                              // Add custom tile
-                              GestureDetector(
-                                onTap: () => _openAllocationPopup(context),
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 12),
-                                  padding: const EdgeInsets.all(18),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(14),
-                                    border: Border.all(
-                                      color: Colors.grey.shade700,
-                                    ),
-                                  ),
-                                  child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.add, color: Colors.teal),
-                                      SizedBox(width: 8),
-                                      Text(
-                                        "Add Custom Account",
-                                        style: TextStyle(
-                                          color: Colors.teal,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
 
-                        /// SAVE BUTTON
-                        Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: OnboardBtn(
-                              caption: "Save Allocation",
-                              bgColor: Colors.teal,
-                              func: () => Navigator.of(context).push(CupertinoPageRoute(builder: (context) => GoalSelection(),))                        
+                            /// ADD CUSTOM
+                            GestureDetector(
+                              onTap: () => _openAllocationPopup(context),
+                              child: Container(
+                                margin: const EdgeInsets.only(top: 12),
+                                padding: const EdgeInsets.all(18),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  border: Border.all(
+                                    color: Colors.grey.shade400,
+                                  ),
+                                ),
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.add, color: Colors.teal),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Add Custom Allocation",
+                                      style: TextStyle(
+                                        color: Colors.teal,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      /// SAVE BUTTON
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: OnboardBtn(
+                            caption: "Save Allocation",
+                            bgColor: Colors.teal,
+                            func: () => Navigator.of(context).push(
+                              CupertinoPageRoute(
+                                builder: (_) => GoalSelection(),
+                              ),
                             ),
                           ),
                         ),
-                      ],
-                    );
-                  },
-                ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -193,8 +183,6 @@ class IncomeAllocationScreen extends StatelessWidget {
     BuildContext context, {
     IncomeAllocation? allocation,
   }) {
-    final bloc = context.read<IncomeAllocationBloc>();
-
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -204,13 +192,9 @@ class IncomeAllocationScreen extends StatelessWidget {
       ),
       builder: (_) => FractionallySizedBox(
         heightFactor: 0.85,
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: BlocProvider.value(
-              value: bloc,
-              child: AddAllocationPopup(existing: allocation),
-            ),
-          ),
+        child: BlocProvider.value(
+          value: context.read<IncomeAllocationBloc>(),
+          child: AddAllocationPopup(existing: allocation),
         ),
       ),
     );

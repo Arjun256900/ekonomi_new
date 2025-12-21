@@ -80,4 +80,18 @@ class SpendingsGlobal {
         .fold<double>(0.0, (sum, val) => sum + val);
   }
   double get globalTotal => globalTotalNotifier.value;
+  double calculateByAllocation(String allocationId) {
+  if (allocationId == 'ALL') {
+    return calculateTotalSum();
+  }
+
+  return spendingListNotifier.value.fold<double>(
+    0,
+    (sum, item) =>
+        item['allocationId'] == allocationId
+            ? sum + double.tryParse(item['amount'] ?? '0')!
+            : sum,
+  );
+}
+
 }

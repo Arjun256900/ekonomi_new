@@ -4,7 +4,7 @@ abstract class IncomeAllocationEvent {}
 
 class LoadDefaultAllocations extends IncomeAllocationEvent {
   final double totalIncome;
-  LoadDefaultAllocations(this.totalIncome);
+  LoadDefaultAllocations({required this.totalIncome});
 }
 
 class AddAllocation extends IncomeAllocationEvent {
@@ -20,4 +20,9 @@ class UpdateAllocation extends IncomeAllocationEvent {
 class DeleteAllocation extends IncomeAllocationEvent {
   final String id;
   DeleteAllocation(this.id);
+}
+
+class SelectAllocation extends IncomeAllocationEvent {
+  final String allocationId;
+  SelectAllocation(this.allocationId);
 }

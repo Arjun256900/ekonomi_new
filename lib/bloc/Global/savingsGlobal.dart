@@ -21,4 +21,18 @@ class SavingsGlobal {
       saving,
     ];
   }
+  double calculateByAllocation(String allocationId) {
+  if (allocationId == 'ALL') {
+    return totalSavings;
+  }
+
+  return savingsListNotifier.value.fold<double>(
+    0,
+    (sum, item) =>
+        item['allocationId'] == allocationId
+            ? sum + double.tryParse(item['amount'] ?? '0')!
+            : sum,
+  );
+}
+
 }

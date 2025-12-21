@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class AllocationTile extends StatelessWidget {
   final IncomeAllocation allocation;
   final VoidCallback onEdit;
-  final VoidCallback? onDelete;
+  final VoidCallback onDelete; // make non-nullable
 
   const AllocationTile({
     super.key,
@@ -32,12 +32,17 @@ class AllocationTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(allocation.title,
-                    style: const TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 16)),
-                Text(allocation.subtitle,
-                    style: const TextStyle(color: Colors.grey)),
+                Text(
+                  allocation.title,
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  allocation.subtitle,
+                  style: const TextStyle(color: Colors.grey),
+                ),
               ],
             ),
           ),
@@ -45,15 +50,24 @@ class AllocationTile extends StatelessWidget {
             "\$${allocation.amount.toStringAsFixed(2)}",
             style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
           ),
-          PopupMenuButton(
-            itemBuilder: (_) => [
-              const PopupMenuItem(value: 'edit', child: Text("Edit")),
-              const PopupMenuItem(value: 'delete', child: Text("Delete")),
-            ],
-            onSelected: (v) {
-              if (v == 'edit') onEdit();
-              if (v == 'delete') onDelete!();
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'edit') {
+                onEdit();
+              } else if (value == 'delete') {
+                onDelete(); // always callable
+              }
             },
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 'edit',
+                child: Text("Edit"),
+              ),
+              const PopupMenuItem(
+                value: 'delete',
+                child: Text("Delete"),
+              ),
+            ],
           ),
         ],
       ),

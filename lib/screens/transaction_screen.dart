@@ -1,13 +1,20 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:ekonomi_new/background/backGround.dart';
-import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
-import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_state.dart';
 import 'package:ekonomi_new/screens/add_new_transaction_screen.dart';
 import 'package:ekonomi_new/widgets/general/back_button.dart';
 import 'package:ekonomi_new/widgets/general/filter_widget.dart';
 import 'package:ekonomi_new/widgets/transaction_screen/transaction_list.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:ekonomi_new/bloc/IncomeAllocation/IncomeAllocation_bloc.dart';
+import 'package:ekonomi_new/bloc/IncomeAllocation/IncomeAllocation_State.dart';
+import 'package:ekonomi_new/bloc/IncomeAllocation/IncomeAlllocation_Events.dart';
+
+import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_bloc.dart';
+import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_event.dart';
+import 'package:ekonomi_new/bloc/AddNewTransaction/transaction_list_state.dart';
 
 class TransactionScreen extends StatelessWidget {
   const TransactionScreen({super.key});
@@ -25,7 +32,7 @@ class TransactionScreen extends StatelessWidget {
                 automaticallyImplyLeading: false,
                 leading: BackButtonLeading(),
                 backgroundColor: Colors.transparent,
-                title: Text(
+                title: const Text(
                   "Transaction Management",
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                 ),
@@ -35,6 +42,7 @@ class TransactionScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    /// Add Transaction Card
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -44,50 +52,39 @@ class TransactionScreen extends StatelessWidget {
                               Navigator.of(context).push(
                                 CupertinoPageRoute(
                                   builder: (context) =>
-                                      AddNewTransactionScreen(),
+                                      const AddNewTransactionScreen(),
                                 ),
                               );
                             },
                             child: Container(
                               height: 70,
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              child: GestureDetector(
-                                onTap: () => Navigator.of(context).push(
-                                  CupertinoPageRoute(
-                                    builder: (context) =>
-                                        AddNewTransactionScreen(),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Add New Transaction',
+                                    style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 15,
+                                    ),
                                   ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Add New Transaction',
-                                      style: TextStyle(
-                                        color: Colors.grey[600],
-                                        fontSize: 15,
-                                      ),
+                                  const CircleAvatar(
+                                    radius: 22,
+                                    backgroundColor: Color.fromRGBO(
+                                      232,
+                                      245,
+                                      246,
+                                      1,
                                     ),
-                                    CircleAvatar(
-                                      radius: 22,
-                                      backgroundColor: Color.fromRGBO(
-                                        232,
-                                        245,
-                                        246,
-                                        1,
-                                      ),
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                    child: Icon(Icons.add, color: Colors.black),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -96,61 +93,85 @@ class TransactionScreen extends StatelessWidget {
                         Container(
                           height: 70,
                           width: 70,
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             color: Colors.white,
                           ),
-                          child: Icon(Icons.mic_none_outlined, size: 25),
+                          child: const Icon(Icons.mic_none_outlined, size: 25),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 25),
-                    Text(
-                      "Recent Transaction",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 25),
-                    FilterWidget(
-                      filters: [
-                        'All',
-                        '7 days',
-                        '30 days',
-                        '90 days',
-                        '180 days',
-                      ],
-                    ),
-                    const SizedBox(height: 25),
-                    Expanded(
-                      child:
-                          BlocBuilder<
-                            TransactionListBloc,
-                            TransactionListState
-                          >(
-                            builder: (context, state) {
-                              if (state.transactions.isEmpty) {
-                                return Center(
-                                  child: Text("No transactions yet."),
-                                );
-                              }
 
-                              return TransactionList(
-                                transactions: state.transactions.map((tx) {
-                                  return TransactionItem(
-                                    date: tx['date'] ?? '',
-                                    time: tx['time'] ?? '',
-                                    heading: tx['category'] ?? '',
-                                    sendOrReceived: tx['debitOrCredit'] ?? '',
-                                    amount: tx['amount'] ?? '',
-                                  );
-                                }).toList(),
-                              );
-                            },
+                    const SizedBox(height: 25),
+
+                    /// Allocation Selection Dropdown
+                    BlocBuilder<IncomeAllocationBloc, IncomeAllocationState>(
+                      builder: (context, state) {
+                        // Fallback to first allocation ID if selectedAllocationId is empty
+                        final selectedId = state.selectedAllocationId.isNotEmpty
+                            ? state.selectedAllocationId
+                            : (state.allocations.isNotEmpty
+                                  ? state.allocations.first.id
+                                  : null);
+
+                        return DropdownButtonFormField<String>(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            labelText: 'Select Category',
                           ),
+                          value: selectedId,
+                          items: [
+                            const DropdownMenuItem(
+                              value: 'ALL',
+                              child: Text('All Categories'),
+                            ),
+                            ...state.allocations.map(
+                              (allocation) => DropdownMenuItem<String>(
+                                value: allocation.id,
+                                child: Text(allocation.title),
+                              ),
+                            ),
+                          ],
+                          onChanged: (value) {
+                            if (value == null) return;
+                            context.read<IncomeAllocationBloc>().add(
+                              SelectAllocation(value),
+                            );
+                          },
+                        );
+                      },
                     ),
+
+                    const SizedBox(height: 25),
+
+                    /// Date Filter
+                    BlocBuilder<TransactionListBloc, TransactionListState>(
+                      builder: (context, transactionState) {
+                        return FilterWidget(
+                          filters: const [
+                            'All',
+                            '7 days',
+                            '30 days',
+                            '90 days',
+                            '180 days',
+                          ],
+                          selectedFilter: transactionState.selectedDateFilter,
+                          onFilterChanged: (filter) {
+                            context.read<TransactionListBloc>().add(
+                              UpdateDateFilterEvent(filter),
+                            );
+                          },
+                        );
+                      },
+                    ),
+
+                    const SizedBox(height: 25),
+
+                    /// Transaction List
+                    const Expanded(child: TransactionList()),
                   ],
                 ),
               ),

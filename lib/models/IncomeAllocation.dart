@@ -8,6 +8,9 @@ class IncomeAllocation {
   final IconData icon;
   final bool isDefault;
 
+  /// 🔹 NEW: account support
+  final String accountId;
+
   IncomeAllocation({
     required this.id,
     required this.title,
@@ -15,6 +18,7 @@ class IncomeAllocation {
     required this.amount,
     required this.icon,
     this.isDefault = false,
+    this.accountId = 'ALL', // ✅ safe default
   });
 
   IncomeAllocation copyWith({
@@ -22,6 +26,8 @@ class IncomeAllocation {
     String? subtitle,
     double? amount,
     IconData? icon,
+    bool? isDefault,
+    String? accountId,
   }) {
     return IncomeAllocation(
       id: id,
@@ -29,6 +35,8 @@ class IncomeAllocation {
       subtitle: subtitle ?? this.subtitle,
       amount: amount ?? this.amount,
       icon: icon ?? this.icon,
+      isDefault: isDefault ?? this.isDefault,
+      accountId: accountId ?? this.accountId,
     );
   }
 }

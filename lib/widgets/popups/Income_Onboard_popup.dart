@@ -22,6 +22,7 @@ class IncomeOnboardPopup extends StatefulWidget {
   @override
   State<IncomeOnboardPopup> createState() => _IncomeOnboardPopupState();
 }
+
 class _IncomeOnboardPopupState extends State<IncomeOnboardPopup> {
   late TextEditingController _nameController;
   late TextEditingController _amountController;
@@ -30,8 +31,8 @@ class _IncomeOnboardPopupState extends State<IncomeOnboardPopup> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(
-        text: widget.existingIncome?.name ?? '');
+    _nameController =
+        TextEditingController(text: widget.existingIncome?.name ?? '');
     _amountController = TextEditingController(
         text: widget.existingIncome?.amount.toString() ?? '');
     _period = widget.existingIncome?.period;
@@ -56,9 +57,7 @@ class _IncomeOnboardPopupState extends State<IncomeOnboardPopup> {
             keyboardType: TextInputType.text,
             onChanged: (_) {},
           ),
-
           const SizedBox(height: 16),
-
           CustomTextField(
             heading: "Amount",
             hintText: "Enter amount",
@@ -66,9 +65,7 @@ class _IncomeOnboardPopupState extends State<IncomeOnboardPopup> {
             keyboardType: TextInputType.number,
             onChanged: (_) {},
           ),
-
           const SizedBox(height: 16),
-
           Dropdownfield(
             heading: "Period",
             items: const ['Monthly', 'Weekly', 'Bi-weekly'],
@@ -76,9 +73,7 @@ class _IncomeOnboardPopupState extends State<IncomeOnboardPopup> {
             hintText: "Monthly",
             onChanged: (v) => setState(() => _period = v),
           ),
-
           const SizedBox(height: 24),
-
           SizedBox(
             width: double.infinity,
             child: OnboardBtn(
@@ -86,10 +81,15 @@ class _IncomeOnboardPopupState extends State<IncomeOnboardPopup> {
               bgColor: Colors.teal,
               func: () {
                 final income = IncomeSource(
+                  id: widget.isEdit
+                      ? widget.existingIncome!.id
+                      : DateTime.now()
+                          .millisecondsSinceEpoch
+                          .toString(),
                   name: _nameController.text,
                   amount:
                       double.tryParse(_amountController.text) ?? 0,
-                  type: "Primary",
+                      type: "Primary",
                   period: _period ?? "Monthly",
                 );
 
